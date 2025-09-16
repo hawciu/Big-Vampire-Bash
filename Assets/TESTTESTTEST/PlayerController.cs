@@ -1,21 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    Vector3 movementVector;
-    float movementSpeed = 5;
+    private Vector3 movementVector;
+    private readonly float movementSpeed = 12;
 
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         movementVector = Vector3.zero;
         if (Input.GetKey(KeyCode.W))
