@@ -25,4 +25,10 @@ public class EnemySimple : MonoBehaviour
         GetComponent<Rigidbody>().MoveRotation(Quaternion.LookRotation(moveDirection.normalized));
 
     }
+
+    public void Kill()
+    {
+        EnemyManager.instance.RemoveDead(gameObject);
+        Destroy(gameObject);
+    }
 }

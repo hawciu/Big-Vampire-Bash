@@ -11,6 +11,8 @@ public class EnemyManager : MonoBehaviour
     float lastSpawn = 0;
     float spawnCooldown = 1;
 
+    List<GameObject> allEnemies = new();
+
     private void Awake()
     {
         instance = this;
@@ -34,8 +36,31 @@ public class EnemyManager : MonoBehaviour
         while (Vector3.Distance(PlayerManager.instance.GetPlayer().transform.position, randomLocation) < 10);
         if (Time.time > lastSpawn + spawnCooldown)
         {
-            Instantiate(enemy, randomLocation, Quaternion.identity); ;
+            allEnemies.Add(Instantiate(enemy, randomLocation, Quaternion.identity));
             lastSpawn = Time.time;
         }
+    }
+
+    internal void RemoveDead(GameObject gameObject)
+    {
+        allEnemies.Remove(gameObject);
+    }
+
+    public GameObject GetNearestEnemy(GameObject closestTo)
+    {
+        if (allEnemies.Count == 0) return null;
+
+        GameObject closest = allEnemies[0];
+        float closestDistance = Vector3.Distance(closestTo.transform.position, closest.transform.position);
+        float currentDistance;
+        foreach(GameObject i in allEnemies)
+        {
+            currentDistance = Vector3.Distance(closestTo.transform.position, i.transform.position);
+            if (currentDistance < closestDistance)
+            {
+                closest = i;
+            }
+        }
+        return closest;
     }
 }
