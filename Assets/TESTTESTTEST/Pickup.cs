@@ -15,6 +15,7 @@ public class Pickup : MonoBehaviour
             {
                 if (hit.CompareTag("Enemy"))
                 {
+                    hit.gameObject.GetComponent<EnemySimple>().Kill();
                     Destroy(hit.gameObject);
                 }
             }
