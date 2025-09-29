@@ -15,8 +15,15 @@ public class Pickup : MonoBehaviour
             {
                 if (hit.CompareTag("Enemy"))
                 {
+<<<<<<< Updated upstream
                     hit.gameObject.GetComponent<EnemySimple>().Kill();
                     Destroy(hit.gameObject);
+=======
+                    if (hit.TryGetComponent<EnemySimple>(out EnemySimple enemy))
+                    {
+                        enemy.Kill();
+                    }
+>>>>>>> Stashed changes
                 }
             }
 

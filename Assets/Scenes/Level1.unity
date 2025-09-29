@@ -301,6 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60798c6e186526341ac0b6d29dc0d70c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!4 &521642079
 Transform:
   m_ObjectHideFlags: 0
@@ -627,7 +628,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d2874d128a2ea44a689a412a384e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 4050852632300657506, guid: 4c87fd4ce9460754fb04e169f5524939, type: 3}
+  enemies:
+  - {fileID: 5017415203613120655, guid: d386f3b7a9903334cbbfe9431202e3fb, type: 3}
+  - {fileID: 5017415203613120655, guid: 141a48694e4e2b74b97c338a349027b8, type: 3}
+  - {fileID: 5017415203613120655, guid: 61a9e83ca7f0c85418c45a9a74d939d7, type: 3}
+  - {fileID: 5017415203613120655, guid: 7f33efcf8b62f2c4ba3c03b7ac8b67af, type: 3}
+  - {fileID: 5017415203613120655, guid: a2f7f73b72dee4b4e814ffa71505846f, type: 3}
 --- !u!1 &1642639850
 GameObject:
   m_ObjectHideFlags: 0

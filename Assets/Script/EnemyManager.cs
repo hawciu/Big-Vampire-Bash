@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,12 +5,12 @@ public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager instance;
 
-    public GameObject enemy;
+    public List<GameObject> enemies;
 
-    float lastSpawn = 0;
-    float spawnCooldown = 1;
+    private float lastSpawn = 0;
+    private readonly float spawnCooldown = 1f;
 
-    List<GameObject> allEnemies = new();
+    private readonly List<GameObject> allEnemies = new();
 
     private void Awake()
     {
@@ -19,23 +18,25 @@ public class EnemyManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         float rnd = LevelManager.instance.GetBounds() - 1;
         Vector3 randomLocation;
         do
         {
-            randomLocation = new Vector3(Random.Range(rnd, -rnd), 0, Random.Range(rnd, -rnd));
+            randomLocation = new Vector3(Random.Range(-rnd, rnd), 0, Random.Range(-rnd, rnd));
         }
         while (Vector3.Distance(PlayerManager.instance.GetPlayer().transform.position, randomLocation) < 10);
+
         if (Time.time > lastSpawn + spawnCooldown)
         {
+            GameObject enemy = enemies[Random.Range(0, enemies.Count)];
+
             allEnemies.Add(Instantiate(enemy, randomLocation, Quaternion.identity));
             lastSpawn = Time.time;
         }
@@ -43,17 +44,20 @@ public class EnemyManager : MonoBehaviour
 
     internal void RemoveDead(GameObject gameObject)
     {
-        allEnemies.Remove(gameObject);
+        _ = allEnemies.Remove(gameObject);
     }
 
     public GameObject GetNearestEnemy(GameObject closestTo)
     {
-        if (allEnemies.Count == 0) return null;
+        if (allEnemies.Count == 0)
+        {
+            return null;
+        }
 
         GameObject closest = allEnemies[0];
         float closestDistance = Vector3.Distance(closestTo.transform.position, closest.transform.position);
         float currentDistance;
-        foreach(GameObject i in allEnemies)
+        foreach (GameObject i in allEnemies)
         {
             currentDistance = Vector3.Distance(closestTo.transform.position, i.transform.position);
             if (currentDistance < closestDistance)
