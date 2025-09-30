@@ -4,8 +4,8 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager instance;
+    public GameObject enemyPrefab;
 
-    public List<GameObject> enemies;
 
     private float lastSpawn = 0;
     private readonly float spawnCooldown = 1f;
@@ -17,12 +17,6 @@ public class EnemyManager : MonoBehaviour
         instance = this;
     }
 
-    // Start is called before the first frame update
-    private void Start()
-    {
-    }
-
-    // Update is called once per frame
     private void Update()
     {
         float rnd = LevelManager.instance.GetBounds() - 1;
@@ -35,9 +29,8 @@ public class EnemyManager : MonoBehaviour
 
         if (Time.time > lastSpawn + spawnCooldown)
         {
-            GameObject enemy = enemies[Random.Range(0, enemies.Count)];
-
-            allEnemies.Add(Instantiate(enemy, randomLocation, Quaternion.identity));
+            GameObject enemy = Instantiate(enemyPrefab, randomLocation, Quaternion.identity);
+            allEnemies.Add(enemy);
             lastSpawn = Time.time;
         }
     }

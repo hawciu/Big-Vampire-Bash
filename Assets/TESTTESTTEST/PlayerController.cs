@@ -6,13 +6,6 @@ public class PlayerController : MonoBehaviour
     private readonly float movementSpeed = 12;
     public Animator animator;
 
-    // Start is called before the first frame update
-    private void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     private void Update()
     {
         movementVector = Vector3.zero;
@@ -40,8 +33,6 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isMoving", true);
         }
-
-
     }
 
     private void FixedUpdate()

@@ -4,8 +4,6 @@ public class Pickup : MonoBehaviour
 {
     public float destroyRadius = 10f;
 
-
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -15,22 +13,14 @@ public class Pickup : MonoBehaviour
             {
                 if (hit.CompareTag("Enemy"))
                 {
-<<<<<<< Updated upstream
-                    hit.gameObject.GetComponent<EnemySimple>().Kill();
-                    Destroy(hit.gameObject);
-=======
                     if (hit.TryGetComponent<EnemySimple>(out EnemySimple enemy))
                     {
                         enemy.Kill();
                     }
->>>>>>> Stashed changes
                 }
             }
 
-
-
             Destroy(gameObject);
-
         }
     }
 

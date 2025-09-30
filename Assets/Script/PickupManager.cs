@@ -7,18 +7,12 @@ public class PickupManager : MonoBehaviour
 
     private float lastSpawn = 0;
     private readonly float spawnCooldown = 10;
+
     private void Awake()
     {
         instance = this;
     }
 
-    // Start is called before the first frame update
-    private void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     private void Update()
     {
         float rnd = LevelManager.instance.GetBounds() - 1;

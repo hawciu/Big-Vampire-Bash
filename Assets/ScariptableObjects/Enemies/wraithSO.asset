@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ecc2dcd4b133546bf4c6c02269e8e3, type: 3}
+  m_Name: wraithSO
+  m_EditorClassIdentifier: 
+  enemyType: 4
+  enemyPrefab: {fileID: 5017415203613120655, guid: 61a9e83ca7f0c85418c45a9a74d939d7, type: 3}
+  moveSpeed: 7
