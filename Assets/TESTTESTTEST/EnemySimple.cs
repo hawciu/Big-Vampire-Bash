@@ -5,23 +5,35 @@ public class EnemySimple : MonoBehaviour
     private EnemyData enemyData;
     private Rigidbody rb;
     private GameObject modelInstance;
+    private bool isBoss = false;
+
+    public void Setup(EnemyData data, bool boss)
+    {
+        enemyData = data;
+        isBoss = boss;
+        SpawnModel();
+    }
 
     private void Awake()
     {
-        SpawnRandomEnemy();
-
         rb = GetComponent<Rigidbody>();
     }
 
-    private void SpawnRandomEnemy()
+    private void SpawnModel()
     {
-        enemyData = EnemiesDatabaseManager.instance.EnemiesObjects[
-            Random.Range(0, EnemiesDatabaseManager.instance.EnemiesObjects.Count)
-        ];
+        if (enemyData == null)
+        {
+            return;
+        }
 
         modelInstance = Instantiate(enemyData.enemyPrefab, transform.position, Quaternion.identity);
         modelInstance.transform.SetParent(transform);
         modelInstance.transform.localPosition = Vector3.zero;
+
+        if (isBoss)
+        {
+            modelInstance.transform.localScale = Vector3.one * 2f;
+        }
     }
 
     private void FixedUpdate()
@@ -31,7 +43,6 @@ public class EnemySimple : MonoBehaviour
             return;
         }
 
-        Rigidbody rb = GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
 
         float speed = enemyData.moveSpeed;

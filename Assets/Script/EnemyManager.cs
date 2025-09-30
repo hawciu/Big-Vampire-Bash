@@ -6,33 +6,117 @@ public class EnemyManager : MonoBehaviour
     public static EnemyManager instance;
     public GameObject enemyPrefab;
 
+    private int waveNumber = 0;
+    private float lastWaveTime = 0f;
+    private readonly float waveCooldown = 10f;
 
-    private float lastSpawn = 0;
-    private readonly float spawnCooldown = 1f;
+    private float lastSpawn = 0f;
+    private readonly float spawnCooldown = 0.5f;
 
     private readonly List<GameObject> allEnemies = new();
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         instance = this;
     }
 
     private void Update()
     {
-        float rnd = LevelManager.instance.GetBounds() - 1;
+      
+        if (waveNumber >= 5)
+        {
+            Debug.Log("Wszystkie fale zakoñczone.");
+            return;
+        }
+
+     
+        if (Time.time > lastWaveTime + waveCooldown || waveNumber == 0)
+        {
+            waveNumber++;
+            lastWaveTime = Time.time;
+
+            Debug.Log($"=== Fala {waveNumber} ===");
+
+            if (waveNumber == 5)
+            {
+                Debug.Log("To jest fala Bossa!");
+                SpawnBoss();
+                return; 
+            }
+
+            lastSpawn = Time.time;
+        }
+
+        if (waveNumber != 5 && Time.time > lastSpawn + spawnCooldown)
+        {
+            SpawnEnemy();
+            lastSpawn = Time.time;
+        }
+    }
+
+    private void SpawnEnemy()
+    {
+        EnemyData enemyData = GetEnemyDataForWave(waveNumber);
+
+        Vector3 randomLocation = GetRandomSpawnPosition();
+
+        GameObject enemy = Instantiate(enemyPrefab, randomLocation, Quaternion.identity);
+
+        EnemySimple simpleEnemy = enemy.GetComponent<EnemySimple>();
+        if (simpleEnemy != null)
+        {
+            simpleEnemy.Setup(enemyData, false);
+        }
+
+        allEnemies.Add(enemy);
+    }
+
+    private void SpawnBoss()
+    {
+        EnemyData enemyData = GetRandomEnemyData();
+
+        Vector3 randomLocation = GetRandomSpawnPosition();
+
+        GameObject boss = Instantiate(enemyPrefab, randomLocation, Quaternion.identity);
+
+        EnemySimple simpleEnemy = boss.GetComponent<EnemySimple>();
+        if (simpleEnemy != null)
+        {
+            simpleEnemy.Setup(enemyData, true);
+        }
+
+        allEnemies.Add(boss);
+    }
+
+    private Vector3 GetRandomSpawnPosition()
+    {
+        float rnd = LevelManager.instance.GetBounds() - 1f;
         Vector3 randomLocation;
         do
         {
-            randomLocation = new Vector3(Random.Range(-rnd, rnd), 0, Random.Range(-rnd, rnd));
+            randomLocation = new Vector3(Random.Range(-rnd, rnd), 0f, Random.Range(-rnd, rnd));
         }
-        while (Vector3.Distance(PlayerManager.instance.GetPlayer().transform.position, randomLocation) < 10);
+        while (Vector3.Distance(PlayerManager.instance.GetPlayer().transform.position, randomLocation) < 10f);
 
-        if (Time.time > lastSpawn + spawnCooldown)
-        {
-            GameObject enemy = Instantiate(enemyPrefab, randomLocation, Quaternion.identity);
-            allEnemies.Add(enemy);
-            lastSpawn = Time.time;
-        }
+        return randomLocation;
+    }
+
+    private EnemyData GetEnemyDataForWave(int wave)
+    {
+        List<EnemyData> enemies = EnemiesDatabaseManager.instance.EnemiesObjects;
+        int index = (wave - 1) % enemies.Count; 
+        return enemies[index];
+    }
+
+    private EnemyData GetRandomEnemyData()
+    {
+        List<EnemyData> enemies = EnemiesDatabaseManager.instance.EnemiesObjects;
+        return enemies[Random.Range(0, enemies.Count)];
     }
 
     internal void RemoveDead(GameObject gameObject)
@@ -49,13 +133,14 @@ public class EnemyManager : MonoBehaviour
 
         GameObject closest = allEnemies[0];
         float closestDistance = Vector3.Distance(closestTo.transform.position, closest.transform.position);
-        float currentDistance;
+
         foreach (GameObject i in allEnemies)
         {
-            currentDistance = Vector3.Distance(closestTo.transform.position, i.transform.position);
+            float currentDistance = Vector3.Distance(closestTo.transform.position, i.transform.position);
             if (currentDistance < closestDistance)
             {
                 closest = i;
+                closestDistance = currentDistance;
             }
         }
         return closest;
