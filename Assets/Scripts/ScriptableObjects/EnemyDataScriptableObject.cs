@@ -10,9 +10,10 @@ public enum EnemyType
 }
 
 [CreateAssetMenu]
-public class EnemyData : ScriptableObject
+public class EnemyDataScriptableObject : ScriptableObject
 {
     [Header("Basic Enemy Info")]
+    public string enemyName;
     public EnemyType enemyType;
 
     [Tooltip("Enemy prefab (model + animations)")]
@@ -20,5 +21,5 @@ public class EnemyData : ScriptableObject
 
     [Header("Movement Settings")]
     [Tooltip("Movement speed of the enemy")]
-    public float moveSpeed = 3f;
+    public float moveSpeed = 1f;
 }

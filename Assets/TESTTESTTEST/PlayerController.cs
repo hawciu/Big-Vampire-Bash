@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        GetComponent<Rigidbody>().velocity = movementVector.normalized * movementSpeed;
+        GetComponent<Rigidbody>().linearVelocity = movementVector.normalized * movementSpeed;
         if (movementVector != Vector3.zero)
         {
             GetComponent<Rigidbody>().MoveRotation(Quaternion.LookRotation(movementVector));

@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class EnemySimple : MonoBehaviour
 {
-    private EnemyData enemyData;
+    private EnemyDataScriptableObject enemyData;
     private Rigidbody rb;
     private GameObject modelInstance;
     private bool isBoss = false;
 
-    public void Setup(EnemyData data, bool boss)
+    public void Setup(EnemyDataScriptableObject data, bool boss)
     {
         enemyData = data;
         isBoss = boss;
@@ -43,7 +43,7 @@ public class EnemySimple : MonoBehaviour
             return;
         }
 
-        rb.velocity = Vector3.zero;
+        rb.linearVelocity = Vector3.zero;
 
         float speed = enemyData.moveSpeed;
         Vector3 moveDirection = PlayerManager.instance.GetPlayer().transform.position - transform.position;

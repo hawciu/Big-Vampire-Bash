@@ -61,7 +61,7 @@ public class EnemyManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        EnemyData enemyData = GetEnemyDataForWave(waveNumber);
+        EnemyDataScriptableObject enemyData = GetEnemyDataForWave(waveNumber);
 
         Vector3 randomLocation = GetRandomSpawnPosition();
 
@@ -78,7 +78,7 @@ public class EnemyManager : MonoBehaviour
 
     private void SpawnBoss()
     {
-        EnemyData enemyData = GetRandomEnemyData();
+        EnemyDataScriptableObject enemyData = GetRandomEnemyData();
 
         Vector3 randomLocation = GetRandomSpawnPosition();
 
@@ -106,16 +106,16 @@ public class EnemyManager : MonoBehaviour
         return randomLocation;
     }
 
-    private EnemyData GetEnemyDataForWave(int wave)
+    private EnemyDataScriptableObject GetEnemyDataForWave(int wave)
     {
-        List<EnemyData> enemies = EnemiesDatabaseManager.instance.EnemiesObjects;
+        List<EnemyDataScriptableObject> enemies = EnemiesDatabaseManager.instance.EnemiesObjects;
         int index = (wave - 1) % enemies.Count; 
         return enemies[index];
     }
 
-    private EnemyData GetRandomEnemyData()
+    private EnemyDataScriptableObject GetRandomEnemyData()
     {
-        List<EnemyData> enemies = EnemiesDatabaseManager.instance.EnemiesObjects;
+        List<EnemyDataScriptableObject> enemies = EnemiesDatabaseManager.instance.EnemiesObjects;
         return enemies[Random.Range(0, enemies.Count)];
     }
 

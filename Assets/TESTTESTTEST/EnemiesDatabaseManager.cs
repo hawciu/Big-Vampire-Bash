@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemiesDatabaseManager : MonoBehaviour
 {
     public static EnemiesDatabaseManager instance;
-    public List<EnemyData> EnemiesObjects = new();
+    public List<EnemyDataScriptableObject> EnemiesObjects = new();
 
     private void Awake()
     {
