@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -8,12 +9,16 @@ public class EnemyManager : MonoBehaviour
 
     private int waveNumber = 0;
     private float lastWaveTime = 0f;
-    private readonly float waveCooldown = 10f;
+    private readonly float waveCooldown = 60;
 
     private float lastSpawn = 0f;
     private readonly float spawnCooldown = 0.5f;
 
     private readonly List<GameObject> allEnemies = new();
+
+    public TMP_Text text;
+
+    GameObject currentBoss = null;
 
     private void Awake()
     {
@@ -31,6 +36,7 @@ public class EnemyManager : MonoBehaviour
         if (waveNumber >= 5)
         {
             Debug.Log("Wszystkie fale zakoñczone.");
+            text.text = "Wszystkie fale zakoñczone.";
             return;
         }
 
@@ -42,9 +48,12 @@ public class EnemyManager : MonoBehaviour
 
             Debug.Log($"=== Fala {waveNumber} ===");
 
+            text.text = $"=== Fala {waveNumber} ===";
+
             if (waveNumber == 5)
             {
                 Debug.Log("To jest fala Bossa!");
+                text.text = "To jest fala Bossa!";
                 SpawnBoss();
                 return; 
             }
@@ -89,7 +98,7 @@ public class EnemyManager : MonoBehaviour
         {
             simpleEnemy.Setup(enemyData, true);
         }
-
+        currentBoss = boss;
         allEnemies.Add(boss);
     }
 

@@ -28,7 +28,6 @@ public class PlayerProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print(other.gameObject);
         if (other.gameObject == PlayerManager.instance.GetPlayer())
         {
             return;
