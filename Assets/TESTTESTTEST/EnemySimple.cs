@@ -55,7 +55,8 @@ public class EnemySimple : MonoBehaviour
 
     public void Kill()
     {
-        EnemyManager.instance.RemoveDead(gameObject);
+        EnemyManager.instance.RemoveDeadEnemy(gameObject);
+        if (isBoss) EnemyManager.instance.OnBossDeath();
         Destroy(gameObject);
     }
 }
