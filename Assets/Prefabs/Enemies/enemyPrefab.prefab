@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1567547452415094057}
   - component: {fileID: 4875411088059298347}
   - component: {fileID: 6697980924489898679}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: enemyPrefab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -64,10 +64,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5948691258430060455}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
