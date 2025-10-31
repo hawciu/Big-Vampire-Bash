@@ -20,6 +20,7 @@ public class EnemyManager : MonoBehaviour
 
     bool bossAlive = false;
 
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -115,7 +116,7 @@ public class EnemyManager : MonoBehaviour
         EnemySimple simpleEnemy = enemy.GetComponent<EnemySimple>();
         if (simpleEnemy != null)
         {
-            simpleEnemy.Setup(enemyData, false);
+            simpleEnemy.Setup(enemyData);
         }
 
         allEnemies.Add(enemy);
@@ -134,7 +135,8 @@ public class EnemyManager : MonoBehaviour
         EnemySimple simpleEnemy = boss.GetComponent<EnemySimple>();
         if (simpleEnemy != null)
         {
-            simpleEnemy.Setup(enemyData, true);
+            simpleEnemy.Setup(enemyData);
+            simpleEnemy.MakeBoss();
         }
         allEnemies.Add(boss);
     }
