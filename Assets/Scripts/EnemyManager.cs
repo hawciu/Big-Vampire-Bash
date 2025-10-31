@@ -126,7 +126,6 @@ public class EnemyManager : MonoBehaviour
         bossAlive = true;
 
         EnemyDataScriptableObject enemyData = GetEnemyDataForWave(waveNumber);
-        //EnemyDataScriptableObject enemyData = GetRandomEnemyData();
 
         Vector3 randomLocation = GetRandomSpawnPosition();
 
@@ -155,15 +154,7 @@ public class EnemyManager : MonoBehaviour
 
     private EnemyDataScriptableObject GetEnemyDataForWave(int wave)
     {
-        List<EnemyDataScriptableObject> enemies = EnemiesDatabaseManager.instance.EnemiesObjects;
-        int index = (wave - 1) % enemies.Count; 
-        return enemies[wave];
-    }
-
-    private EnemyDataScriptableObject GetRandomEnemyData()
-    {
-        List<EnemyDataScriptableObject> enemies = EnemiesDatabaseManager.instance.EnemiesObjects;
-        return enemies[Random.Range(0, enemies.Count)];
+        return EnemiesDatabaseManager.instance.EnemiesObjects[wave];
     }
 
     internal void RemoveDeadEnemy(GameObject gameObject)

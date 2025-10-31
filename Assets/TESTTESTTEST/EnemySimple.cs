@@ -6,6 +6,7 @@ public class EnemySimple : MonoBehaviour
     private Rigidbody rb;
     private GameObject modelInstance;
     private bool isBoss = false;
+    int health = 1;
 
     public void Setup(EnemyDataScriptableObject data, bool boss)
     {
@@ -33,6 +34,7 @@ public class EnemySimple : MonoBehaviour
         if (isBoss)
         {
             modelInstance.transform.localScale = Vector3.one * 2f;
+            health = 10;
         }
     }
 
@@ -53,10 +55,19 @@ public class EnemySimple : MonoBehaviour
         rb.MoveRotation(Quaternion.LookRotation(moveDirection.normalized));
     }
 
-    public void Kill()
+    public void Damage()
     {
-        EnemyManager.instance.RemoveDeadEnemy(gameObject);
-        if (isBoss) EnemyManager.instance.OnBossDeath();
-        Destroy(gameObject);
+        health--;
+        CheckIfDead();
+    }
+
+    void CheckIfDead()
+    {
+        if(health <= 0)
+        {
+            EnemyManager.instance.RemoveDeadEnemy(gameObject);
+            if (isBoss) EnemyManager.instance.OnBossDeath();
+            Destroy(gameObject);
+        }
     }
 }

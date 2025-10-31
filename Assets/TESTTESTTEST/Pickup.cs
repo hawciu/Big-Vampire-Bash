@@ -15,7 +15,7 @@ public class Pickup : MonoBehaviour
                 {
                     if (hit.TryGetComponent<EnemySimple>(out EnemySimple enemy))
                     {
-                        enemy.Kill();
+                        enemy.Damage();
                     }
                 }
             }
