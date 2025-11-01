@@ -477,10 +477,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupPrefab: {fileID: 1836746662495726778, guid: f1d3b70141922114f8d6054945609469, type: 3}
-  pickupDataList:
-  - {fileID: 11400000, guid: 9e8a12e24aa640b46ba438d5c3c63e56, type: 2}
-  - {fileID: 11400000, guid: 80763daf4bf833f4a94407d672e86da3, type: 2}
-  spawnCooldown: 5
+  effectPrefabs:
+  - {fileID: 6641528775012647366, guid: 6d166accb954a5047a33f89b80133528, type: 3}
+  - {fileID: 6641528775012647366, guid: 3dfb80d239f11a64e95e55403e9c7862, type: 3}
+  spawnCooldown: 1
 --- !u!1 &939934697
 GameObject:
   m_ObjectHideFlags: 0

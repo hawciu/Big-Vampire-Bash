@@ -5,8 +5,8 @@ public class PickupManager : MonoBehaviour
     public static PickupManager instance;
 
     public GameObject pickupPrefab;
-    public PickupDataScriptableObject[] pickupDataList;
-    public float spawnCooldown = 10f;
+    public GameObject[] effectPrefabs;
+    public float spawnCooldown = 5f;
 
     private float lastSpawnTime = 0f;
 
@@ -17,49 +17,33 @@ public class PickupManager : MonoBehaviour
 
     private void Update()
     {
-        TrySpawnPickup();
-    }
-
-    private void TrySpawnPickup()
-    {
         if (Time.time < lastSpawnTime + spawnCooldown)
         {
             return;
         }
 
         float bounds = LevelManager.instance.GetBounds() - 1f;
-
-        Vector3 randomLocation = new(
+        Vector3 spawnPos = new(
             Random.Range(-bounds, bounds),
             0f,
             Random.Range(-bounds, bounds)
         );
 
-        PickupDataScriptableObject randomPickupData = GetRandomPickupData();
-        if (randomPickupData == null)
-        {
-            return;
-        }
+        GameObject pickup = Instantiate(pickupPrefab, spawnPos, Quaternion.identity);
 
-        GameObject pickup = Instantiate(pickupPrefab, randomLocation, Quaternion.identity);
-
-        PickupController controller = pickup.GetComponent<PickupController>();
-        if (controller != null)
+        if (effectPrefabs != null && effectPrefabs.Length > 0)
         {
-            controller.Setup(randomPickupData);
+            int index = Random.Range(0, effectPrefabs.Length);
+            GameObject effectInstance = Instantiate(effectPrefabs[index], pickup.transform);
+            effectInstance.transform.localPosition = Vector3.zero;
+
+            PickupController controller = pickup.GetComponent<PickupController>();
+            if (controller != null)
+            {
+                controller.effectChild = effectInstance;
+            }
         }
 
         lastSpawnTime = Time.time;
-    }
-
-    private PickupDataScriptableObject GetRandomPickupData()
-    {
-        if (pickupDataList == null || pickupDataList.Length == 0)
-        {
-            return null;
-        }
-
-        int index = Random.Range(0, pickupDataList.Length);
-        return pickupDataList[index];
     }
 }

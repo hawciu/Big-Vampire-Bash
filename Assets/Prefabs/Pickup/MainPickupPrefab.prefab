@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9108636859156006639}
   - component: {fileID: 305092561305799195}
   m_Layer: 8
-  m_Name: pickupPrefab
+  m_Name: MainPickupPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

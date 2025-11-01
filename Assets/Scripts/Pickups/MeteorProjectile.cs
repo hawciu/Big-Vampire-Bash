@@ -3,7 +3,7 @@
 public class MeteorProjectile : MonoBehaviour
 {
     private Transform target;
-    private readonly float speed = 30f;
+    private readonly float speed = 60f;
     private readonly float damageRadius = 2f;
 
     public void Setup(Transform newTarget)
