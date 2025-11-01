@@ -476,7 +476,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4bc3407057ba4542836b9debbb71eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickUp: {fileID: 1836746662495726778, guid: 8634e4b374f97b74b984de4f86cfed05, type: 3}
+  pickupPrefab: {fileID: 1836746662495726778, guid: f1d3b70141922114f8d6054945609469, type: 3}
+  pickupDataList:
+  - {fileID: 11400000, guid: 9e8a12e24aa640b46ba438d5c3c63e56, type: 2}
+  - {fileID: 11400000, guid: 80763daf4bf833f4a94407d672e86da3, type: 2}
+  spawnCooldown: 5
 --- !u!1 &939934697
 GameObject:
   m_ObjectHideFlags: 0

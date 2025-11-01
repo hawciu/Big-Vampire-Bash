@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -18,8 +18,7 @@ public class EnemyManager : MonoBehaviour
 
     public TMP_Text text;
 
-    bool bossAlive = false;
-
+    private bool bossAlive = false;
 
     private void Awake()
     {
@@ -41,13 +40,13 @@ public class EnemyManager : MonoBehaviour
         WaveUpdate();
     }
 
-    void LevelSetup()
+    private void LevelSetup()
     {
         text.text = $"=== Fala {waveNumber} ===";
         Debug.Log($"=== Fala {waveNumber} ===");
     }
 
-    void WaveUpdate()
+    private void WaveUpdate()
     {
         GameEndCheck();
 
@@ -56,7 +55,7 @@ public class EnemyManager : MonoBehaviour
         EnemySpawnCheck();
     }
 
-    void GameEndCheck()
+    private void GameEndCheck()
     {
         if (waveNumber >= 5)
         {
@@ -66,9 +65,12 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    void NextWaveCheck()
+    private void NextWaveCheck()
     {
-        if (bossAlive) return;
+        if (bossAlive)
+        {
+            return;
+        }
 
         if (Time.time > lastWaveTime + waveCooldown)
         {
@@ -84,7 +86,7 @@ public class EnemyManager : MonoBehaviour
         ProgressWave();
     }
 
-    void ProgressWave()
+    private void ProgressWave()
     {
         waveNumber++;
         lastWaveTime = Time.time;
@@ -96,7 +98,7 @@ public class EnemyManager : MonoBehaviour
         lastSpawn = Time.time;
     }
 
-    void EnemySpawnCheck()
+    private void EnemySpawnCheck()
     {
         if (waveNumber != 5 && Time.time > lastSpawn + spawnCooldown)
         {
@@ -162,6 +164,11 @@ public class EnemyManager : MonoBehaviour
     internal void RemoveDeadEnemy(GameObject gameObject)
     {
         _ = allEnemies.Remove(gameObject);
+    }
+
+    public List<GameObject> GetAllEnemies()
+    {
+        return new List<GameObject>(allEnemies);
     }
 
     public GameObject GetNearestEnemy(GameObject closestTo)
