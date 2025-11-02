@@ -26,6 +26,6 @@ public class AOEEffect : MonoBehaviour, IPickupEffect
         {
             hitCollider.gameObject.GetComponent<EnemySimple>().Damage();
         }
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }

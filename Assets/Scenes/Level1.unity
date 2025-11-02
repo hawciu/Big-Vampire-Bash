@@ -481,6 +481,7 @@ MonoBehaviour:
   - {fileID: 6641528775012647366, guid: 6d166accb954a5047a33f89b80133528, type: 3}
   - {fileID: 6641528775012647366, guid: 3dfb80d239f11a64e95e55403e9c7862, type: 3}
   - {fileID: 3646686557200880696, guid: a127408948f4d184a96a77bedfd0e48d, type: 3}
+  - {fileID: 6856928788807056802, guid: 37dbe94a2925ac541bfe76f59f8d378e, type: 3}
   spawnCooldown: 1
 --- !u!1 &939934697
 GameObject:
