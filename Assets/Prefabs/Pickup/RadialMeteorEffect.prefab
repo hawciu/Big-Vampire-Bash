@@ -9,13 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1590958728633761023}
-  - component: {fileID: 54668910122150377}
+  - component: {fileID: 3166351325899741633}
   - component: {fileID: 6747450078644704603}
   - component: {fileID: 4567036534221675271}
   - component: {fileID: 7882469945814750128}
   - component: {fileID: 6259347400096009803}
   - component: {fileID: 5110972836368402246}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: RadialMeteorEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &54668910122150377
+--- !u!135 &3166351325899741633
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
