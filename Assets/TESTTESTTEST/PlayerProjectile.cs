@@ -24,6 +24,7 @@ public class PlayerProjectile : MonoBehaviour
     public void Setup(Vector3 direction)
     {
         moveDirection = direction;
+        transform.rotation = Quaternion.LookRotation(direction);
     }
 
     private void OnTriggerEnter(Collider other)
