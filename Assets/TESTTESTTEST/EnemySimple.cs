@@ -6,11 +6,12 @@ public class EnemySimple : MonoBehaviour
     private Rigidbody rb;
     private GameObject modelInstance;
     private bool isBoss = false;
+    int health = 1;
+    public GameObject hatPrefab;
 
-    public void Setup(EnemyDataScriptableObject data, bool boss)
+    public void Setup(EnemyDataScriptableObject data)
     {
         enemyData = data;
-        isBoss = boss;
         SpawnModel();
     }
 
@@ -29,11 +30,17 @@ public class EnemySimple : MonoBehaviour
         modelInstance = Instantiate(enemyData.enemyPrefab, transform.position, Quaternion.identity);
         modelInstance.transform.SetParent(transform);
         modelInstance.transform.localPosition = Vector3.zero;
+    }
 
-        if (isBoss)
-        {
-            modelInstance.transform.localScale = Vector3.one * 2f;
-        }
+    public void MakeBoss()
+    {
+        isBoss = true;
+        Transform modelT = modelInstance.GetComponent<EnemyModelHandler>().hatTargetObject.transform;
+        GameObject  tmp = Instantiate(hatPrefab, modelT.parent);
+        tmp.transform.position = modelT.position;
+        tmp.transform.rotation = modelT.rotation;
+        modelInstance.transform.localScale = Vector3.one * 2f;
+        health = 10;
     }
 
     private void FixedUpdate()
@@ -53,9 +60,19 @@ public class EnemySimple : MonoBehaviour
         rb.MoveRotation(Quaternion.LookRotation(moveDirection.normalized));
     }
 
-    public void Kill()
+    public void Damage()
     {
-        EnemyManager.instance.RemoveDead(gameObject);
-        Destroy(gameObject);
+        health--;
+        CheckIfDead();
+    }
+
+    void CheckIfDead()
+    {
+        if(health <= 0)
+        {
+            EnemyManager.instance.RemoveDeadEnemy(gameObject);
+            if (isBoss) EnemyManager.instance.OnBossDeath();
+            Destroy(gameObject);
+        }
     }
 }

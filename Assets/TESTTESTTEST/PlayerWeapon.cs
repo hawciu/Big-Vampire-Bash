@@ -3,13 +3,12 @@ using UnityEngine;
 public class PlayerWeapon : MonoBehaviour
 {
     private float lastShot = 0;
-    private readonly float shotCooldown = 2;
 
     public GameObject projectile;
 
     private void Update()
     {
-        if (lastShot + shotCooldown < Time.time)
+        if (lastShot + PlayerManager.instance.GetShotCooldown() < Time.time)
         {
             lastShot = Time.time;
 

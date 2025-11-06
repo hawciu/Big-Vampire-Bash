@@ -3,7 +3,8 @@ guid: cb69f3d629b5d954191612fd2821fcb2
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - hatPrefab: {fileID: 591580384614088662, guid: 86336498bd148914abf178daefc61605, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

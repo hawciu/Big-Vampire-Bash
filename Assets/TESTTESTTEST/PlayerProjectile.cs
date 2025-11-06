@@ -24,6 +24,7 @@ public class PlayerProjectile : MonoBehaviour
     public void Setup(Vector3 direction)
     {
         moveDirection = direction;
+        transform.rotation = Quaternion.LookRotation(direction);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,7 +36,7 @@ public class PlayerProjectile : MonoBehaviour
 
         if (other.gameObject.TryGetComponent<EnemySimple>(out EnemySimple t))
         {
-            t.Kill();
+            t.Damage();
         }
         Destroy(gameObject);
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject playerPrefab;
     public GameObject playerCamera;
+
+    float playerShotCooldown = 2f;
 
 
     GameObject playerInstance;
@@ -33,5 +36,17 @@ public class PlayerManager : MonoBehaviour
     public GameObject GetPlayer()
     {
         return playerInstance;
+    }
+
+    public void UpgradePlayerWeapon()
+    {
+        playerShotCooldown -= 0.5f;
+
+        if (playerShotCooldown <= 0.5f) playerShotCooldown = 0.5f;
+    }
+
+    internal float GetShotCooldown()
+    {
+        return playerShotCooldown;
     }
 }

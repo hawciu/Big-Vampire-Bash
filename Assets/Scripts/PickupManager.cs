@@ -3,10 +3,12 @@ using UnityEngine;
 public class PickupManager : MonoBehaviour
 {
     public static PickupManager instance;
-    public GameObject pickUp;
 
-    private float lastSpawn = 0;
-    private readonly float spawnCooldown = 10;
+    public GameObject pickupPrefab;
+    public GameObject[] effectPrefabs;
+    public float spawnCooldown = 5f;
+
+    private float lastSpawnTime = 0f;
 
     private void Awake()
     {
@@ -15,17 +17,33 @@ public class PickupManager : MonoBehaviour
 
     private void Update()
     {
-        float rnd = LevelManager.instance.GetBounds() - 1;
-        Vector3 randomLocation;
-        do
+        if (Time.time < lastSpawnTime + spawnCooldown)
         {
-            randomLocation = new Vector3(Random.Range(rnd, -rnd), 0, Random.Range(rnd, -rnd));
+            return;
         }
-        while (Vector3.Distance(PlayerManager.instance.GetPlayer().transform.position, randomLocation) < 10);
-        if (Time.time > lastSpawn + spawnCooldown)
+
+        float bounds = LevelManager.instance.GetBounds() - 1f;
+        Vector3 spawnPos = new(
+            Random.Range(-bounds, bounds),
+            0f,
+            Random.Range(-bounds, bounds)
+        );
+
+        GameObject pickup = Instantiate(pickupPrefab, spawnPos, Quaternion.identity);
+
+        if (effectPrefabs != null && effectPrefabs.Length > 0)
         {
-            _ = Instantiate(pickUp, randomLocation, Quaternion.identity); ;
-            lastSpawn = Time.time;
+            int index = Random.Range(0, effectPrefabs.Length);
+            GameObject effectInstance = Instantiate(effectPrefabs[index], pickup.transform);
+            effectInstance.transform.localPosition = Vector3.zero;
+
+            PickupController controller = pickup.GetComponent<PickupController>();
+            if (controller != null)
+            {
+                controller.effectChild = effectInstance;
+            }
         }
+
+        lastSpawnTime = Time.time;
     }
 }
