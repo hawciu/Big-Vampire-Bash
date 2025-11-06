@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AOEEffect : MonoBehaviour, IPickupEffect
+public class PickupAoeBase : MonoBehaviour, IPickupEffect
 {
     public GameObject visualIndicator;
 

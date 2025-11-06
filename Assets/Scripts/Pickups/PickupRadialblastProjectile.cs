@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class PickupRadialblastProjectile : MonoBehaviour
 {
     public float speed = 11f;
     public float damage = 20f;

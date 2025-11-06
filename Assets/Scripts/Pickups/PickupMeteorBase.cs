@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeteorEffect : MonoBehaviour, IPickupEffect
+public class PickupMeteorBase : MonoBehaviour, IPickupEffect
 {
     public GameObject pickupModel;
     public GameObject meteorPrefab;
@@ -45,7 +45,7 @@ public class MeteorEffect : MonoBehaviour, IPickupEffect
             Vector3 spawnPos = enemy.transform.position + (Vector3.up * spawnHeight);
             GameObject meteor = Instantiate(meteorPrefab, spawnPos, Quaternion.identity);
 
-            MeteorProjectile projectile = meteor.GetComponent<MeteorProjectile>();
+            PickupMeteorProjectile projectile = meteor.GetComponent<PickupMeteorProjectile>();
             if (projectile != null)
             {
                 projectile.Setup(enemy.transform);

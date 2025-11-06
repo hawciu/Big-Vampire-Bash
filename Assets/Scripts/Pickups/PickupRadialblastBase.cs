@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class RadialBlastEffect : MonoBehaviour, IPickupEffect
+public class PickupRadialblastBase : MonoBehaviour, IPickupEffect
 {
     public GameObject pickupModel;
     public GameObject bulletPrefab;
@@ -37,7 +37,7 @@ public class RadialBlastEffect : MonoBehaviour, IPickupEffect
                 Vector3 direction = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), 0f, Mathf.Sin(angle * Mathf.Deg2Rad)).normalized;
 
                 GameObject proj = Instantiate(bulletPrefab, playerPos, Quaternion.identity);
-                Projectile projectile = proj.GetComponent<Projectile>();
+                PickupRadialblastProjectile projectile = proj.GetComponent<PickupRadialblastProjectile>();
                 if (projectile != null)
                 {
 

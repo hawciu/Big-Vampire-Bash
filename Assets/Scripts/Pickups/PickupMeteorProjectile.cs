@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MeteorProjectile : MonoBehaviour
+public class PickupMeteorProjectile : MonoBehaviour
 {
     private Transform target;
     private readonly float speed = 15f;
