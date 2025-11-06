@@ -37,7 +37,7 @@ public class PickupManager : MonoBehaviour
             GameObject effectInstance = Instantiate(effectPrefabs[index], pickup.transform);
             effectInstance.transform.localPosition = Vector3.zero;
 
-            PickupController controller = pickup.GetComponent<PickupController>();
+            PickupBaseController controller = pickup.GetComponent<PickupBaseController>();
             if (controller != null)
             {
                 controller.effectChild = effectInstance;

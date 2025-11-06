@@ -10,17 +10,17 @@ public class PickupMeteorBase : MonoBehaviour, IPickupEffect
     public float spawnHeight = 25f;
     public float interval = 0.2f;
 
-    public void Activate(GameObject player)
+    public void Activate()
     {
         if (pickupModel != null)
         {
             pickupModel.SetActive(false);
         }
 
-        MonoBehaviour mono = player.GetComponent<MonoBehaviour>();
+        MonoBehaviour mono = PlayerManager.instance.GetPlayer().GetComponent<MonoBehaviour>();
         if (mono != null)
         {
-            _ = mono.StartCoroutine(SpawnMeteors(player));
+            _ = mono.StartCoroutine(SpawnMeteors(PlayerManager.instance.GetPlayer()));
         }
     }
 

@@ -16,7 +16,7 @@ public class PickupAoeBase : MonoBehaviour, IPickupEffect
         
     }
 
-    public void Activate(GameObject player)
+    public void Activate()
     {
         float range = 10;
         GameObject tmp = Instantiate(visualIndicator, transform.position, Quaternion.identity);

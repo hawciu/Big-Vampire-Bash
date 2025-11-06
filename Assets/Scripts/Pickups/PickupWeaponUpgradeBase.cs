@@ -5,7 +5,7 @@ public class PickupWeaponUpgradeBase : MonoBehaviour, IPickupEffect
     public GameObject pickupModel;
     public GameObject pickupEffect;
 
-    public void Activate(GameObject player)
+    public void Activate()
     {
         PlayerManager.instance.UpgradePlayerWeapon();
         Instantiate(pickupEffect);

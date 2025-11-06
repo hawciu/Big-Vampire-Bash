@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PickupController : MonoBehaviour
+public class PickupBaseController : MonoBehaviour
 {
     public GameObject effectChild;
 
@@ -13,11 +13,6 @@ public class PickupController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player"))
-        {
-            return;
-        }
-
         if (pickupCollider != null)
         {
             pickupCollider.enabled = false;
@@ -26,7 +21,7 @@ public class PickupController : MonoBehaviour
         if (effectChild != null)
         {
             IPickupEffect effect = effectChild.GetComponent<IPickupEffect>();
-            effect?.Activate(other.gameObject);
+            effect?.Activate();
         }
     }
 }

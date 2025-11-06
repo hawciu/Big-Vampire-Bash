@@ -12,14 +12,14 @@ public class PickupRadialblastBase : MonoBehaviour, IPickupEffect
 
     public float spawnHeightOffset = 1.5f;
 
-    public void Activate(GameObject player)
+    public void Activate()
     {
         if (pickupModel != null)
         {
             pickupModel.SetActive(false);
         }
 
-        _ = StartCoroutine(SpawnWaves(player));
+        _ = StartCoroutine(SpawnWaves(PlayerManager.instance.GetPlayer()));
     }
 
     private IEnumerator SpawnWaves(GameObject player)
