@@ -19,14 +19,14 @@ public class PickupRadialblastBase : MonoBehaviour, IPickupEffect
             pickupModel.SetActive(false);
         }
 
-        _ = StartCoroutine(SpawnWaves(PlayerManager.instance.GetPlayer()));
+        _ = StartCoroutine(SpawnWaves());
     }
 
-    private IEnumerator SpawnWaves(GameObject player)
+    private IEnumerator SpawnWaves()
     {
         for (int w = 0; w < waves; w++)
         {
-            Vector3 playerPos = player.transform.position + (Vector3.up * spawnHeightOffset);
+            Vector3 playerPos = PlayerManager.instance.GetPlayer().transform.position + (Vector3.up * spawnHeightOffset);
 
             for (int b = 0; b < bulletsPerWave; b++)
             {
