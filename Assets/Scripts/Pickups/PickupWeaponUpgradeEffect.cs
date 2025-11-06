@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WeaponUpgradeEffect : MonoBehaviour
+public class PickupWeaponUpgradeEffect : MonoBehaviour
 {
     float height = 1;
 

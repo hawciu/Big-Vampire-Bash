@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WeaponUpgradePickup : MonoBehaviour, IPickupEffect
+public class PickupWeaponUpgradeBase : MonoBehaviour, IPickupEffect
 {
     public GameObject pickupModel;
     public GameObject pickupEffect;

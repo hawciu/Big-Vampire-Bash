@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 7602345391294218184}
   - component: {fileID: -2804442005632053942}
   m_Layer: 0
-  m_Name: WeaponUpgrade
+  m_Name: PickupWeaponUpgradePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
