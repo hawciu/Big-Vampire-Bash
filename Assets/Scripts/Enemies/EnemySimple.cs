@@ -6,18 +6,32 @@ public class EnemySimple : MonoBehaviour
     private Rigidbody rb;
     private GameObject modelInstance;
     private bool isBoss = false;
-    int health = 1;
+    int health = 3;
     public GameObject hatPrefab;
+    float whiteFadeCounter = 1;
+    EnemyModelHandler enemyModelHandler;
+    bool isDead = true;
 
     public void Setup(EnemyDataScriptableObject data)
     {
         enemyData = data;
         SpawnModel();
+        enemyModelHandler = modelInstance.GetComponent<EnemyModelHandler>();
+        isDead = false;
     }
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        if(whiteFadeCounter < 1)
+        {
+            whiteFadeCounter += Time.deltaTime * 5;
+            enemyModelHandler.GetMaterial().color = Color.white * (1 / whiteFadeCounter);
+        }
     }
 
     private void SpawnModel()
@@ -45,6 +59,8 @@ public class EnemySimple : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isDead) return;
+
         if (enemyData == null)
         {
             return;
@@ -63,6 +79,7 @@ public class EnemySimple : MonoBehaviour
     public void Damage()
     {
         health--;
+        whiteFadeCounter = 0;
         CheckIfDead();
     }
 
@@ -72,7 +89,7 @@ public class EnemySimple : MonoBehaviour
         {
             EnemyManager.instance.RemoveDeadEnemy(gameObject);
             if (isBoss) EnemyManager.instance.OnBossDeath();
-            Destroy(gameObject);
+            isDead = false;
         }
     }
 }

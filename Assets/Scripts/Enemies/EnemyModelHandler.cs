@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyModelHandler : MonoBehaviour
 {
     public GameObject hatTargetObject;
+    public GameObject model;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -14,5 +15,10 @@ public class EnemyModelHandler : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public Material GetMaterial()
+    {
+        return model.GetComponent<Renderer>().material;
     }
 }
