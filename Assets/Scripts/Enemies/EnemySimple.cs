@@ -88,7 +88,7 @@ public class EnemySimple : MonoBehaviour
                     SwitchState(EnemyState.ACTIVE);
                     break;
                 }
-                transform.position = transform.position + Vector3.up * Time.deltaTime * 5;
+                transform.position = transform.position + Vector3.up * Time.deltaTime * 3;
                 break;
 
             case EnemyState.ACTIVE:
@@ -102,7 +102,7 @@ public class EnemySimple : MonoBehaviour
                     Destroy(gameObject);
                     break;
                 }
-                transform.position = transform.position - Vector3.up * Time.deltaTime * 5;
+                transform.position = transform.position - Vector3.up * Time.deltaTime * 3;
                 break;
         }
     }
