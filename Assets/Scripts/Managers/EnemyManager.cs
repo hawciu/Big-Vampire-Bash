@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+
 public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager instance;
@@ -19,6 +20,7 @@ public class EnemyManager : MonoBehaviour
     public TMP_Text text;
 
     private bool bossAlive = false;
+    bool gameOver = false;
 
     private void Awake()
     {
@@ -48,6 +50,8 @@ public class EnemyManager : MonoBehaviour
 
     private void WaveUpdate()
     {
+        GameEndCheck();
+
         NextWaveCheck();
 
         EnemySpawnCheck();
@@ -57,6 +61,7 @@ public class EnemyManager : MonoBehaviour
     {
         if (waveNumber >= 5)
         {
+            gameOver = true;
             Debug.Log("Wszystkie fale zakoñczone.");
             text.text = "Wszystkie fale zakoñczone.";
             return;
@@ -65,7 +70,6 @@ public class EnemyManager : MonoBehaviour
 
     private void NextWaveCheck()
     {
-        GameEndCheck();
 
         if (bossAlive)
         {
@@ -88,7 +92,9 @@ public class EnemyManager : MonoBehaviour
 
     private void ProgressWave()
     {
+        print("progress wave");
         waveNumber++;
+        print("current wave " + waveNumber);
         lastWaveTime = Time.time;
 
         Debug.Log($"=== Fala {waveNumber} ===");
@@ -100,6 +106,7 @@ public class EnemyManager : MonoBehaviour
 
     private void EnemySpawnCheck()
     {
+        if (gameOver) return;
         if (waveNumber != 5 && Time.time > lastSpawn + spawnCooldown)
         {
             SpawnEnemy(false);
