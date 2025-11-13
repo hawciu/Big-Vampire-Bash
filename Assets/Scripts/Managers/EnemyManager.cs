@@ -62,14 +62,14 @@ public class EnemyManager : MonoBehaviour
         {
             gameOver = true;
             Debug.Log("Wszystkie fale zakoñczone.");
-            UIManager.instance.UpdateWaveText($"=== Fala {waveNumber} ===");
+            UIManager.instance.UpdateWaveText("Wszystkie fale zakoñczone.");
             return;
         }
     }
 
     private void NextWaveCheck()
     {
-
+        if (gameOver) return;
         if (bossAlive)
         {
             return;
@@ -78,7 +78,7 @@ public class EnemyManager : MonoBehaviour
         if (Time.time > lastWaveTime + waveCooldown)
         {
             Debug.Log("To jest fala Bossa!");
-            UIManager.instance.UpdateWaveText($"=== Fala {waveNumber} ===");
+            UIManager.instance.UpdateWaveText("To jest fala Bossa!");
             SpawnEnemy(true);
         }
     }
