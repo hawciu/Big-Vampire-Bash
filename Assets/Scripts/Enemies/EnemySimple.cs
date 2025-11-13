@@ -60,6 +60,7 @@ public class EnemySimple : MonoBehaviour
 
             case EnemyState.ACTIVE:
                 state = EnemyState.ACTIVE;
+                EnemyManager.instance.AddEnemyToAllEnemies(gameObject);
                 GetComponent<Rigidbody>().isKinematic = false;
                 selfCollider.enabled = true;
                 modelInstance.gameObject.transform.GetChild(0).GetComponent<Animator>().enabled = true;
@@ -67,6 +68,8 @@ public class EnemySimple : MonoBehaviour
 
             case EnemyState.DEAD:
                 state = EnemyState.DEAD;
+                if (isBoss) EnemyManager.instance.OnBossDeath();
+                EnemyManager.instance.RemoveDeadEnemy(gameObject);
                 modelInstance.gameObject.transform.GetChild(0).GetComponent<Animator>().enabled = false;
                 GetComponent<Rigidbody>().isKinematic = true;
                 selfCollider.enabled = false;
@@ -98,7 +101,6 @@ public class EnemySimple : MonoBehaviour
                 if (transform.position.y <= -3)
                 {
                     SwitchState(EnemyState.INACTIVE);
-                    EnemyManager.instance.RemoveDeadEnemy(gameObject);
                     Destroy(gameObject);
                     break;
                 }
@@ -161,7 +163,6 @@ public class EnemySimple : MonoBehaviour
         if(health <= 0)
         {
             SwitchState(EnemyState.DEAD);
-            if (isBoss) EnemyManager.instance.OnBossDeath();
         }
     }
 }

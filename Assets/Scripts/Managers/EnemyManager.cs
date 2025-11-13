@@ -48,8 +48,6 @@ public class EnemyManager : MonoBehaviour
 
     private void WaveUpdate()
     {
-        GameEndCheck();
-
         NextWaveCheck();
 
         EnemySpawnCheck();
@@ -67,6 +65,8 @@ public class EnemyManager : MonoBehaviour
 
     private void NextWaveCheck()
     {
+        GameEndCheck();
+
         if (bossAlive)
         {
             return;
@@ -76,7 +76,7 @@ public class EnemyManager : MonoBehaviour
         {
             Debug.Log("To jest fala Bossa!");
             text.text = "To jest fala Bossa!";
-            SpawnBoss();
+            SpawnEnemy(true);
         }
     }
 
@@ -102,12 +102,12 @@ public class EnemyManager : MonoBehaviour
     {
         if (waveNumber != 5 && Time.time > lastSpawn + spawnCooldown)
         {
-            SpawnEnemy();
+            SpawnEnemy(false);
             lastSpawn = Time.time;
         }
     }
 
-    private void SpawnEnemy()
+    private void SpawnEnemy(bool ifBoss)
     {
         EnemyDataScriptableObject enemyData = GetEnemyDataForWave(waveNumber);
 
@@ -121,26 +121,14 @@ public class EnemyManager : MonoBehaviour
             simpleEnemy.Setup(enemyData);
         }
 
-        allEnemies.Add(enemy);
-    }
-
-    private void SpawnBoss()
-    {
-        bossAlive = true;
-
-        EnemyDataScriptableObject enemyData = GetEnemyDataForWave(waveNumber);
-
-        Vector3 randomLocation = GetRandomSpawnPosition();
-
-        GameObject boss = Instantiate(enemyPrefab, randomLocation, Quaternion.identity);
-
-        EnemySimple simpleEnemy = boss.GetComponent<EnemySimple>();
-        if (simpleEnemy != null)
+        if (ifBoss)
         {
-            simpleEnemy.Setup(enemyData);
             simpleEnemy.MakeBoss();
+            bossAlive = true;
         }
-        allEnemies.Add(boss);
+
+
+        //allEnemies.Add(enemy);
     }
 
     private Vector3 GetRandomSpawnPosition()
@@ -164,6 +152,11 @@ public class EnemyManager : MonoBehaviour
     internal void RemoveDeadEnemy(GameObject gameObject)
     {
         _ = allEnemies.Remove(gameObject);
+    }
+
+    public void AddEnemyToAllEnemies(GameObject gameObject)
+    {
+        allEnemies.Add(gameObject);
     }
 
     public List<GameObject> GetAllEnemies()

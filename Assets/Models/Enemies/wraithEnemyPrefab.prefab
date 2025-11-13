@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyModelHandler
   hatTargetObject: {fileID: 5381395948638866280}
+  model: {fileID: 887050834671008040}
 --- !u!1001 &559312239866497868
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -709,6 +710,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &887050834671008040 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: f47eefc70aa4a3e49b31d96dfc2aa7f5, type: 3}
+  m_PrefabInstance: {fileID: 559312239866497868}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4628669352941834846 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5187942005934692626, guid: f47eefc70aa4a3e49b31d96dfc2aa7f5, type: 3}
