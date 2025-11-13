@@ -12,7 +12,6 @@ public class PlayerManager : MonoBehaviour
 
     float playerShotCooldown = 0.02f;
 
-
     GameObject playerInstance;
 
     private void Awake()

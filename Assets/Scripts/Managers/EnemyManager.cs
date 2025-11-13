@@ -17,7 +17,6 @@ public class EnemyManager : MonoBehaviour
 
     private readonly List<GameObject> allEnemies = new();
 
-    public TMP_Text text;
 
     private bool bossAlive = false;
     bool gameOver = false;
@@ -44,7 +43,7 @@ public class EnemyManager : MonoBehaviour
 
     private void LevelSetup()
     {
-        text.text = $"=== Fala {waveNumber} ===";
+        UIManager.instance.UpdateWaveText($"=== Fala {waveNumber} ===");
         Debug.Log($"=== Fala {waveNumber} ===");
     }
 
@@ -63,7 +62,7 @@ public class EnemyManager : MonoBehaviour
         {
             gameOver = true;
             Debug.Log("Wszystkie fale zakoñczone.");
-            text.text = "Wszystkie fale zakoñczone.";
+            UIManager.instance.UpdateWaveText($"=== Fala {waveNumber} ===");
             return;
         }
     }
@@ -79,7 +78,7 @@ public class EnemyManager : MonoBehaviour
         if (Time.time > lastWaveTime + waveCooldown)
         {
             Debug.Log("To jest fala Bossa!");
-            text.text = "To jest fala Bossa!";
+            UIManager.instance.UpdateWaveText($"=== Fala {waveNumber} ===");
             SpawnEnemy(true);
         }
     }
@@ -96,8 +95,7 @@ public class EnemyManager : MonoBehaviour
         lastWaveTime = Time.time;
 
         Debug.Log($"=== Fala {waveNumber} ===");
-
-        text.text = $"=== Fala {waveNumber} ===";
+        UIManager.instance.UpdateWaveText($"=== Fala {waveNumber} ===");
 
         lastSpawn = Time.time;
     }
