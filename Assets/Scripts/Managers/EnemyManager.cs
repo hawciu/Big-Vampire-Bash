@@ -92,9 +92,7 @@ public class EnemyManager : MonoBehaviour
 
     private void ProgressWave()
     {
-        print("progress wave");
         waveNumber++;
-        print("current wave " + waveNumber);
         lastWaveTime = Time.time;
 
         Debug.Log($"=== Fala {waveNumber} ===");
@@ -106,7 +104,6 @@ public class EnemyManager : MonoBehaviour
 
     private void EnemySpawnCheck()
     {
-        if (gameOver) return;
         if (waveNumber != 5 && Time.time > lastSpawn + spawnCooldown)
         {
             SpawnEnemy(false);
@@ -116,6 +113,7 @@ public class EnemyManager : MonoBehaviour
 
     private void SpawnEnemy(bool ifBoss)
     {
+        if (gameOver) return;
         EnemyDataScriptableObject enemyData = GetEnemyDataForWave(waveNumber);
 
         Vector3 randomLocation = GetRandomSpawnPosition();

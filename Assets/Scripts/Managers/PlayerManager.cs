@@ -10,7 +10,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject playerCamera;
 
-    float playerShotCooldown = 0.2f;
+    float playerShotCooldown = 0.02f;
 
 
     GameObject playerInstance;
