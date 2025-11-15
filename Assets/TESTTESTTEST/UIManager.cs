@@ -7,6 +7,9 @@ public class UIManager : MonoBehaviour
     public TMP_Text waveTextNumber;
     public TMP_Text coinsText;
 
+    public GameObject IngameMenu;
+    public GameObject GameOverScreen;
+
     private void Awake()
     {
         instance = this;
@@ -32,5 +35,16 @@ public class UIManager : MonoBehaviour
     public void UpdateCoinsText(string coinText)
     {
         coinsText.text = "coins: " + coinText;
+    }
+
+    public void OnIngameMenuButtonPressed()
+    {
+        GameManager.instance.PauseGame(IngameMenu.activeSelf);
+        IngameMenu.SetActive(!IngameMenu.activeSelf);
+    }
+
+    public void OnGameOver()
+    {
+        GameOverScreen.SetActive(true);
     }
 }

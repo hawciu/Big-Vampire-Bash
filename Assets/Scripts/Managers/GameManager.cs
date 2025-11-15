@@ -27,4 +27,15 @@ public class GameManager : MonoBehaviour
         coins++;
         UIManager.instance.UpdateCoinsText(coins.ToString());
     }
+
+    public void PauseGame(bool value)
+    {
+        Time.timeScale = value ? 1 : 0;
+    }
+
+    public void OnGameOver()
+    {
+        Time.timeScale = 0;
+        UIManager.instance.OnGameOver();
+    }
 }
