@@ -48,4 +48,9 @@ public class PlayerManager : MonoBehaviour
     {
         return playerShotCooldown;
     }
+
+    internal void DamagePlayer()
+    {
+        GameManager.instance.OnGameOver();
+    }
 }

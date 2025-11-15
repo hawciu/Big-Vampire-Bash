@@ -40,8 +40,8 @@ public class UIManager : MonoBehaviour
 
     public void OnIngameMenuButtonPressed()
     {
-        GameManager.instance.PauseGame(IngameMenu.activeSelf);
         IngameMenu.SetActive(!IngameMenu.activeSelf);
+        GameManager.instance.PauseGame(IngameMenu.activeSelf);
     }
 
     public void OnGameOver()
@@ -51,11 +51,13 @@ public class UIManager : MonoBehaviour
 
     public void OnQuitButtonPressed()
     {
+        GameManager.instance.PauseGame(false);
         SceneManager.LoadScene("MainMenu");
     }
 
     public void OnRestartButtonPressed()
     {
+        GameManager.instance.PauseGame(false);
         SceneManager.LoadScene("Level1");
     }
 

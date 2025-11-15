@@ -553,7 +553,7 @@ MonoBehaviour:
   waveTextNumber: {fileID: 1771118783}
   coinsText: {fileID: 636662035}
   IngameMenu: {fileID: 1205795716}
-  GameOverScreen: {fileID: 0}
+  GameOverScreen: {fileID: 1615702213}
 --- !u!1 &580881996
 GameObject:
   m_ObjectHideFlags: 0

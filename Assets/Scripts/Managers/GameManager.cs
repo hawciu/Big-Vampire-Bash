@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame(bool value)
     {
-        Time.timeScale = value ? 1 : 0;
+        Time.timeScale = value ? 0 : 1;
     }
 
     public void OnGameOver()
