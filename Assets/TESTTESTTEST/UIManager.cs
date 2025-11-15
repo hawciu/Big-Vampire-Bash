@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -46,5 +47,20 @@ public class UIManager : MonoBehaviour
     public void OnGameOver()
     {
         GameOverScreen.SetActive(true);
+    }
+
+    public void OnQuitButtonPressed()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void OnRestartButtonPressed()
+    {
+        SceneManager.LoadScene("Level1");
+    }
+
+    public void OnContinueButtonPressed()
+    {
+
     }
 }

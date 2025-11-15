@@ -43,6 +43,7 @@ public class EnemyManager : MonoBehaviour
 
     private void LevelSetup()
     {
+        lastWaveTime = Time.time;
         UIManager.instance.UpdateWaveText($"=== Fala {waveNumber} ===");
         Debug.Log($"=== Fala {waveNumber} ===");
     }
