@@ -8,17 +8,8 @@ public class EnemyManager : MonoBehaviour
     public static EnemyManager instance;
     public GameObject enemyPrefab;
 
-    private int waveNumber = 0;
-    private float lastWaveTime = 0;
-    private readonly float waveCooldown = 5;
-
-    private float lastSpawn = 0f;
-    private readonly float spawnCooldown = 0.5f;
-
     private readonly List<GameObject> allEnemies = new();
 
-
-    private bool bossAlive = false;
     bool gameOver = false;
 
     private void Awake()
@@ -33,93 +24,28 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        LevelSetup();
     }
 
     private void Update()
     {
-        WaveUpdate();
-    }
-
-    private void LevelSetup()
-    {
-        lastWaveTime = Time.time;
-        UIManager.instance.UpdateWaveText($"=== Fala {waveNumber} ===");
-        Debug.Log($"=== Fala {waveNumber} ===");
-    }
-
-    private void WaveUpdate()
-    {
-        GameEndCheck();
-
-        NextWaveCheck();
-
-        EnemySpawnCheck();
-    }
-
-    private void GameEndCheck()
-    {
-        if (waveNumber >= 5)
-        {
-            gameOver = true;
-            Debug.Log("Wszystkie fale zakoñczone.");
-            UIManager.instance.UpdateWaveText("Wszystkie fale zakoñczone.");
-            return;
-        }
-    }
-
-    private void NextWaveCheck()
-    {
-        if (gameOver) return;
-        if (bossAlive)
-        {
-            return;
-        }
-
-        if (Time.time > lastWaveTime + waveCooldown)
-        {
-            Debug.Log("To jest fala Bossa!");
-            UIManager.instance.UpdateWaveText("To jest fala Bossa!");
-            SpawnEnemy(true);
-        }
     }
 
     public void OnBossDeath()
     {
-        bossAlive = false;
-        ProgressWave();
+        LevelManager.instance.OnMinibossDeath();
     }
 
-    private void ProgressWave()
-    {
-        waveNumber++;
-        lastWaveTime = Time.time;
-
-        Debug.Log($"=== Fala {waveNumber} ===");
-        UIManager.instance.UpdateWaveText($"=== Fala {waveNumber} ===");
-
-        lastSpawn = Time.time;
-    }
-
-    private void EnemySpawnCheck()
-    {
-        if (waveNumber != 5 && Time.time > lastSpawn + spawnCooldown)
-        {
-            SpawnEnemy(false);
-            lastSpawn = Time.time;
-        }
-    }
-
-    private void SpawnEnemy(bool ifBoss)
+    public void SpawnEnemy(bool ifBoss)
     {
         if (gameOver) return;
-        EnemyDataScriptableObject enemyData = GetEnemyDataForWave(waveNumber);
+        EnemyDataScriptableObject enemyData = GetEnemyDataForWave(LevelManager.instance.GetWaveNumber());
 
         Vector3 randomLocation = GetRandomSpawnPosition();
 
         GameObject enemy = Instantiate(enemyPrefab, randomLocation, Quaternion.identity);
 
         EnemySimple simpleEnemy = enemy.GetComponent<EnemySimple>();
+
         if (simpleEnemy != null)
         {
             simpleEnemy.Setup(enemyData);
@@ -128,11 +54,7 @@ public class EnemyManager : MonoBehaviour
         if (ifBoss)
         {
             simpleEnemy.MakeBoss();
-            bossAlive = true;
         }
-
-
-        //allEnemies.Add(enemy);
     }
 
     private Vector3 GetRandomSpawnPosition()
