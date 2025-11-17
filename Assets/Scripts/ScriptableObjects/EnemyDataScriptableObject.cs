@@ -22,4 +22,5 @@ public class EnemyDataScriptableObject : ScriptableObject
     [Header("Movement Settings")]
     [Tooltip("Movement speed of the enemy")]
     public float moveSpeed = 1f;
+    public int health = 1;
 }
