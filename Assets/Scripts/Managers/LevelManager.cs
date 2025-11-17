@@ -6,6 +6,7 @@ using UnityEngine;
 
 public enum GameState
 {
+    NONE,
     SETUP,
     WAVE,
     MINIBOSS,
@@ -20,7 +21,7 @@ public class LevelManager : MonoBehaviour
 
     float bounds = 35;
 
-    GameState state = GameState.SETUP;
+    GameState state = GameState.NONE;
 
     int waveNumber = -1;
     float levelStartTime = 0;
@@ -37,6 +38,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update japa
     void Start()
     {
+        SwitchState(GameState.SETUP);
     }
 
     // Update is called once per frame
@@ -47,7 +49,7 @@ public class LevelManager : MonoBehaviour
 
     void SwitchState(GameState targetState)
     {
-        print("switch state "+targetState.ToString());
+        print("switch state "+targetState.ToString() + " " + waveNumber);
         state = targetState;
         switch (state)
         {
