@@ -7,28 +7,31 @@ public enum EnemyState
     ACTIVE,
     DEAD,
 }
+
+public enum EnemyRarity
+{
+    Base,
+    Green,
+    Blue,
+    Red,
+    Gold
+}
+
 public class EnemySimple : MonoBehaviour
 {
     private EnemyDataScriptableObject enemyData;
     private Rigidbody rb;
     private GameObject modelInstance;
     private bool isBoss = false;
-    int health = 3;
+    private int health;
     public GameObject hatPrefab;
-    float whiteFadeCounter = 1;
-    EnemyModelHandler enemyModelHandler;
-    EnemyState state = EnemyState.INACTIVE;
-    CapsuleCollider selfCollider;
+    private float whiteFadeCounter = 1;
+    private EnemyModelHandler enemyModelHandler;
+    private EnemyState state = EnemyState.INACTIVE;
+    private CapsuleCollider selfCollider;
+    private float overriddenMoveSpeed;
 
-    public void Setup(EnemyDataScriptableObject data)
-    {
-        enemyData = data;
-        SpawnModel();
-        modelInstance.gameObject.transform.GetChild(0).GetComponent<Animator>().enabled = false;
-        enemyModelHandler = modelInstance.GetComponent<EnemyModelHandler>();
-        selfCollider = GetComponent<CapsuleCollider>();
-        SwitchState(EnemyState.SPAWNING);
-    }
+    public EnemyRarity rarity = EnemyRarity.Base;
 
     private void Awake()
     {
@@ -38,14 +41,45 @@ public class EnemySimple : MonoBehaviour
     private void Update()
     {
         EnemyStateHandler();
-        if(whiteFadeCounter < 1)
+        if (whiteFadeCounter < 1)
         {
             whiteFadeCounter += Time.deltaTime * 5;
             enemyModelHandler.GetMaterial().color = Color.white * (1 / whiteFadeCounter);
         }
     }
 
-    void SwitchState(EnemyState value)
+    public void Setup(EnemyDataScriptableObject data)
+    {
+        enemyData = data;
+        health = data.health;
+        Debug.Log("[Enemy Spawned] " + enemyData.enemyName + " | HP: " + enemyData.health + " | Speed: " + enemyData.moveSpeed);
+        SpawnModel();
+        modelInstance.transform.GetChild(0).GetComponent<Animator>().enabled = false;
+        enemyModelHandler = modelInstance.GetComponent<EnemyModelHandler>();
+        selfCollider = GetComponent<CapsuleCollider>();
+        SwitchState(EnemyState.SPAWNING);
+    }
+
+    public void SetupEndless(EnemyDataScriptableObject data, int scaledHP, float scaledMoveSpeed)
+    {
+        enemyData = data;
+
+        health = scaledHP;
+        overriddenMoveSpeed = scaledMoveSpeed;
+
+        Debug.Log("[Enemy Spawned - Endless] " + data.enemyName + " | HP: " + health + " | Speed: " + overriddenMoveSpeed);
+
+        SpawnModel();
+        modelInstance.transform.GetChild(0).GetComponent<Animator>().enabled = false;
+
+        enemyModelHandler = modelInstance.GetComponent<EnemyModelHandler>();
+        selfCollider = GetComponent<CapsuleCollider>();
+        whiteFadeCounter = 1f;
+
+        SwitchState(EnemyState.SPAWNING);
+    }
+
+    private void SwitchState(EnemyState value)
     {
         switch (value)
         {
@@ -61,25 +95,29 @@ public class EnemySimple : MonoBehaviour
             case EnemyState.ACTIVE:
                 state = EnemyState.ACTIVE;
                 EnemyManager.instance.AddEnemyToAllEnemies(gameObject);
-                GetComponent<Rigidbody>().isKinematic = false;
+                rb.isKinematic = false;
                 selfCollider.enabled = true;
-                modelInstance.gameObject.transform.GetChild(0).GetComponent<Animator>().enabled = true;
+                modelInstance.transform.GetChild(0).GetComponent<Animator>().enabled = true;
                 break;
 
             case EnemyState.DEAD:
                 state = EnemyState.DEAD;
-                if (isBoss) EnemyManager.instance.OnBossDeath();
+                if (isBoss)
+                {
+                    EnemyManager.instance.OnBossDeath();
+                }
+
                 EnemyManager.instance.RemoveDeadEnemy(gameObject);
-                modelInstance.gameObject.transform.GetChild(0).GetComponent<Animator>().enabled = false;
-                GetComponent<Rigidbody>().isKinematic = true;
+                modelInstance.transform.GetChild(0).GetComponent<Animator>().enabled = false;
+                rb.isKinematic = true;
                 selfCollider.enabled = false;
                 break;
         }
     }
 
-    void EnemyStateHandler()
+    private void EnemyStateHandler()
     {
-        switch(state)
+        switch (state)
         {
             case EnemyState.INACTIVE:
                 break;
@@ -91,7 +129,7 @@ public class EnemySimple : MonoBehaviour
                     SwitchState(EnemyState.ACTIVE);
                     break;
                 }
-                transform.position = transform.position + Vector3.up * Time.deltaTime * 3;
+                transform.position = transform.position + (Vector3.up * Time.deltaTime * 3);
                 break;
 
             case EnemyState.ACTIVE:
@@ -104,7 +142,7 @@ public class EnemySimple : MonoBehaviour
                     Destroy(gameObject);
                     break;
                 }
-                transform.position = transform.position - Vector3.up * Time.deltaTime * 3;
+                transform.position = transform.position - (Vector3.up * Time.deltaTime * 3);
                 break;
         }
     }
@@ -125,23 +163,22 @@ public class EnemySimple : MonoBehaviour
     {
         isBoss = true;
         Transform modelT = modelInstance.GetComponent<EnemyModelHandler>().hatTargetObject.transform;
-        GameObject  tmp = Instantiate(hatPrefab, modelT.parent);
+        GameObject tmp = Instantiate(hatPrefab, modelT.parent);
         tmp.transform.position = modelT.position;
         tmp.transform.rotation = modelT.rotation;
         modelInstance.transform.localScale = Vector3.one * 2f;
         health = 10;
     }
 
+    [System.Obsolete]
     private void FixedUpdate()
     {
-        if (state != EnemyState.ACTIVE) return;
-
-        if (enemyData == null)
+        if (state != EnemyState.ACTIVE || enemyData == null)
         {
             return;
         }
 
-        rb.linearVelocity = Vector3.zero;
+        rb.velocity = Vector3.zero;
 
         float speed = enemyData.moveSpeed;
         Vector3 moveDirection = PlayerManager.instance.GetPlayer().transform.position - transform.position;
@@ -158,11 +195,53 @@ public class EnemySimple : MonoBehaviour
         CheckIfDead();
     }
 
-    void CheckIfDead()
+    private void CheckIfDead()
     {
-        if(health <= 0)
+        if (health <= 0)
         {
             SwitchState(EnemyState.DEAD);
+        }
+    }
+
+    public void IncreaseRarity()
+    {
+        if (rarity < EnemyRarity.Gold)
+        {
+            rarity++;
+            UpdateOutlineColor();
+        }
+    }
+
+    public void UpdateOutlineColor()
+    {
+        if (enemyModelHandler != null && enemyModelHandler.outlineTarget != null)
+        {
+            Renderer renderer = enemyModelHandler.outlineTarget.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                switch (rarity)
+                {
+                    case EnemyRarity.Base:
+                        renderer.material.color = Color.black;
+                        break;
+
+                    case EnemyRarity.Green:
+                        renderer.material.color = new Color(0f, 0.5f, 0f);
+                        break;
+
+                    case EnemyRarity.Blue:
+                        renderer.material.color = new Color(0f, 0f, 0.5f);
+                        break;
+
+                    case EnemyRarity.Red:
+                        renderer.material.color = new Color(0.5f, 0f, 0f);
+                        break;
+
+                    case EnemyRarity.Gold:
+                        renderer.material.color = new Color(0.7f, 0.6f, 0f);
+                        break;
+                }
+            }
         }
     }
 }

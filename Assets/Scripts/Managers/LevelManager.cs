@@ -1,60 +1,61 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 public enum GameState
 {
-    NONE,
-    SETUP,
-    WAVE,
-    MINIBOSS,
-    BOSS,
-    ENDGAME,
+    NONE, SETUP, PREPARE_WAVE, WAVE, MINIBOSS, BOSS, ENDGAME, ENDLESS
 }
 
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
+
+    [Header("Level Boundaries")]
     public GameObject wall;
+    private readonly float bounds = 35;
 
-    float bounds = 35;
+    [Header("Game State")]
+    private GameState state = GameState.NONE;
+    public bool endlessMode = false;
 
-    GameState state = GameState.NONE;
-
-    int waveNumber = -1;
-    float levelStartTime = 0;
-    private float lastWaveTime = 0;
+    [Header("Wave Settings")]
+    public float spawnCooldown = 0.5f;
     private readonly float waveDuration = 5;
+    private int waveNumber = -1;
+    private float levelStartTime = 0;
+    private float lastWaveTime = 0;
     private float lastEnemySpawn = 0f;
-    private readonly float spawnCooldown = 0.5f;
+
+    [Header("Endless Scaling")]
+    public float endlessHPGainPerSecond = 0.5f;
+    public float endlessSpeedGainPerSecond = 0.01f;
 
     private void Awake()
     {
         instance = this;
     }
 
-    // Start is called before the first frame update japa
-    void Start()
+    private void Start()
     {
         SwitchState(GameState.SETUP);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         GameStateUpdate();
     }
 
-    void SwitchState(GameState targetState)
+    private void SwitchState(GameState targetState)
     {
-        print("switch state "+targetState.ToString() + " " + waveNumber);
         state = targetState;
+
         switch (state)
         {
             case GameState.SETUP:
                 UIManager.instance.UpdateWaveText("Przygotowanie poziomu");
+                break;
+
+            case GameState.PREPARE_WAVE:
+                UIManager.instance.UpdateWaveText($"Przygotowanie fali {waveNumber}");
                 break;
 
             case GameState.WAVE:
@@ -74,6 +75,10 @@ public class LevelManager : MonoBehaviour
             case GameState.ENDGAME:
                 UIManager.instance.UpdateWaveText("Wszystkie fale zakoñczone.");
                 break;
+
+            case GameState.ENDLESS:
+                UIManager.instance.UpdateWaveText("ENDLESS MODE");
+                break;
         }
     }
 
@@ -84,6 +89,19 @@ public class LevelManager : MonoBehaviour
             case GameState.SETUP:
                 SetupWalls();
                 SetupLevel();
+
+                if (endlessMode)
+                {
+                    SwitchState(GameState.ENDLESS);
+                }
+                else
+                {
+                    SwitchState(GameState.PREPARE_WAVE);
+                }
+                break;
+
+            case GameState.PREPARE_WAVE:
+                PrepareWave();
                 SwitchState(GameState.WAVE);
                 break;
 
@@ -92,45 +110,47 @@ public class LevelManager : MonoBehaviour
                 break;
 
             case GameState.MINIBOSS:
-                MinibossWaveUpdate();
+                EnemySpawnCheck();
                 break;
 
             case GameState.BOSS:
-                //currently skipped
                 SwitchState(GameState.ENDGAME);
                 break;
 
-            case GameState.ENDGAME:
+            case GameState.ENDLESS:
+                EndlessUpdate();
                 break;
         }
     }
 
-    void SetupLevel()
+    private void SetupLevel()
     {
         waveNumber = 0;
         levelStartTime = Time.time;
-        UIManager.instance.UpdateWaveText($"=== Fala {waveNumber} ===");
     }
 
-    void SetupWalls()
+    private void PrepareWave()
     {
-        Vector3 nw = new Vector3(-bounds, 0, bounds);
-        Vector3 ne = new Vector3(bounds, 0, bounds);
-        Vector3 sw = new Vector3(-bounds, 0, -bounds);
-        Vector3 se = new Vector3(bounds, 0, -bounds);
+        lastWaveTime = Time.time;
+        lastEnemySpawn = Time.time;
+    }
+
+    private void SetupWalls()
+    {
+        Vector3 nw = new(-bounds, 0, bounds);
+        Vector3 ne = new(bounds, 0, bounds);
+        Vector3 sw = new(-bounds, 0, -bounds);
+        Vector3 se = new(bounds, 0, -bounds);
         BuildWall(nw, ne);
         BuildWall(ne, se);
         BuildWall(se, sw);
         BuildWall(sw, nw);
     }
 
-    void BuildWall(Vector3 target, Vector3 rot)
+    private void BuildWall(Vector3 target, Vector3 rot)
     {
-        GameObject tmp;
-        tmp = Instantiate(wall, target, Quaternion.identity);
-        tmp.transform.localScale = new Vector3(tmp.transform.localScale.x,
-            tmp.transform.localScale.y,
-            bounds * 2);//tmp.transform.localScale.z);
+        GameObject tmp = Instantiate(wall, target, Quaternion.identity);
+        tmp.transform.localScale = new Vector3(tmp.transform.localScale.x, tmp.transform.localScale.y, bounds * 2);
         tmp.transform.rotation = Quaternion.LookRotation(rot - tmp.transform.position);
         tmp.transform.position += (rot - target).normalized * bounds;
     }
@@ -143,30 +163,7 @@ public class LevelManager : MonoBehaviour
     public void WaveUpdate()
     {
         WaveProgressCheck();
-
         EnemySpawnCheck();
-    }
-
-    void MinibossWaveUpdate()
-    {
-        EnemySpawnCheck();
-    }
-
-    void BossWaveUpdate()
-    {
-
-    }
-
-    private void GameEndCheck()
-    {
-        if (waveNumber >= 5)
-        {
-            SwitchState(GameState.ENDGAME);
-        }
-        else
-        {
-            SwitchState(GameState.WAVE);
-        }
     }
 
     private void WaveProgressCheck()
@@ -175,11 +172,6 @@ public class LevelManager : MonoBehaviour
         {
             SwitchState(GameState.MINIBOSS);
         }
-    }
-
-    private void ProgressWave()
-    {
-        waveNumber++;
     }
 
     private void EnemySpawnCheck()
@@ -191,10 +183,31 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    private void EndlessUpdate()
+    {
+        if (Time.time > lastEnemySpawn + spawnCooldown)
+        {
+            float t = Time.time - levelStartTime;
+            float scaledHP = t * endlessHPGainPerSecond;
+            float scaledMove = 1f + (t * endlessSpeedGainPerSecond);
+
+            EnemyManager.instance.EndlessSpawnUpdate(scaledHP, scaledMove);
+
+            lastEnemySpawn = Time.time;
+        }
+    }
+
     internal void OnMinibossDeath()
     {
-        ProgressWave();
-        GameEndCheck();
+        waveNumber++;
+        if (waveNumber >= 5)
+        {
+            SwitchState(GameState.ENDGAME);
+        }
+        else
+        {
+            SwitchState(GameState.PREPARE_WAVE);
+        }
     }
 
     internal int GetWaveNumber()

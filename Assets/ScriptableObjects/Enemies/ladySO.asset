@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33ecc2dcd4b133546bf4c6c02269e8e3, type: 3}
   m_Name: ladySO
   m_EditorClassIdentifier: 
+  enemyName: 
   enemyType: 2
   enemyPrefab: {fileID: 5017415203613120655, guid: 141a48694e4e2b74b97c338a349027b8, type: 3}
   moveSpeed: 1
+  health: 5

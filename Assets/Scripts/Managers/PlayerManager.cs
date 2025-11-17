@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -10,9 +7,9 @@ public class PlayerManager : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject playerCamera;
 
-    float playerShotCooldown = 0.02f;
+    private float playerShotCooldown = 0.02f;
 
-    GameObject playerInstance;
+    private GameObject playerInstance;
 
     private void Awake()
     {
@@ -20,16 +17,15 @@ public class PlayerManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         playerInstance = Instantiate(playerPrefab);
-        Instantiate(playerCamera);
+        _ = Instantiate(playerCamera);
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
     }
 
     public GameObject GetPlayer()
@@ -41,7 +37,10 @@ public class PlayerManager : MonoBehaviour
     {
         playerShotCooldown -= 0.5f;
 
-        if (playerShotCooldown <= 0.5f) playerShotCooldown = 0.5f;
+        if (playerShotCooldown <= 0.5f)
+        {
+            playerShotCooldown = 0.5f;
+        }
     }
 
     internal float GetShotCooldown()

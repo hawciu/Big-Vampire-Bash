@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyModelHandler
   hatTargetObject: {fileID: 8418740658038992661}
   model: {fileID: 6081708458167846363}
+  outlineTarget: {fileID: 2827277139382908847}
 --- !u!1001 &1949074858031744629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -220,6 +221,11 @@ PrefabInstance:
 --- !u!4 &1735495364024725165 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5187942005934692626, guid: dc1504e0c7dcc5a42a75f210968217f2, type: 3}
+  m_PrefabInstance: {fileID: 6911602740784756671}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2827277139382908847 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -516098083770646512, guid: dc1504e0c7dcc5a42a75f210968217f2, type: 3}
   m_PrefabInstance: {fileID: 6911602740784756671}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &5993054991858420462 stripped

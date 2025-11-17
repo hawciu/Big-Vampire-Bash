@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33ecc2dcd4b133546bf4c6c02269e8e3, type: 3}
   m_Name: pigSO
   m_EditorClassIdentifier: 
+  enemyName: 
   enemyType: 3
   enemyPrefab: {fileID: 5017415203613120655, guid: a2f7f73b72dee4b4e814ffa71505846f, type: 3}
   moveSpeed: 5
+  health: 2

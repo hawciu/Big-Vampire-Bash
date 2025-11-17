@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
@@ -10,24 +10,15 @@ public class UIManager : MonoBehaviour
 
     public GameObject IngameMenu;
     public GameObject GameOverScreen;
-
+    public TMP_Text enemiesCountText;
     private void Awake()
     {
         instance = this;
     }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Update()
     {
-        
+        enemiesCountText.text = "zywe moby: " + EnemyManager.instance.aliveEnemies;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void UpdateWaveText(string waveText)
     {
         waveTextNumber.text = waveText;
@@ -59,10 +50,5 @@ public class UIManager : MonoBehaviour
     {
         GameManager.instance.PauseGame(false);
         SceneManager.LoadScene("Level1");
-    }
-
-    public void OnContinueButtonPressed()
-    {
-
     }
 }
