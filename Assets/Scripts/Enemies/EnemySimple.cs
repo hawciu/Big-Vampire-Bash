@@ -180,7 +180,9 @@ public class EnemySimple : MonoBehaviour
 
         rb.velocity = Vector3.zero;
 
-        float speed = enemyData.moveSpeed;
+
+        float speed = overriddenMoveSpeed > 0 ? overriddenMoveSpeed : enemyData.moveSpeed;
+
         Vector3 moveDirection = PlayerManager.instance.GetPlayer().transform.position - transform.position;
         moveDirection.y = 0;
 
