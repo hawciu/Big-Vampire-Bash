@@ -1435,6 +1435,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 5948691258430060455, guid: 8250725568968524ab21c0347c43b20a, type: 3}
+  orange: {fileID: 2100000, guid: 66fed7e0d4eca784bbe68aab999e6801, type: 2}
+  blue: {fileID: 2100000, guid: 610a39be515df5a4fb300ec4b7e165bb, type: 2}
+  gray: {fileID: 2100000, guid: 7a926f978fcde0a4d92a6b6fa3a6f29b, type: 2}
 --- !u!1 &970089985
 GameObject:
   m_ObjectHideFlags: 0

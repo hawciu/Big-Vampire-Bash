@@ -14,11 +14,16 @@ public class EnemyModelHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public Material GetMaterial()
     {
         return model.GetComponent<Renderer>().material;
+    }
+
+    public void SetMaterial(Material material)
+    {
+        model.GetComponent<Renderer>().material = material;
     }
 }

@@ -2,6 +2,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+public enum EnemyMaterial
+{
+    ORANGE,
+    BLUE,
+    GRAY,
+}
+
 
 public class EnemyManager : MonoBehaviour
 {
@@ -11,6 +18,8 @@ public class EnemyManager : MonoBehaviour
     private readonly List<GameObject> allEnemies = new();
 
     bool gameOver = false;
+
+    public Material orange, blue, gray;
 
     private void Awake()
     {
@@ -77,7 +86,7 @@ public class EnemyManager : MonoBehaviour
 
     internal void RemoveDeadEnemy(GameObject gameObject)
     {
-        _ = allEnemies.Remove(gameObject);
+        allEnemies.Remove(gameObject);
     }
 
     public void AddEnemyToAllEnemies(GameObject gameObject)
@@ -110,5 +119,10 @@ public class EnemyManager : MonoBehaviour
             }
         }
         return closest;
+    }
+
+    public Material GetMaterial()
+    {
+        return gray;
     }
 }

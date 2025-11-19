@@ -97,3 +97,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hatPrefab: {fileID: 591580384614088662, guid: 86336498bd148914abf178daefc61605, type: 3}
+  orange: {fileID: 2100000, guid: 66fed7e0d4eca784bbe68aab999e6801, type: 2}
+  blue: {fileID: 2100000, guid: 610a39be515df5a4fb300ec4b7e165bb, type: 2}
+  gray: {fileID: 2100000, guid: 7a926f978fcde0a4d92a6b6fa3a6f29b, type: 2}

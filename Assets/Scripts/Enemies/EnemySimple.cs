@@ -20,6 +20,8 @@ public class EnemySimple : MonoBehaviour
     EnemyState state = EnemyState.INACTIVE;
     CapsuleCollider selfCollider;
 
+    float rotationCounter = 0;
+
     public void Setup(EnemyDataScriptableObject data)
     {
         enemyData = data;
@@ -68,6 +70,7 @@ public class EnemySimple : MonoBehaviour
 
             case EnemyState.DEAD:
                 state = EnemyState.DEAD;
+                SetEnemyMaterial(EnemyManager.instance.GetMaterial());
                 if (isBoss) EnemyManager.instance.OnBossDeath();
                 EnemyManager.instance.RemoveDeadEnemy(gameObject);
                 modelInstance.gameObject.transform.GetChild(0).GetComponent<Animator>().enabled = false;
@@ -98,13 +101,20 @@ public class EnemySimple : MonoBehaviour
                 break;
 
             case EnemyState.DEAD:
-                if (transform.position.y <= -3)
+                if (rotationCounter < 1)
                 {
-                    SwitchState(EnemyState.INACTIVE);
-                    Destroy(gameObject);
-                    break;
+                    rotationCounter += Time.deltaTime * 2;
+                    modelInstance.transform.Rotate(Vector3.left * Time.deltaTime * 100 * 2);
                 }
-                transform.position = transform.position - Vector3.up * Time.deltaTime * 3;
+                else {
+                    if (transform.position.y <= -3)
+                    {
+                        SwitchState(EnemyState.INACTIVE);
+                        Destroy(gameObject);
+                        break;
+                    }
+                    transform.position = transform.position - Vector3.up * Time.deltaTime * 3;
+                }
                 break;
         }
     }
@@ -160,9 +170,15 @@ public class EnemySimple : MonoBehaviour
 
     void CheckIfDead()
     {
-        if(health <= 0)
+        if (health <= 0)
         {
             SwitchState(EnemyState.DEAD);
         }
+    }
+
+
+    public void SetEnemyMaterial(Material material)
+    {
+        enemyModelHandler.SetMaterial(material);
     }
 }
