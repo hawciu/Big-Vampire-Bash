@@ -28,7 +28,7 @@ public class SaveManager : MonoBehaviour
 
     public void SaveCoinsAmount(int amount)
     {
-
         PlayerPrefs.SetInt("coins", amount);
+        PlayerPrefs.Save();
     }
 }

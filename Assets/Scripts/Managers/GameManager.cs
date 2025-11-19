@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
     public void OnGameOver()
     {
         Time.timeScale = 0;
+        SaveManager.instance.SaveCoinsAmount(coins);
         UIManager.instance.OnGameOver();
     }
 
