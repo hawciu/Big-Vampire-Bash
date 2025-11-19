@@ -10,9 +10,9 @@ public class LevelManager : MonoBehaviour
 
     float bounds = 35;
 
+    float levelStartTime = 0;
 
     int waveNumber = -1;
-    float levelStartTime = 0;
     private float lastWaveTime = 0;
     private readonly float waveDuration = 5;
     private float lastEnemySpawn = 0f;
@@ -37,6 +37,7 @@ public class LevelManager : MonoBehaviour
     {
         SetupWalls();
         waveNumber = 0;
+        lastWaveTime = Time.time;
         levelStartTime = Time.time;
     }
 

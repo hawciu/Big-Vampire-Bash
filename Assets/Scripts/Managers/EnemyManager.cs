@@ -9,7 +9,6 @@ public enum EnemyMaterial
     GRAY,
 }
 
-
 public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager instance;

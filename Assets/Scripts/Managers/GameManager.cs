@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     GameState gameState = GameState.NONE;
 
+
     int coins = 0;
 
     private void Awake()
