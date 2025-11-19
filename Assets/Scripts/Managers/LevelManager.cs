@@ -55,6 +55,8 @@ public class LevelManager : MonoBehaviour
         {
             case GameState.SETUP:
                 UIManager.instance.UpdateWaveText("Przygotowanie poziomu");
+                //coins = SaveManager.instance.LoadCoinsAmount();
+                //UIManager.instance.UpdateCoinsText();
                 break;
 
             case GameState.WAVE:
