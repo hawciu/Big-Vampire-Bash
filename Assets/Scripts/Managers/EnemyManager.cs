@@ -125,4 +125,9 @@ public class EnemyManager : MonoBehaviour
     {
         return gray;
     }
+
+    internal void SpawnMiniboss()
+    {
+        SpawnEnemy(true);
+    }
 }

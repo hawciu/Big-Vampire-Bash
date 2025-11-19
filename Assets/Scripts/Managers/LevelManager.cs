@@ -3,17 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public enum GameState
-{
-    NONE,
-    SETUP,
-    WAVE,
-    MINIBOSS,
-    BOSS,
-    ENDGAME,
-}
-
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
@@ -21,7 +10,6 @@ public class LevelManager : MonoBehaviour
 
     float bounds = 35;
 
-    GameState state = GameState.NONE;
 
     int waveNumber = -1;
     float levelStartTime = 0;
@@ -38,7 +26,6 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update japa
     void Start()
     {
-        SwitchState(GameState.SETUP);
     }
 
     // Update is called once per frame
@@ -47,46 +34,15 @@ public class LevelManager : MonoBehaviour
         GameStateUpdate();
     }
 
-    void SwitchState(GameState targetState)
-    {
-        print("switch state "+targetState.ToString() + " " + waveNumber);
-        state = targetState;
-        switch (state)
-        {
-            case GameState.SETUP:
-                UIManager.instance.UpdateWaveText("Przygotowanie poziomu");
-                //coins = SaveManager.instance.LoadCoinsAmount();
-                //UIManager.instance.UpdateCoinsText();
-                break;
-
-            case GameState.WAVE:
-                UIManager.instance.UpdateWaveText($"=== Fala {waveNumber} ===");
-                lastWaveTime = Time.time;
-                break;
-
-            case GameState.MINIBOSS:
-                UIManager.instance.UpdateWaveText("To jest fala Minibossa!");
-                EnemyManager.instance.SpawnEnemy(true);
-                break;
-
-            case GameState.BOSS:
-                UIManager.instance.UpdateWaveText("To jest fala Bossa!");
-                break;
-
-            case GameState.ENDGAME:
-                UIManager.instance.UpdateWaveText("Wszystkie fale zakoñczone.");
-                break;
-        }
-    }
 
     private void GameStateUpdate()
     {
-        switch (state)
+        switch (GameManager.instance.GetGameState())
         {
             case GameState.SETUP:
                 SetupWalls();
                 SetupLevel();
-                SwitchState(GameState.WAVE);
+                GameManager.instance.SwitchState(GameState.WAVE);
                 break;
 
             case GameState.WAVE:
@@ -99,7 +55,7 @@ public class LevelManager : MonoBehaviour
 
             case GameState.BOSS:
                 //currently skipped
-                SwitchState(GameState.ENDGAME);
+                GameManager.instance.SwitchState(GameState.ENDGAME);
                 break;
 
             case GameState.ENDGAME:
@@ -163,11 +119,11 @@ public class LevelManager : MonoBehaviour
     {
         if (waveNumber >= 5)
         {
-            SwitchState(GameState.ENDGAME);
+            GameManager.instance.SwitchState(GameState.ENDGAME);
         }
         else
         {
-            SwitchState(GameState.WAVE);
+            GameManager.instance.SwitchState(GameState.WAVE);
         }
     }
 
@@ -175,13 +131,14 @@ public class LevelManager : MonoBehaviour
     {
         if (Time.time > lastWaveTime + waveDuration)
         {
-            SwitchState(GameState.MINIBOSS);
+            GameManager.instance.SwitchState(GameState.MINIBOSS);
         }
     }
 
     private void ProgressWave()
     {
         waveNumber++;
+        lastWaveTime = Time.time;
     }
 
     private void EnemySpawnCheck()

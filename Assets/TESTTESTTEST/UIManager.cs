@@ -1,6 +1,7 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class UIManager : MonoBehaviour
 {
@@ -33,9 +34,9 @@ public class UIManager : MonoBehaviour
         waveTextNumber.text = waveText;
     }
 
-    public void UpdateCoinsText(string coinText)
+    public void UpdateCoinsText(int coinsAmount)
     {
-        coinsText.text = "coins: " + coinText;
+        coinsText.text = "coins: " + coinsAmount.ToString();
     }
 
     public void OnIngameMenuButtonPressed()
