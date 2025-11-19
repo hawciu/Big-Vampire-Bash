@@ -8,6 +8,22 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        UpdateControlsInput();
+    }
+
+    private void FixedUpdate()
+    {
+        GetComponent<Rigidbody>().linearVelocity = movementVector.normalized * movementSpeed;
+        if (movementVector != Vector3.zero)
+        {
+            GetComponent<Rigidbody>().MoveRotation(Quaternion.LookRotation(movementVector));
+        }
+    }
+
+    void UpdateControlsInput()
+    {
+        if (!PlayerManager.instance.GetPlayerControlsEnabled()) return;
+        
         movementVector = Vector3.zero;
         if (Input.GetKey(KeyCode.W))
         {
@@ -32,15 +48,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             animator.SetBool("isMoving", true);
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        GetComponent<Rigidbody>().linearVelocity = movementVector.normalized * movementSpeed;
-        if (movementVector != Vector3.zero)
-        {
-            GetComponent<Rigidbody>().MoveRotation(Quaternion.LookRotation(movementVector));
         }
     }
 }

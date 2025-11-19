@@ -14,6 +14,8 @@ public class PlayerManager : MonoBehaviour
 
     GameObject playerInstance;
 
+    bool playerControlsEnabled = false;
+
     private void Awake()
     {
         instance = this;
@@ -22,14 +24,18 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerInstance = Instantiate(playerPrefab);
-        Instantiate(playerCamera);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    internal void SpawnPlayer()
+    {
+        playerInstance = Instantiate(playerPrefab);
+        Instantiate(playerCamera);
     }
 
     public GameObject GetPlayer()
@@ -52,5 +58,15 @@ public class PlayerManager : MonoBehaviour
     internal void DamagePlayer()
     {
         GameManager.instance.OnGameOver();
+    }
+
+    public void EnablePlayerControls(bool value)
+    {
+        playerControlsEnabled = value;
+    }
+
+    public bool GetPlayerControlsEnabled()
+    {
+        return playerControlsEnabled;
     }
 }

@@ -17,8 +17,6 @@ public class GameManager : MonoBehaviour
 
     GameState gameState = GameState.NONE;
 
-    public GameObject player;
-
     int coins = 0;
 
     private void Awake()
@@ -32,6 +30,10 @@ public class GameManager : MonoBehaviour
     {
         SwitchState(GameState.SETUP);
     }
+    private void Update()
+    {
+        GameStateUpdate();
+    }
 
     public void SwitchState(GameState targetState)
     {
@@ -40,8 +42,7 @@ public class GameManager : MonoBehaviour
         {
             case GameState.SETUP:
                 UIManager.instance.UpdateWaveText("Przygotowanie poziomu");
-                coins = SaveManager.instance.LoadCoinsAmount();
-                UIManager.instance.UpdateCoinsText(coins);
+                GameSetup();
                 break;
 
             case GameState.WAVE:
@@ -63,9 +64,42 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public GameObject GetPlayer()
+    private void GameStateUpdate()
     {
-        return player;
+        switch (GameManager.instance.GetGameState())
+        {
+            case GameState.SETUP:
+                break;
+
+            case GameState.WAVE:
+                LevelManager.instance.WaveUpdate();
+                break;
+
+            case GameState.MINIBOSS:
+                LevelManager.instance.MinibossWaveUpdate();
+                break;
+
+            case GameState.BOSS:
+                //currently skipped
+                GameManager.instance.SwitchState(GameState.ENDGAME);
+                break;
+
+            case GameState.ENDGAME:
+                break;
+        }
+    }
+
+    void GameSetup()
+    {
+        PlayerManager.instance.SpawnPlayer();
+        PlayerManager.instance.EnablePlayerControls(true);
+
+        LevelManager.instance.SetupLevel();
+
+        coins = SaveManager.instance.LoadCoinsAmount();
+        UIManager.instance.UpdateCoinsText(coins);
+
+        GameManager.instance.SwitchState(GameState.WAVE);
     }
 
     internal void OnCoinPickup()

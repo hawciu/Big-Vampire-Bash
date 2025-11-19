@@ -31,43 +31,13 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameStateUpdate();
     }
 
-
-    private void GameStateUpdate()
+    public void SetupLevel()
     {
-        switch (GameManager.instance.GetGameState())
-        {
-            case GameState.SETUP:
-                SetupWalls();
-                SetupLevel();
-                GameManager.instance.SwitchState(GameState.WAVE);
-                break;
-
-            case GameState.WAVE:
-                WaveUpdate();
-                break;
-
-            case GameState.MINIBOSS:
-                MinibossWaveUpdate();
-                break;
-
-            case GameState.BOSS:
-                //currently skipped
-                GameManager.instance.SwitchState(GameState.ENDGAME);
-                break;
-
-            case GameState.ENDGAME:
-                break;
-        }
-    }
-
-    void SetupLevel()
-    {
+        SetupWalls();
         waveNumber = 0;
         levelStartTime = Time.time;
-        UIManager.instance.UpdateWaveText($"=== Fala {waveNumber} ===");
     }
 
     void SetupWalls()
@@ -105,12 +75,12 @@ public class LevelManager : MonoBehaviour
         EnemySpawnCheck();
     }
 
-    void MinibossWaveUpdate()
+    public void MinibossWaveUpdate()
     {
         EnemySpawnCheck();
     }
 
-    void BossWaveUpdate()
+    public void BossWaveUpdate()
     {
 
     }
