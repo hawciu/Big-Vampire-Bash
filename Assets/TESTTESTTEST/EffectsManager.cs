@@ -3,6 +3,8 @@ using UnityEngine;
 public enum ParticleType
 {
     ARROW_EXPLOSION,
+    PICKUP_PICKUP,
+
 
 }
 
