@@ -46,7 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyModelHandler
   hatTargetObject: {fileID: 2356391334129358797}
-  model: {fileID: 7550091048106801519}
+  body: {fileID: 6797481770891354313}
+  outline: {fileID: 1584614454926428680}
 --- !u!1001 &5722513994187226797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -182,10 +183,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7506485177736134929, guid: 7785b621eaebce441b38c5365750c477, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 96ffea0abc7b3a147a77d36caf233bc5, type: 2}
     - target: {fileID: -1526964690268444965, guid: 7785b621eaebce441b38c5365750c477, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 96ffea0abc7b3a147a77d36caf233bc5, type: 2}
+    - target: {fileID: -1206874426333947015, guid: 7785b621eaebce441b38c5365750c477, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 66fed7e0d4eca784bbe68aab999e6801, type: 2}
     - target: {fileID: 919132149155446097, guid: 7785b621eaebce441b38c5365750c477, type: 3}
       propertyPath: m_Name
       value: lady
@@ -205,19 +214,24 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 21863192655937345}
   m_SourcePrefab: {fileID: 100100000, guid: 7785b621eaebce441b38c5365750c477, type: 3}
+--- !u!1 &1584614454926428680 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -669204347148058365, guid: 7785b621eaebce441b38c5365750c477, type: 3}
+  m_PrefabInstance: {fileID: 7154861096694778635}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2644854905936908825 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5187942005934692626, guid: 7785b621eaebce441b38c5365750c477, type: 3}
   m_PrefabInstance: {fileID: 7154861096694778635}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6797481770891354313 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4819223349682164798, guid: 7785b621eaebce441b38c5365750c477, type: 3}
+  m_PrefabInstance: {fileID: 7154861096694778635}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7260248172574567648 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7785b621eaebce441b38c5365750c477, type: 3}
-  m_PrefabInstance: {fileID: 7154861096694778635}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7550091048106801519 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: 7785b621eaebce441b38c5365750c477, type: 3}
   m_PrefabInstance: {fileID: 7154861096694778635}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8037312984836224602 stripped

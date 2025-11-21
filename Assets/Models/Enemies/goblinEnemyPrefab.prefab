@@ -46,7 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyModelHandler
   hatTargetObject: {fileID: 3112026860966879552}
-  model: {fileID: 5707673921222976322}
+  body: {fileID: 8766104226040298212}
+  outline: {fileID: 3607201391469416485}
 --- !u!1001 &4952227570956603686
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -99,10 +100,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7506485177736134929, guid: ad6596a39e9f55146a9bd457c0548e50, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 96ffea0abc7b3a147a77d36caf233bc5, type: 2}
     - target: {fileID: -1526964690268444965, guid: ad6596a39e9f55146a9bd457c0548e50, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 96ffea0abc7b3a147a77d36caf233bc5, type: 2}
+    - target: {fileID: -1206874426333947015, guid: ad6596a39e9f55146a9bd457c0548e50, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 66fed7e0d4eca784bbe68aab999e6801, type: 2}
     - target: {fileID: 919132149155446097, guid: ad6596a39e9f55146a9bd457c0548e50, type: 3}
       propertyPath: m_Name
       value: goblin
@@ -125,6 +134,11 @@ PrefabInstance:
 --- !u!4 &236049172004014132 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5187942005934692626, guid: ad6596a39e9f55146a9bd457c0548e50, type: 3}
+  m_PrefabInstance: {fileID: 4952227570956603686}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3607201391469416485 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -669204347148058365, guid: ad6596a39e9f55146a9bd457c0548e50, type: 3}
   m_PrefabInstance: {fileID: 4952227570956603686}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &4842321508653004493 stripped
@@ -159,9 +173,9 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &5707673921222976322 stripped
+--- !u!1 &8766104226040298212 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: ad6596a39e9f55146a9bd457c0548e50, type: 3}
+  m_CorrespondingSourceObject: {fileID: -4819223349682164798, guid: ad6596a39e9f55146a9bd457c0548e50, type: 3}
   m_PrefabInstance: {fileID: 4952227570956603686}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4965714153379088416

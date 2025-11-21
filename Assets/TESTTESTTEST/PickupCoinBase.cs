@@ -7,6 +7,7 @@ public class PickupCoinBase : MonoBehaviour, IPickupEffect
     public void Activate()
     {
         GameManager.instance.OnCoinPickup();
+        EffectsManager.instance.SpawnAnEffect(ParticleType.COIN_PICKUP, transform.position);
         Destroy(transform.parent.gameObject);
     }
 

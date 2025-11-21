@@ -7,6 +7,8 @@ public enum EnemyMaterial
     ORANGE,
     BLUE,
     GRAY,
+    OUTLINE_BLACK,
+    OUTLINE_GOLD,
 }
 
 public class EnemyManager : MonoBehaviour

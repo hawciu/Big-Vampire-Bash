@@ -46,7 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyModelHandler
   hatTargetObject: {fileID: 2199460349385710399}
-  model: {fileID: 2466084770714359949}
+  body: {fileID: 5391178512985261336}
+  outline: {fileID: 106256390079541209}
 --- !u!1001 &8169508624043668063
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -190,6 +191,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 66fed7e0d4eca784bbe68aab999e6801, type: 2}
+    - target: {fileID: -1206874426333947015, guid: ca92f794761c9094aa1a89b71419f9eb, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 66fed7e0d4eca784bbe68aab999e6801, type: 2}
     - target: {fileID: 919132149155446097, guid: ca92f794761c9094aa1a89b71419f9eb, type: 3}
       propertyPath: m_Name
       value: guy
@@ -205,14 +210,19 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8789720893524014662}
   m_SourcePrefab: {fileID: 100100000, guid: ca92f794761c9094aa1a89b71419f9eb, type: 3}
---- !u!1 &2466084770714359949 stripped
+--- !u!1 &106256390079541209 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: -3029032871660112297, guid: ca92f794761c9094aa1a89b71419f9eb, type: 3}
+  m_CorrespondingSourceObject: {fileID: -669204347148058365, guid: ca92f794761c9094aa1a89b71419f9eb, type: 3}
   m_PrefabInstance: {fileID: 8633397937408945882}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &3472478081678653384 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5187942005934692626, guid: ca92f794761c9094aa1a89b71419f9eb, type: 3}
+  m_PrefabInstance: {fileID: 8633397937408945882}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5391178512985261336 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4819223349682164798, guid: ca92f794761c9094aa1a89b71419f9eb, type: 3}
   m_PrefabInstance: {fileID: 8633397937408945882}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &8089947982182795569 stripped

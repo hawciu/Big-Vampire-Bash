@@ -46,7 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyModelHandler
   hatTargetObject: {fileID: 8418740658038992661}
-  model: {fileID: 6081708458167846363}
+  body: {fileID: 7130429625669934205}
+  outline: {fileID: 2980380352511522492}
 --- !u!1001 &1949074858031744629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -194,10 +195,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7506485177736134929, guid: dc1504e0c7dcc5a42a75f210968217f2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 96ffea0abc7b3a147a77d36caf233bc5, type: 2}
     - target: {fileID: -1526964690268444965, guid: dc1504e0c7dcc5a42a75f210968217f2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 96ffea0abc7b3a147a77d36caf233bc5, type: 2}
+    - target: {fileID: -1206874426333947015, guid: dc1504e0c7dcc5a42a75f210968217f2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 66fed7e0d4eca784bbe68aab999e6801, type: 2}
     - target: {fileID: 919132149155446097, guid: dc1504e0c7dcc5a42a75f210968217f2, type: 3}
       propertyPath: m_Name
       value: pig
@@ -220,6 +229,11 @@ PrefabInstance:
 --- !u!4 &1735495364024725165 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5187942005934692626, guid: dc1504e0c7dcc5a42a75f210968217f2, type: 3}
+  m_PrefabInstance: {fileID: 6911602740784756671}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2980380352511522492 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -669204347148058365, guid: dc1504e0c7dcc5a42a75f210968217f2, type: 3}
   m_PrefabInstance: {fileID: 6911602740784756671}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &5993054991858420462 stripped
@@ -249,13 +263,13 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &6081708458167846363 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: dc1504e0c7dcc5a42a75f210968217f2, type: 3}
-  m_PrefabInstance: {fileID: 6911602740784756671}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6368172816162492500 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dc1504e0c7dcc5a42a75f210968217f2, type: 3}
+  m_PrefabInstance: {fileID: 6911602740784756671}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7130429625669934205 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4819223349682164798, guid: dc1504e0c7dcc5a42a75f210968217f2, type: 3}
   m_PrefabInstance: {fileID: 6911602740784756671}
   m_PrefabAsset: {fileID: 0}
