@@ -2,15 +2,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public enum EnemyMaterial
-{
-    ORANGE,
-    BLUE,
-    GRAY,
-    OUTLINE_BLACK,
-    OUTLINE_GOLD,
-}
-
 public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager instance;
@@ -64,6 +55,13 @@ public class EnemyManager : MonoBehaviour
         if (ifBoss)
         {
             simpleEnemy.MakeBoss();
+        }
+        else
+        {
+            if(Random.Range(0,10) == 5)
+            {
+                simpleEnemy.MakeGolden();
+            }
         }
     }
 

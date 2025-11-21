@@ -6,9 +6,27 @@ public class PickupManager : MonoBehaviour
 
     public GameObject pickupPrefab;
     public GameObject[] effectPrefabs;
+    public GameObject pickupCoinPrefab;
     public float spawnCooldown = 5f;
 
     private float lastSpawnTime = 0f;
+
+    internal void SpawnGoldCoin(Vector3 position)
+    {
+        GameObject pickup = Instantiate(pickupPrefab, position, Quaternion.identity);
+
+        if (effectPrefabs != null && effectPrefabs.Length > 0)
+        {
+            GameObject effectInstance = Instantiate(pickupCoinPrefab, pickup.transform);
+            effectInstance.transform.localPosition = Vector3.zero;
+
+            PickupBaseController controller = pickup.GetComponent<PickupBaseController>();
+            if (controller != null)
+            {
+                controller.effectChild = effectInstance;
+            }
+        }
+    }
 
     private void Awake()
     {

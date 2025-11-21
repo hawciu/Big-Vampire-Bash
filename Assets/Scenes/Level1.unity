@@ -459,6 +459,7 @@ Transform:
   - {fileID: 1152041451}
   - {fileID: 528062498}
   - {fileID: 1226708105}
+  - {fileID: 845871154}
   - {fileID: 539577746}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1122,7 +1123,7 @@ MonoBehaviour:
   - {fileID: 6641528775012647366, guid: 3dfb80d239f11a64e95e55403e9c7862, type: 3}
   - {fileID: 3646686557200880696, guid: a127408948f4d184a96a77bedfd0e48d, type: 3}
   - {fileID: 6856928788807056802, guid: 37dbe94a2925ac541bfe76f59f8d378e, type: 3}
-  - {fileID: 5534405214275053350, guid: 82ab5887f7c1bd04e9b9e2bd9dca5af5, type: 3}
+  pickupCoinPrefab: {fileID: 5534405214275053350, guid: 82ab5887f7c1bd04e9b9e2bd9dca5af5, type: 3}
   spawnCooldown: 1
 --- !u!1 &811602171
 GameObject:
@@ -1257,6 +1258,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 811602171}
   m_CullTransparentMesh: 1
+--- !u!1 &845871153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 845871154}
+  - component: {fileID: 845871155}
+  m_Layer: 0
+  m_Name: MaterialManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &845871154
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845871153}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1270.1122, y: -500, z: 5.44115}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 386879194}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &845871155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845871153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53dc6bf84940cec4f95e6217d878099d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MaterialManager
+  entries:
+  - type: 0
+    mat: {fileID: 2100000, guid: 66fed7e0d4eca784bbe68aab999e6801, type: 2}
+  - type: 1
+    mat: {fileID: 2100000, guid: 610a39be515df5a4fb300ec4b7e165bb, type: 2}
+  - type: 2
+    mat: {fileID: 2100000, guid: 7a926f978fcde0a4d92a6b6fa3a6f29b, type: 2}
+  - type: 3
+    mat: {fileID: 2100000, guid: 96ffea0abc7b3a147a77d36caf233bc5, type: 2}
+  - type: 4
+    mat: {fileID: 2100000, guid: 5067b188977578f44a67792d7995b7e2, type: 2}
 --- !u!1 &925767465
 GameObject:
   m_ObjectHideFlags: 0

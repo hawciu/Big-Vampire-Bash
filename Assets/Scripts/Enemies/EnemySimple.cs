@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public enum EnemyState
@@ -21,6 +22,7 @@ public class EnemySimple : MonoBehaviour
     CapsuleCollider selfCollider;
 
     float rotationCounter = 0;
+    bool isGolden = false;
 
     public void Setup(EnemyDataScriptableObject data)
     {
@@ -76,6 +78,7 @@ public class EnemySimple : MonoBehaviour
                 modelInstance.gameObject.transform.GetChild(0).GetComponent<Animator>().enabled = false;
                 GetComponent<Rigidbody>().isKinematic = true;
                 selfCollider.enabled = false;
+                if (isGolden) PickupManager.instance.SpawnGoldCoin(transform.position);
                 break;
         }
     }
@@ -180,5 +183,11 @@ public class EnemySimple : MonoBehaviour
     public void SetEnemyMaterial(Material material)
     {
         enemyModelHandler.SetMaterial(material);
+    }
+
+    internal void MakeGolden()
+    {
+        isGolden = true;
+        enemyModelHandler.SetMaterialOutline(MaterialManager.instance.GetMaterial(EnemyMaterialType.OUTLINE_GOLD));
     }
 }
