@@ -135,7 +135,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeteorEffect
   pickupModel: {fileID: 1095763065954433950}
-  meteorPrefab: {fileID: 3646686557200880696, guid: 4ea75681a8a6b874185f79a461e0d0e3, type: 3}
-  meteorCount: 10
-  spawnHeight: 25
+  meteorPrefab: {fileID: 7957833072274404953, guid: b0ac1ef56bc036043919f6c9daf48bec, type: 3}
+  meteorCount: 20
+  spawnHeight: 5
   interval: 0.3
+  spawnRadius: 10
