@@ -14,6 +14,13 @@ public enum PortalState
     MOVE_CAMERA_BACK,
 }
 
+public enum PortalFunction
+{
+    ENTER_NOZOOMIN,
+    ENTER,
+    LEAVE,
+}
+
 public class PortalScript : MonoBehaviour
 {
     public Camera mainCamera;
@@ -27,19 +34,25 @@ public class PortalScript : MonoBehaviour
     float openingCounter = 0f;
     float waitTimeAfterOpening = 0.5f;
     float cameraTransitionCounter = 0f;
+    float characterTransitionCounter = 0f;
+    float characterStartHeight;
     Vector3 cameraTargetPosition;
     Quaternion cameraTargetRotation;
     Vector3 startCameraTargetPosition;
     Quaternion startCameraTargetRotation;
     public GameObject portalCameraTarget;
     Vector3 circleTargetScale = new Vector3(4,0,4);
+    float characterCurrentHeight;
     float characterTargetHeight;
+    float characterHeightLow = -2.5f;
+    float characterHeightHigh = 1.4f;
     public ParticleSystem sparks;
     public ParticleSystem portalLines;
     public ParticleSystem end;
-    public bool enteringPortal = false;
     bool rotate = false;
-    bool skipMoveTo = false;
+    bool noZoomIn = false;
+    bool noZoomOut = false;
+    public PortalFunction portalFunction = PortalFunction.ENTER_NOZOOMIN;
 
     PortalState state = PortalState.NONE;
 
@@ -48,7 +61,7 @@ public class PortalScript : MonoBehaviour
     {
         //to remove upon implementation
         mainCamera = Camera.main;
-        SetupPortal(guy, mainCamera);
+        SetupPortal(guy, mainCamera, portalFunction);
     }
 
     // Update is called once per frame
@@ -57,27 +70,46 @@ public class PortalScript : MonoBehaviour
         UpdatePortalState();
     }
 
-    public void SetupPortal(GameObject guyTarget, Camera targetCamera, bool enteringPorta = true, bool skipMoveTo = false)
+    public void SetupPortal(GameObject guyTarget, Camera targetCamera, PortalFunction function)
     {
         guy = guyTarget;
         mainCamera = targetCamera;
-        this.skipMoveTo = skipMoveTo;
-        if (enteringPortal)
+        portalFunction = function;
+        switch (portalFunction)
         {
-            cinematicCamera.transform.position = mainCamera.transform.position;
-            cinematicCamera.transform.rotation = mainCamera.transform.rotation;
-            cameraTargetPosition = portalCameraTarget.transform.position;
-            cameraTargetRotation = portalCameraTarget.transform.rotation;
+            case PortalFunction.ENTER_NOZOOMIN:
+                noZoomIn = true;
+                noZoomOut = true;
+                startCameraTargetPosition = mainCamera.transform.position;
+                startCameraTargetRotation = mainCamera.transform.rotation;
+                cameraTargetPosition = portalCameraTarget.transform.position;
+                cameraTargetRotation = portalCameraTarget.transform.rotation;
+                cinematicCamera.transform.position = portalCameraTarget.transform.position;
+                cinematicCamera.transform.rotation = portalCameraTarget.transform.rotation;
+                break;
+
+            case PortalFunction.ENTER:
+                noZoomIn = false;
+                noZoomOut = true;
+                startCameraTargetPosition = mainCamera.transform.position;
+                startCameraTargetRotation = mainCamera.transform.rotation;
+                cameraTargetPosition = portalCameraTarget.transform.position;
+                cameraTargetRotation = portalCameraTarget.transform.rotation;
+                cinematicCamera.transform.position = mainCamera.transform.position;
+                cinematicCamera.transform.rotation = mainCamera.transform.rotation;
+                break;
+
+            case PortalFunction.LEAVE:
+                noZoomIn = true;
+                noZoomOut = false;
+                startCameraTargetPosition = portalCameraTarget.transform.position;
+                startCameraTargetRotation = portalCameraTarget.transform.rotation;
+                cameraTargetPosition = mainCamera.transform.position;
+                cameraTargetRotation = mainCamera.transform.rotation;
+                cinematicCamera.transform.position = portalCameraTarget.transform.position;
+                cinematicCamera.transform.rotation = portalCameraTarget.transform.rotation;
+                break;
         }
-        else
-        {
-            cinematicCamera.transform.position = portalCameraTarget.transform.position;
-            cinematicCamera.transform.rotation = portalCameraTarget.transform.rotation;
-            cameraTargetPosition = mainCamera.transform.position;
-            cameraTargetRotation = mainCamera.transform.rotation;
-        }
-        startCameraTargetPosition = portalCameraTarget.transform.position;
-        startCameraTargetRotation = portalCameraTarget.transform.rotation;
         ActivatePortal();
     }
 
@@ -86,15 +118,19 @@ public class PortalScript : MonoBehaviour
         mainCamera.enabled = false;
         cinematicCamera.enabled = true;
         rotate = true;
-        sparks.Play();
-        if (guy != null)
+        characterCurrentHeight = guy.transform.position.y;
+        if (portalFunction == PortalFunction.LEAVE)
         {
-            characterTargetHeight = 1.4f;
+            guy.transform.position = new Vector3(guy.transform.position.x, characterHeightLow, guy.transform.position.z);
+            characterTargetHeight = characterHeightHigh;
         }
         else
         {
-            Debug.LogWarning("START portal character guy not set");
+            guy.transform.position = new Vector3(guy.transform.position.x, characterHeightHigh, guy.transform.position.z);
+            characterTargetHeight = characterHeightLow;
         }
+        characterStartHeight = guy.transform.position.y;
+        sparks.Play();
         state = PortalState.MOVE_CAMERA_TO_PORTAL;
     }
 
@@ -107,8 +143,9 @@ public class PortalScript : MonoBehaviour
                 break;
 
             case PortalState.MOVE_CAMERA_TO_PORTAL:
-                if (skipMoveTo || MoveCameraLerp())
+                if (noZoomIn || MoveCameraLerp())
                 {
+                    cameraTransitionCounter = 0;
                     state = PortalState.CIRCLING;
                 }
                 break;
@@ -140,20 +177,12 @@ public class PortalScript : MonoBehaviour
             case PortalState.TELEPORTING:
                 waitTimeAfterOpening -= Time.deltaTime;
                 if (waitTimeAfterOpening > 0) return;
-
-                if (characterTargetHeight > -2.5f)
-                {
-                    characterTargetHeight -= Time.deltaTime * 5;
-                    if (guy != null)
-                    {
-                        guy.transform.position = Vector3.up * characterTargetHeight;
-                    }
-                    else
-                    {
-                        Debug.LogWarning("PortalState.TELEPORTING portal character guy not set");
-                    }
-                }
-                else
+                characterTransitionCounter += Time.deltaTime * 3;
+                if(characterTransitionCounter > 1) characterTransitionCounter = 1;
+                guy.transform.position = new Vector3(guy.transform.position.x,
+                    Mathf.Lerp(characterStartHeight, characterTargetHeight, characterTransitionCounter),
+                    guy.transform.position.z);
+                if (characterTransitionCounter >= 1)
                 {
                     portalLines.Stop();
                     state = PortalState.CLOSING; 
@@ -168,8 +197,9 @@ public class PortalScript : MonoBehaviour
                 break;
 
             case PortalState.MOVE_CAMERA_BACK:
-                if (MoveCameraLerp())
+                if (noZoomOut || MoveCameraLerp())
                 {
+                    cameraTransitionCounter = 0;
                     state = PortalState.NONE;
                     PortalActionCompleted();
                 }
@@ -187,6 +217,7 @@ public class PortalScript : MonoBehaviour
 
     void PortalActionCompleted()
     {
+        rotate = false;
 
     }
 }

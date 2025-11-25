@@ -172,106 +172,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1032435294}
     - target: {fileID: 970266434799848175, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-      propertyPath: targetCamera
+      propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 170605780}
+      objectReference: {fileID: 1159044877}
     - target: {fileID: 970266434799848175, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-      propertyPath: cinematicCamera
-      value: 
-      objectReference: {fileID: 170605780}
-    - target: {fileID: 970266434799848175, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-      propertyPath: portalCameraTarget
-      value: 
-      objectReference: {fileID: 209643627}
-    - target: {fileID: 970266434799848175, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-      propertyPath: portalCameraTransform
-      value: 
-      objectReference: {fileID: 209643628}
-    - target: {fileID: 1072021958052749519, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2385411699861001512, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.15178318
-      objectReference: {fileID: 0}
-    - target: {fileID: 2385411699861001512, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.9013271
-      objectReference: {fileID: 0}
-    - target: {fileID: 2385411699861001512, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -4.613199
-      objectReference: {fileID: 0}
-    - target: {fileID: 2385411699861001512, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.8959463
-      objectReference: {fileID: 0}
-    - target: {fileID: 2385411699861001512, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.44412175
-      objectReference: {fileID: 0}
-    - target: {fileID: 2385411699861001512, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.005391192
-      objectReference: {fileID: 0}
-    - target: {fileID: 2385411699861001512, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.0026524833
-      objectReference: {fileID: 0}
-    - target: {fileID: 4465838244752333422, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 5583021394924671126, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-      propertyPath: m_Name
-      value: CinematicCamera
-      objectReference: {fileID: 0}
-    - target: {fileID: 5583021394924671126, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6423117346430200651, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.02
+      propertyPath: portalFunction
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7471207955577450599, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
       propertyPath: m_Name
       value: PortalPrefab
       objectReference: {fileID: 0}
-    - target: {fileID: 7471207955577450599, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8008809714165796818, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8116186016452990190, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-      propertyPath: m_Name
-      value: PortalCameraTarget
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5951643837892287527, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
---- !u!20 &170605780 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 8008809714165796818, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-  m_PrefabInstance: {fileID: 170605779}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &209643627 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8116186016452990190, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-  m_PrefabInstance: {fileID: 170605779}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &209643628 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8059155868577179225, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
-  m_PrefabInstance: {fileID: 170605779}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &691641079
 PrefabInstance:
   m_ObjectHideFlags: 0
