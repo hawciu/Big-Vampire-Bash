@@ -18,9 +18,11 @@ public class PortalScript : MonoBehaviour
     float speed = 1f;
     float duration = 0.2f;
     float openingCounter = 0f;
+    float waitTimeAfterOpening = 1f;
     Vector3 circleTargetScale = new Vector3(4,0,4);
     float characterTargetHeight;
     public ParticleSystem sparks;
+    public ParticleSystem portalLines;
     public ParticleSystem end;
 
     public bool go = true;
@@ -75,11 +77,14 @@ public class PortalScript : MonoBehaviour
                 }
                 else
                 {
+                    portalLines.Play();
                     state = PortalState.TELEPORTING;
                 }
                     break;
 
             case PortalState.TELEPORTING:
+                waitTimeAfterOpening -= Time.deltaTime;
+                if (waitTimeAfterOpening > 0) return;
                 if (characterTargetHeight > -2.5f)
                 {
                     characterTargetHeight -= Time.deltaTime * 5;
@@ -94,6 +99,7 @@ public class PortalScript : MonoBehaviour
                 }
                 else
                 {
+                    portalLines.Stop();
                     state = PortalState.CLOSING; 
                 }
                 break;
