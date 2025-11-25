@@ -18,7 +18,8 @@ public class PortalScript : MonoBehaviour
     float speed = 1f;
     float duration = 0.2f;
     float openingCounter = 0f;
-    Vector3 targetScale = new Vector3(4,0,4);
+    Vector3 circleTargetScale = new Vector3(4,0,4);
+    float characterTargetHeight;
     public ParticleSystem sparks;
     public ParticleSystem end;
 
@@ -31,6 +32,14 @@ public class PortalScript : MonoBehaviour
     {
         state = PortalState.CIRCLING;
         sparks.Play();
+        if(guy != null)
+        {
+            characterTargetHeight = guy.transform.position.y;
+        }
+        else
+        {
+            Debug.LogWarning("START portal character guy not set");
+        }
     }
 
     // Update is called once per frame
@@ -62,7 +71,7 @@ public class PortalScript : MonoBehaviour
                 if (openingCounter < duration)
                 {
                     openingCounter += Time.deltaTime;
-                    circle.transform.localScale = targetScale * openingCounter / duration + new Vector3(0, 0.01f, 0);
+                    circle.transform.localScale = circleTargetScale * openingCounter / duration + new Vector3(0, 0.01f, 0);
                 }
                 else
                 {
@@ -71,9 +80,17 @@ public class PortalScript : MonoBehaviour
                     break;
 
             case PortalState.TELEPORTING:
-                if (guy.transform.position.y > -2.5f)
+                if (characterTargetHeight > -2.5f)
                 {
-                    guy.transform.position += Vector3.up * -Time.deltaTime * 5;
+                    characterTargetHeight -= Time.deltaTime * 5;
+                    if (guy != null)
+                    {
+                        guy.transform.position = Vector3.up * characterTargetHeight;
+                    }
+                    else
+                    {
+                        Debug.LogWarning("PortalState.TELEPORTING portal character guy not set");
+                    }
                 }
                 else
                 {
