@@ -1,10 +1,5 @@
 using UnityEngine;
 
-public enum PlayerType
-{
-    BOY,
-    ROBOT,
-}
 
 [CreateAssetMenu]
 public class PlayerDataScriptableObject : ScriptableObject

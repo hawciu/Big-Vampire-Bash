@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -4481571963125687860}
   - component: {fileID: 4913780653218220553}
   m_Layer: 6
-  m_Name: PlayerPrefab
+  m_Name: PlayerMainPrefab
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  rb: {fileID: 0}
+  rb: {fileID: 7444541441824042559}
 --- !u!54 &7444541441824042559
 Rigidbody:
   m_ObjectHideFlags: 0

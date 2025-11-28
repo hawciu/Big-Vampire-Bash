@@ -1,16 +1,6 @@
 using System;
 using UnityEngine;
 
-public enum GameState
-{
-    NONE,
-    SETUP,
-    WAVE,
-    MINIBOSS,
-    BOSS,
-    ENDGAME,
-}
-
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;

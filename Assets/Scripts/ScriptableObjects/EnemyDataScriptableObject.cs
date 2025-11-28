@@ -1,13 +1,5 @@
 using UnityEngine;
 
-public enum EnemyType
-{
-    GOBLIN,
-    GUY,
-    LADY,
-    PIG,
-    WRAITH
-}
 
 [CreateAssetMenu]
 public class EnemyDataScriptableObject : ScriptableObject

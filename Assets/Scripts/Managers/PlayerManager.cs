@@ -7,13 +7,13 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
 
-    public GameObject playerPrefab;
+    public GameObject playerMainPrefab;
     public GameObject playerCamera;
 
     float playerShotCooldown = 2f;
 
     GameObject playerInstance;
-    PlayerModelHandler playerModellHandler;
+    PlayerModelHandler playerModelHandler;
     PlayerController playerController;
 
     bool playerControlsEnabled = false;
@@ -38,10 +38,11 @@ public class PlayerManager : MonoBehaviour
     internal void SpawnPlayer()
     {
         //instantiate from enemy database manager
-        playerInstance = Instantiate(playerPrefab);
-        playerModellHandler = playerInstance.GetComponent<PlayerModelHandler>();
+        playerInstance = Instantiate(playerMainPrefab);
         playerController = playerInstance.GetComponent<PlayerController>();
-        playerController.SetPlayerAnimator(playerModellHandler.GetAnimator());
+
+        playerModelHandler = playerInstance.GetComponent<PlayerModelHandler>();
+        playerController.SetPlayerAnimator(playerModelHandler.GetAnimator());
 
         Instantiate(playerCamera);
     }
