@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b0472a03f79d004898a44a76c1b6ceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveManager
+  saveObject: {fileID: 11400000, guid: 334666ed4e1525c4eb38cf1274f21550, type: 2}

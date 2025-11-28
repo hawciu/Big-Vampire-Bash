@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33ecc2dcd4b133546bf4c6c02269e8e3, type: 3}
   m_Name: goblinSO
   m_EditorClassIdentifier: 
+  enemyName: 
   enemyType: 0
-  enemyPrefab: {fileID: 5017415203613120655, guid: 7f33efcf8b62f2c4ba3c03b7ac8b67af, type: 3}
+  enemyModelPrefab: {fileID: 5017415203613120655, guid: 7f33efcf8b62f2c4ba3c03b7ac8b67af, type: 3}
   moveSpeed: 3
+  health: 1

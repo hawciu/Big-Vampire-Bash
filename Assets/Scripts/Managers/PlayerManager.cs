@@ -37,11 +37,10 @@ public class PlayerManager : MonoBehaviour
 
     internal void SpawnPlayer()
     {
-        //instantiate from enemy database manager
         playerInstance = Instantiate(playerMainPrefab);
         playerController = playerInstance.GetComponent<PlayerController>();
-
-        playerModelHandler = playerInstance.GetComponent<PlayerModelHandler>();
+        GameObject tmp = Instantiate(EnemyDatabaseManager.instance.GetPlayerByType(SaveManager.instance.GetPlayerChoiceType()).playerModelPrefab, playerInstance.transform);
+        playerModelHandler = tmp.GetComponent<PlayerModelHandler>();
         playerController.SetPlayerAnimator(playerModelHandler.GetAnimator());
 
         Instantiate(playerCamera);

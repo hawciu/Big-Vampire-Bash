@@ -66,3 +66,9 @@ public enum PortalFunction
     ENTER,
     LEAVE,
 }
+
+public enum LevelType
+{
+    LEVEL1,
+    LEVEL2,
+}

@@ -8,7 +8,6 @@ public class PlayerModelHandler : MonoBehaviour
 
     internal Animator GetAnimator()
     {
-        print("get animator " + animator);
         return animator;
     }
 

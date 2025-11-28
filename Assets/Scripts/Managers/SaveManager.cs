@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class SaveManager : MonoBehaviour
@@ -27,16 +28,19 @@ public class SaveManager : MonoBehaviour
     {
         if (saveObject.loadedOnce) return;
         saveObject.loadedOnce = true;
+        LoadPlayerChoice();
+        LoadLevelChoice();
         //load saves at game start
     }
 
-    public int LoadCoinsAmount()
+    public void LoadCoinsAmount()
     {
-        return PlayerPrefs.GetInt("coins");
+        saveObject.coinAmount = PlayerPrefs.GetInt("coins");
     }
 
     public void SaveCoinsAmount(int amount)
     {
+        saveObject.coinAmount = amount;
         PlayerPrefs.SetInt("coins", amount);
         PlayerPrefs.Save();
     }
@@ -44,25 +48,37 @@ public class SaveManager : MonoBehaviour
     public void SavePlayerChoice(PlayerType playerType)
     {
         PlayerPrefs.SetInt("playerChoice", (int)playerType);
+        PlayerPrefs.Save();
     }
 
-    public PlayerType LoadPlayerChoice()
+    public void LoadPlayerChoice()
     {
-        return (PlayerType)PlayerPrefs.GetInt("playerChoice");
+        saveObject.levelChoice = (LevelType)PlayerPrefs.GetInt("levelChoice");
     }
 
     public void SaveLevelChoice(LevelType levelType)
     {
         PlayerPrefs.SetInt("levelChoice", (int)levelType);
+        PlayerPrefs.Save();
     }
 
-    public LevelType LoadLevelChoice()
+    public void LoadLevelChoice()
     {
-        return (LevelType)PlayerPrefs.GetInt("levelChoice");
+        saveObject.levelChoice = (LevelType)PlayerPrefs.GetInt("levelChoice");
     }
 
     public void Activate()
     {
         print("save manager activation");
+    }
+
+    internal int GetCoinsAmount()
+    {
+        return saveObject.coinAmount;
+    }
+
+    public PlayerType GetPlayerChoiceType()
+    {
+        return saveObject.PlayerChoice;
     }
 }

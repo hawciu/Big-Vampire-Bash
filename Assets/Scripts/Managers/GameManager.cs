@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
 
         LevelManager.instance.SetupLevel();
 
-        coins = SaveManager.instance.LoadCoinsAmount();
+        coins = SaveManager.instance.GetCoinsAmount();
         IngameUIManager.instance.UpdateCoinsText(coins);
 
         GameManager.instance.SwitchState(GameState.WAVE);

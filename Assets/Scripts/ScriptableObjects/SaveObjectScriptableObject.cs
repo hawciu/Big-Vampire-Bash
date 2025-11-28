@@ -10,8 +10,8 @@ public class SaveObjectScriptableObject : ScriptableObject
     public PlayerType PlayerChoice;
 
     [Header("Level Choice")]
-    public string levelChoicePlaceholder;
+    public LevelType levelChoice;
 
     [Header("loaded values")]
-    public string coinChoicePlaceholder;
+    public int coinAmount;
 }
