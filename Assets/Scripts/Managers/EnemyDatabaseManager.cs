@@ -5,7 +5,7 @@ public class EnemyDatabaseManager : MonoBehaviour
 {
     public static EnemyDatabaseManager instance;
     public List<EnemyDataScriptableObject> EnemiesObjects = new();
-    //public List<PlayerDataScriptableObject> PlayersObjects = new();
+    public List<PlayerDataScriptableObject> PlayersObjects = new();
 
     private void Awake()
     {

@@ -50,3 +50,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 63953122ba313f848af52bea27b961b9, type: 2}
   - {fileID: 11400000, guid: 531684a2c3090834ba2ed30151bbc5c3, type: 2}
   - {fileID: 11400000, guid: 80caf9e2fdd70bd44a6db7877b682690, type: 2}
+  PlayersObjects:
+  - {fileID: 11400000, guid: 4facfe21d4da2694eb69cf4deec90016, type: 2}
+  - {fileID: 11400000, guid: 914ab0d46a291b745b3d8071d4b2d2d3, type: 2}
