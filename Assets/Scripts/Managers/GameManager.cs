@@ -25,19 +25,6 @@ public class GameManager : MonoBehaviour
     [Header ("Map Type")]
     public MapType mapType;
 
-    [Header("Manager Prefabs")]
-    public GameObject EffectsManager;
-    public GameObject EnemyDatabaseManagerPrefab;
-    public GameObject EnemyManagerPrefab;
-    public GameObject HubManagerPrefab;
-    public GameObject LevelManagerPrefab;
-    public GameObject MainMenuManagerPrefab;
-    public GameObject MaterialManager;
-    public GameObject PickupManagerPrefab;
-    public GameObject PlayerManagerPrefab;
-    public GameObject SaveManagerPrefab;
-    public GameObject IngameUIManagerPrefab;
-
     GameState gameState = GameState.NONE;
 
 
@@ -115,36 +102,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void InitiateManagers()
-    {
-        Instantiate(SaveManagerPrefab);
-        SaveManager.instance.Activate();
-        Instantiate(EffectsManager);
-        Instantiate(EnemyDatabaseManagerPrefab);
-        Instantiate(MaterialManager);
-        Instantiate(PickupManagerPrefab);
-
-        switch (mapType)
-        {
-            case MapType.MAINMENU:
-                Instantiate(MainMenuManagerPrefab);
-                break;
-            case MapType.HUB:
-                Instantiate(HubManagerPrefab);
-                break;
-            case MapType.LEVEL:
-                Instantiate(EnemyManagerPrefab);
-                Instantiate(LevelManagerPrefab);
-                Instantiate(PlayerManagerPrefab);
-                Instantiate(IngameUIManagerPrefab);
-                break;
-        }
-    }
-
     void GameSetup()
     {
-        InitiateManagers();
-
         PlayerManager.instance.SpawnPlayer();
         PlayerManager.instance.EnablePlayerControls(true);
 
