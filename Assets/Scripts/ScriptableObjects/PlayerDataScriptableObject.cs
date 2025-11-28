@@ -14,7 +14,7 @@ public class PlayerDataScriptableObject : ScriptableObject
     public PlayerType playerType;
 
     [Tooltip("Player prefab (model + animations)")]
-    public GameObject enemyPrefab;
+    public GameObject playerModelPrefab;
 
     [Header("Movement Settings")]
     [Tooltip("Movement speed of the enemy")]

@@ -1,9 +1,15 @@
+using System;
 using UnityEngine;
 
-public class PlayerModellHandler : MonoBehaviour
+public class PlayerModelHandler : MonoBehaviour
 {
     public GameObject model;
     public Animator animator;
+
+    internal Animator GetAnimator()
+    {
+        return animator;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

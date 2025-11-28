@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 movementVector;
     private readonly float movementSpeed = 12;
     public Animator animator;
+    public Rigidbody rb;
 
     private void Update()
     {
@@ -19,10 +20,10 @@ public class PlayerController : MonoBehaviour
 
     private void UpdatePlayerMovement()
     {
-        GetComponent<Rigidbody>().linearVelocity = movementVector.normalized * movementSpeed;
+        rb.linearVelocity = movementVector.normalized * movementSpeed;
         if (movementVector != Vector3.zero)
         {
-            GetComponent<Rigidbody>().MoveRotation(Quaternion.LookRotation(movementVector));
+            rb.MoveRotation(Quaternion.LookRotation(movementVector));
         }
 
     }
@@ -56,5 +57,10 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isMoving", true);
         }
+    }
+
+    public void SetPlayerAnimator(Animator animator)
+    {
+        this.animator = animator;
     }
 }

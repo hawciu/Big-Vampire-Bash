@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3378d2712c955624cb8a60b447a4c81f, type: 3}
   m_Name: RobotSO
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDataScriptableObject
-  playerName: pioter
-  playerType: 0
-  enemyPrefab: {fileID: 0}
+  playerName: kacperek
+  playerType: 1
+  playerModelPrefab: {fileID: 7584290052162118108, guid: 3774f29d331a2fc49ab5fc5f21d91ed3, type: 3}
   moveSpeed: 1
   health: 1

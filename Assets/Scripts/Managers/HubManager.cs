@@ -7,8 +7,6 @@ public class HubManager : MonoBehaviour
     public static HubManager instance;
     public Transform previewParent;
 
-    public List<GameObject> playerPrefabs;
-
     private int currentIndex = 0;
     private GameObject currentPreview;
 
@@ -25,7 +23,7 @@ public class HubManager : MonoBehaviour
     public void Next()
     {
         currentIndex++;
-        if (currentIndex >= playerPrefabs.Count)
+        if (currentIndex >= EnemyDatabaseManager.instance.PlayersObjects.Count)
         {
             currentIndex = 0;
         }
@@ -38,7 +36,7 @@ public class HubManager : MonoBehaviour
         currentIndex--;
         if (currentIndex < 0)
         {
-            currentIndex = playerPrefabs.Count - 1;
+            currentIndex = EnemyDatabaseManager.instance.PlayersObjects.Count - 1;
         }
 
         ShowPreview(currentIndex);
@@ -51,11 +49,7 @@ public class HubManager : MonoBehaviour
             Destroy(currentPreview);
         }
 
-        currentPreview = Instantiate(playerPrefabs[index], previewParent);
-
-        currentPreview.transform.localPosition = Vector3.zero;
-        currentPreview.transform.localRotation = Quaternion.identity;
-        currentPreview.transform.localScale = Vector3.one;
+        currentPreview = Instantiate(EnemyDatabaseManager.instance.PlayersObjects[index].playerModelPrefab, previewParent);
     }
 
     public int GetSelectedIndex()

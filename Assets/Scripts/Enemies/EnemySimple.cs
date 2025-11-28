@@ -129,7 +129,7 @@ public class EnemySimple : MonoBehaviour
             return;
         }
 
-        modelInstance = Instantiate(enemyData.enemyPrefab, transform.position, Quaternion.identity);
+        modelInstance = Instantiate(enemyData.enemyModelPrefab, transform.position, Quaternion.identity);
         modelInstance.transform.SetParent(transform);
         modelInstance.transform.localPosition = Vector3.zero;
     }

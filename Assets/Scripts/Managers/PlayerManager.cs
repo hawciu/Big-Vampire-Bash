@@ -13,6 +13,8 @@ public class PlayerManager : MonoBehaviour
     float playerShotCooldown = 2f;
 
     GameObject playerInstance;
+    PlayerModelHandler playerModellHandler;
+    PlayerController playerController;
 
     bool playerControlsEnabled = false;
     bool playerWeaponEnabled = false;
@@ -37,6 +39,10 @@ public class PlayerManager : MonoBehaviour
     {
         //instantiate from enemy database manager
         playerInstance = Instantiate(playerPrefab);
+        playerModellHandler = playerInstance.GetComponent<PlayerModelHandler>();
+        playerController = playerInstance.GetComponent<PlayerController>();
+        playerController.SetPlayerAnimator(playerModellHandler.GetAnimator());
+
         Instantiate(playerCamera);
     }
 
