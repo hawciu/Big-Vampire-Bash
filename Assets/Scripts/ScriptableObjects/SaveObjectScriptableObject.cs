@@ -4,7 +4,7 @@ using UnityEngine;
 public class SaveObjectScriptableObject : ScriptableObject
 {
     [Header("Config")]
-    public bool loadedOnce = false;
+    public bool loadedOnce = true;
 
     [Header("Player Choice")]
     public PlayerType PlayerChoice;

@@ -30,10 +30,10 @@ public class SaveManager : MonoBehaviour
         saveObject.loadedOnce = true;
         LoadPlayerChoice();
         LoadLevelChoice();
-        //load saves at game start
+        LoadCoinsAmount();
     }
 
-    public void LoadCoinsAmount()
+    private void LoadCoinsAmount()
     {
         saveObject.coinAmount = PlayerPrefs.GetInt("coins");
     }
@@ -47,6 +47,7 @@ public class SaveManager : MonoBehaviour
 
     public void SavePlayerChoice(PlayerType playerType)
     {
+        saveObject.PlayerChoice = playerType;
         PlayerPrefs.SetInt("playerChoice", (int)playerType);
     }
 
@@ -57,6 +58,7 @@ public class SaveManager : MonoBehaviour
 
     public void SaveLevelChoice(LevelType levelType)
     {
+        saveObject.levelChoice = levelType;
         PlayerPrefs.SetInt("levelChoice", (int)levelType);
     }
 
