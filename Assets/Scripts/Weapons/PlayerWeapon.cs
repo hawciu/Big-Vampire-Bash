@@ -8,6 +8,7 @@ public class PlayerWeapon : MonoBehaviour
 
     private void Update()
     {
+        if (PlayerManager.instance == null || !PlayerManager.instance.GetPlayerWeaponEnabled()) return;
         if (lastShot + PlayerManager.instance.GetShotCooldown() < Time.time)
         {
             lastShot = Time.time;
