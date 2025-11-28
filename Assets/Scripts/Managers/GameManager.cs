@@ -1,6 +1,13 @@
 using System;
 using UnityEngine;
 
+public enum MapType
+{
+    MAINMENU,
+    HUB,
+    LEVEL,
+}
+
 public enum GameState
 {
     NONE,
@@ -14,6 +21,22 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
+    [Header ("Map Type")]
+    public MapType mapType;
+
+    [Header("Manager Prefabs")]
+    public GameObject EffectsManager;
+    public GameObject EnemyDatabaseManagerPrefab;
+    public GameObject EnemyManagerPrefab;
+    public GameObject HubManagerPrefab;
+    public GameObject LevelManagerPrefab;
+    public GameObject MainMenuManagerPrefab;
+    public GameObject MaterialManager;
+    public GameObject PickupManagerPrefab;
+    public GameObject PlayerManagerPrefab;
+    public GameObject SaveManagerPrefab;
+    public GameObject IngameUIManagerPrefab;
 
     GameState gameState = GameState.NONE;
 
@@ -38,36 +61,38 @@ public class GameManager : MonoBehaviour
 
     public void SwitchState(GameState targetState)
     {
+        if (mapType != MapType.LEVEL) return;
+
         gameState = targetState;
         switch (gameState)
         {
             case GameState.SETUP:
-                UIManager.instance.UpdateWaveText("Przygotowanie poziomu");
+                IngameUIManager.instance.UpdateWaveText("Przygotowanie poziomu");
                 GameSetup();
                 break;
 
             case GameState.WAVE:
-                UIManager.instance.UpdateWaveText($"=== Fala {LevelManager.instance.GetWaveNumber()} ===");
+                IngameUIManager.instance.UpdateWaveText($"=== Fala {LevelManager.instance.GetWaveNumber()} ===");
                 break;
 
             case GameState.MINIBOSS:
-                UIManager.instance.UpdateWaveText("To jest fala Minibossa!");
+                IngameUIManager.instance.UpdateWaveText("To jest fala Minibossa!");
                 EnemyManager.instance.SpawnMiniboss();
                 break;
 
             case GameState.BOSS:
-                UIManager.instance.UpdateWaveText("To jest fala Bossa!");
+                IngameUIManager.instance.UpdateWaveText("To jest fala Bossa!");
                 break;
 
             case GameState.ENDGAME:
-                UIManager.instance.UpdateWaveText("Wszystkie fale zakoñczone.");
+                IngameUIManager.instance.UpdateWaveText("Wszystkie fale zakoñczone.");
                 break;
         }
     }
 
     private void GameStateUpdate()
     {
-        switch (GameManager.instance.GetGameState())
+        switch (gameState)
         {
             case GameState.SETUP:
                 break;
@@ -90,15 +115,43 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void InitiateManagers()
+    {
+        Instantiate(SaveManagerPrefab);
+        SaveManager.instance.Activate();
+        Instantiate(EffectsManager);
+        Instantiate(EnemyDatabaseManagerPrefab);
+        Instantiate(MaterialManager);
+        Instantiate(PickupManagerPrefab);
+
+        switch (mapType)
+        {
+            case MapType.MAINMENU:
+                Instantiate(MainMenuManagerPrefab);
+                break;
+            case MapType.HUB:
+                Instantiate(HubManagerPrefab);
+                break;
+            case MapType.LEVEL:
+                Instantiate(EnemyManagerPrefab);
+                Instantiate(LevelManagerPrefab);
+                Instantiate(PlayerManagerPrefab);
+                Instantiate(IngameUIManagerPrefab);
+                break;
+        }
+    }
+
     void GameSetup()
     {
+        InitiateManagers();
+
         PlayerManager.instance.SpawnPlayer();
         PlayerManager.instance.EnablePlayerControls(true);
 
         LevelManager.instance.SetupLevel();
 
         coins = SaveManager.instance.LoadCoinsAmount();
-        UIManager.instance.UpdateCoinsText(coins);
+        IngameUIManager.instance.UpdateCoinsText(coins);
 
         GameManager.instance.SwitchState(GameState.WAVE);
     }
@@ -106,7 +159,7 @@ public class GameManager : MonoBehaviour
     internal void OnCoinPickup()
     {
         coins++;
-        UIManager.instance.UpdateCoinsText(coins);
+        IngameUIManager.instance.UpdateCoinsText(coins);
     }
 
     public void PauseGame(bool value)
@@ -118,7 +171,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         SaveManager.instance.SaveCoinsAmount(coins);
-        UIManager.instance.OnGameOver();
+        IngameUIManager.instance.OnGameOver();
     }
 
     internal GameState GetGameState()

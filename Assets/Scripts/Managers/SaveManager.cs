@@ -31,4 +31,9 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.SetInt("coins", amount);
         PlayerPrefs.Save();
     }
+
+    public void Activate()
+    {
+        print("save manager activation");
+    }
 }

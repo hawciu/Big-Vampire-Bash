@@ -34,6 +34,7 @@ public class PlayerManager : MonoBehaviour
 
     internal void SpawnPlayer()
     {
+        //instantiate from enemy database manager
         playerInstance = Instantiate(playerPrefab);
         Instantiate(playerCamera);
     }

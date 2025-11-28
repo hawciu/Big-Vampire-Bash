@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemiesDatabaseManager : MonoBehaviour
+public class EnemyDatabaseManager : MonoBehaviour
 {
-    public static EnemiesDatabaseManager instance;
+    public static EnemyDatabaseManager instance;
     public List<EnemyDataScriptableObject> EnemiesObjects = new();
+    //public List<PlayerDataScriptableObject> PlayersObjects = new();
 
     private void Awake()
     {
