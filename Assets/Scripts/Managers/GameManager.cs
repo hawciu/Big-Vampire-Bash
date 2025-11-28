@@ -95,6 +95,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerManager.instance.SpawnPlayer();
         PlayerManager.instance.EnablePlayerControls(true);
+        PlayerManager.instance.EnablePlayerWeapon(true);
 
         LevelManager.instance.SetupLevel();
 

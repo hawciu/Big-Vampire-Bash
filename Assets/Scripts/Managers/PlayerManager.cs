@@ -15,6 +15,7 @@ public class PlayerManager : MonoBehaviour
     GameObject playerInstance;
 
     bool playerControlsEnabled = false;
+    bool playerWeaponEnabled = false;
 
     private void Awake()
     {
@@ -66,8 +67,18 @@ public class PlayerManager : MonoBehaviour
         playerControlsEnabled = value;
     }
 
+    public void EnablePlayerWeapon(bool value)
+    {
+        playerWeaponEnabled = value;
+    }
+
     public bool GetPlayerControlsEnabled()
     {
         return playerControlsEnabled;
+    }
+
+    internal bool GetPlayerWeaponEnabled()
+    {
+        return playerWeaponEnabled;
     }
 }

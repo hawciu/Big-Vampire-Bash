@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -13,16 +14,22 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        UpdatePlayerMovement();
+    }
+
+    private void UpdatePlayerMovement()
+    {
         GetComponent<Rigidbody>().linearVelocity = movementVector.normalized * movementSpeed;
         if (movementVector != Vector3.zero)
         {
             GetComponent<Rigidbody>().MoveRotation(Quaternion.LookRotation(movementVector));
         }
+
     }
 
     void UpdateControlsInput()
     {
-        if (!PlayerManager.instance.GetPlayerControlsEnabled()) return;
+        if (PlayerManager.instance == null || !PlayerManager.instance.GetPlayerControlsEnabled()) return;
         
         movementVector = Vector3.zero;
         if (Input.GetKey(KeyCode.W))
