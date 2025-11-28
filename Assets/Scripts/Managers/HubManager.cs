@@ -59,6 +59,9 @@ public class HubManager : MonoBehaviour
 
     public void StartLevel()
     {
+        SaveManager.instance.SavePlayerChoice((PlayerType)currentIndex);
+        SaveManager.instance.SaveLevelChoice(0); //placeholder level choice
+        PlayerPrefs.Save();
         SceneManager.LoadScene("Level1");
     }
 }

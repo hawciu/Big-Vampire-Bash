@@ -48,7 +48,6 @@ public class SaveManager : MonoBehaviour
     public void SavePlayerChoice(PlayerType playerType)
     {
         PlayerPrefs.SetInt("playerChoice", (int)playerType);
-        PlayerPrefs.Save();
     }
 
     public void LoadPlayerChoice()
@@ -59,7 +58,6 @@ public class SaveManager : MonoBehaviour
     public void SaveLevelChoice(LevelType levelType)
     {
         PlayerPrefs.SetInt("levelChoice", (int)levelType);
-        PlayerPrefs.Save();
     }
 
     public void LoadLevelChoice()
