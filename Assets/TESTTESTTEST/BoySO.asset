@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDataScriptableObject
   playerName: pioter
   playerType: 0
-  enemyPrefab: {fileID: 0}
+  enemyPrefab: {fileID: 7584290052162118108, guid: 8c8edf84465a01e408b371df71f1d5bf, type: 3}
   moveSpeed: 1
   health: 1
