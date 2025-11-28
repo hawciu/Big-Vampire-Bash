@@ -20,7 +20,7 @@ public class MainMenuManager : MonoBehaviour
     {
     }
 
-    public void OpenHub()
+    public void OnOpenHubPressed()
     {
         SceneManager.LoadScene("Hub");
     }

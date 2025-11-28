@@ -1,13 +1,6 @@
 using System;
 using UnityEngine;
 
-public enum MapType
-{
-    MAINMENU,
-    HUB,
-    LEVEL,
-}
-
 public enum GameState
 {
     NONE,
@@ -22,11 +15,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [Header ("Map Type")]
-    public MapType mapType;
-
     GameState gameState = GameState.NONE;
-
 
     int coins = 0;
 
@@ -35,12 +24,14 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+        
         }
     }
     private void Start()
     {
         SwitchState(GameState.SETUP);
     }
+
     private void Update()
     {
         GameStateUpdate();
@@ -48,8 +39,6 @@ public class GameManager : MonoBehaviour
 
     public void SwitchState(GameState targetState)
     {
-        if (mapType != MapType.LEVEL) return;
-
         gameState = targetState;
         switch (gameState)
         {
