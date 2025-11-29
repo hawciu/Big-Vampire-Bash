@@ -10,14 +10,6 @@ public enum GameState
     ENDGAME,
 }
 
-public enum EnemyState
-{
-    INACTIVE,
-    SPAWNING,
-    ACTIVE,
-    DEAD,
-}
-
 public enum PlayerType
 {
     BOY,
@@ -47,17 +39,7 @@ public enum ParticleType
     ARROW_EXPLOSION,
     PICKUP_PICKUP,
     COIN_PICKUP,
-}
-
-public enum PortalState
-{
-    NONE,
-    MOVE_CAMERA_TO_PORTAL,
-    CIRCLING,
-    OPENING,
-    TELEPORTING,
-    CLOSING,
-    MOVE_CAMERA_BACK,
+    GROUND_SPIKE,
 }
 
 public enum PortalFunction

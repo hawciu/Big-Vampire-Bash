@@ -3,6 +3,18 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+
+enum PortalState
+{
+    NONE,
+    MOVE_CAMERA_TO_PORTAL,
+    CIRCLING,
+    OPENING,
+    TELEPORTING,
+    CLOSING,
+    MOVE_CAMERA_BACK,
+}
+
 public class PortalScript : MonoBehaviour
 {
     public Camera mainCamera;

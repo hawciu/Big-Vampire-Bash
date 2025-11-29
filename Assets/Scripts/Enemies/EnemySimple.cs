@@ -1,6 +1,14 @@
 using System;
 using UnityEngine;
 
+public enum EnemyState
+{
+    INACTIVE,
+    SPAWNING,
+    ACTIVE,
+    DEAD,
+}
+
 public class EnemySimple : MonoBehaviour
 {
     private EnemyDataScriptableObject enemyData;

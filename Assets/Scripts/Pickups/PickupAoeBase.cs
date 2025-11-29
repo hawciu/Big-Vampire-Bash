@@ -17,7 +17,6 @@ public class PickupAoeBase : MonoBehaviour, IPickupEffect
     public GameObject visualIndicator;
     public ParticleSystem spikesSmall;
     public ParticleSystem spikesSmallDust;
-    public GameObject bigSpikePrefab;
 
     bool activated = false;
     float startTime;
@@ -62,7 +61,7 @@ public class PickupAoeBase : MonoBehaviour, IPickupEffect
                     foreach (Collider hitCollider in hitColliders)
                     {
                         hitCollider.gameObject.GetComponent<EnemySimple>().Damage(3);
-                        Instantiate(bigSpikePrefab, hitCollider.gameObject.transform.position, Quaternion.identity);
+                        EffectsManager.instance.SpawnAnEffect(ParticleType.GROUND_SPIKE, hitCollider.gameObject.transform.position);
                     }
                     state = State.DONE;
                 }
@@ -72,7 +71,6 @@ public class PickupAoeBase : MonoBehaviour, IPickupEffect
                 foreach(GameObject i in hitEnemies)
                 {
                     hitEnemies[damageIndex].GetComponent<EnemySimple>().Damage(3);
-                    Instantiate(bigSpikePrefab, hitEnemies[damageIndex].transform.position, Quaternion.identity);
                 }
                 state = State.DONE;
                 break;

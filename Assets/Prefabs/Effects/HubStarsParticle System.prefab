@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1915224409712500227}
   - component: {fileID: 4639951899548778815}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: HubStarsParticle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
