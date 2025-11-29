@@ -208,6 +208,9 @@ public class PortalScript : MonoBehaviour
 
     void PortalActionCompleted()
     {
-        rotate = false;
+        mainCamera.enabled = true;
+        cinematicCamera.enabled = false;
+        GameManager.instance.OnPortalActionCompleted(portalFunction);
+        Destroy(gameObject);
     }
 }

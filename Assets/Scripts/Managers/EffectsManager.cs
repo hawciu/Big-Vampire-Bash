@@ -12,12 +12,12 @@ public class EffectsManager : MonoBehaviour
     public struct ParticleEntry
     {
         public ParticleType type;
-        public ParticleSystem prefab;
+        public GameObject prefab;
     }
 
     [Header("Dictionary effects")]
     public ParticleEntry[] entries;
-    private Dictionary<ParticleType, ParticleSystem> effectsDictionary = new();
+    private Dictionary<ParticleType, GameObject> effectsDictionary = new();
 
     private void Awake()
     {

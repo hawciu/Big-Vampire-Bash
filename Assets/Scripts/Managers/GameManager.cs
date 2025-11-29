@@ -84,15 +84,11 @@ public class GameManager : MonoBehaviour
     void GameSetup()
     {
         PlayerManager.instance.SpawnPlayer();
-        PlayerManager.instance.EnablePlayerControls(true);
-        PlayerManager.instance.EnablePlayerWeapon(true);
 
         LevelManager.instance.SetupLevel();
 
         coins = SaveManager.instance.GetCoinsAmount();
         IngameUIManager.instance.UpdateCoinsText(coins);
-
-        GameManager.instance.SwitchState(GameState.WAVE);
     }
 
     internal void OnCoinPickup()
@@ -116,5 +112,20 @@ public class GameManager : MonoBehaviour
     internal GameState GetGameState()
     {
         return gameState;
+    }
+
+    public void OnPortalActionCompleted(PortalFunction portalFunction)
+    {
+        switch (portalFunction)
+        {
+            case PortalFunction.LEAVE:
+                PlayerManager.instance.EnablePlayerControls(true);
+                PlayerManager.instance.EnablePlayerWeapon(true);
+                SwitchState(GameState.WAVE);
+                break;
+            case PortalFunction.ENTER:
+                SwitchState(GameState.WAVE);
+                break;
+        }
     }
 }

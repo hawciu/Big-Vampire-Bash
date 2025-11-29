@@ -47,12 +47,10 @@ MonoBehaviour:
   PortalPrefab: {fileID: 7471207955577450599, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
   entries:
   - type: 0
-    prefab: {fileID: 2667868056644848931, guid: ca49baa1cdf25f24b9aed265515130b9, type: 3}
+    prefab: {fileID: 5185452817323541500, guid: ca49baa1cdf25f24b9aed265515130b9, type: 3}
   - type: 1
-    prefab: {fileID: 7018976516115554608, guid: 80f7f91f01e6ba24cbe532729f4c5ca2, type: 3}
+    prefab: {fileID: 6957725224657783821, guid: 80f7f91f01e6ba24cbe532729f4c5ca2, type: 3}
   - type: 2
-    prefab: {fileID: 6145242538990666105, guid: 2278d0732dcf12c47bb10d2d686733d7, type: 3}
+    prefab: {fileID: 7603975986691315, guid: 2278d0732dcf12c47bb10d2d686733d7, type: 3}
   - type: 3
-    prefab: {fileID: 6522884896716524222, guid: 38894f9b22ca2f3418bbaf572a1875f2, type: 3}
-  - type: 4
-    prefab: {fileID: 6145242538990666105, guid: 2278d0732dcf12c47bb10d2d686733d7, type: 3}
+    prefab: {fileID: 378799241874493814, guid: 38894f9b22ca2f3418bbaf572a1875f2, type: 3}
