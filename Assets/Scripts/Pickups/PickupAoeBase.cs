@@ -1,8 +1,30 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.WSA;
+
+enum State
+{
+    INACTIVE,
+    ACTIVATED,
+    PREPARING,
+    DAMAGING,
+    DONE
+}
 
 public class PickupAoeBase : MonoBehaviour, IPickupEffect
 {
     public GameObject visualIndicator;
+    public ParticleSystem spikesSmall;
+    public ParticleSystem spikesSmallDust;
+    public GameObject bigSpikePrefab;
+
+    bool activated = false;
+    float startTime;
+    State state = State.INACTIVE;
+
+    List<GameObject> hitEnemies = new();
+    int damageIndex = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -13,19 +35,60 @@ public class PickupAoeBase : MonoBehaviour, IPickupEffect
     // Update is called once per frame
     void Update()
     {
-        
+        UpdatePickup();
+    }
+
+    void UpdatePickup()
+    {
+        switch(state)
+        {
+            case State.INACTIVE:
+                break;
+
+            case State.ACTIVATED:
+                startTime = Time.time;
+                spikesSmall.Play();
+                spikesSmallDust.Play();
+                state = State.PREPARING;
+                break;
+
+            case State.PREPARING:
+                if (startTime + 2f < Time.time)
+                {
+                    spikesSmall.Stop();
+                    spikesSmallDust.Stop();
+                    float range = 10;
+                    Collider[] hitColliders = Physics.OverlapSphere(transform.position, range, LayerMask.GetMask("ENEMY"));
+                    foreach (Collider hitCollider in hitColliders)
+                    {
+                        hitCollider.gameObject.GetComponent<EnemySimple>().Damage(3);
+                        Instantiate(bigSpikePrefab, hitCollider.gameObject.transform.position, Quaternion.identity);
+                    }
+                    state = State.DONE;
+                }
+                break;
+
+            case State.DAMAGING:
+                foreach(GameObject i in hitEnemies)
+                {
+                    hitEnemies[damageIndex].GetComponent<EnemySimple>().Damage(3);
+                    Instantiate(bigSpikePrefab, hitEnemies[damageIndex].transform.position, Quaternion.identity);
+                }
+                state = State.DONE;
+                break;
+
+            case State.DONE:
+                Destroy(transform.parent.gameObject);
+                break;
+
+        }
     }
 
     public void Activate()
     {
-        float range = 10;
-        GameObject tmp = Instantiate(visualIndicator, transform.position, Quaternion.identity);
-        tmp.transform.localScale = new Vector3(2*range, 0.01f, 2*range);
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, range, LayerMask.GetMask("ENEMY"));
-        foreach (Collider hitCollider in hitColliders)
-        {
-            hitCollider.gameObject.GetComponent<EnemySimple>().Damage();
-        }
-        Destroy(transform.parent.gameObject);
+        if (activated) return;
+        activated = true;
+        state = State.ACTIVATED;
+        state = State.PREPARING;
     }
 }

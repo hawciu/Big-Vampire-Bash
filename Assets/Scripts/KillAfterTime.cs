@@ -3,6 +3,7 @@ using UnityEngine;
 public class KillAfterTime : MonoBehaviour
 {
     float startTime;
+    public float killAfterSeconds = 0.5f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -13,7 +14,7 @@ public class KillAfterTime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (startTime + 0.5f < Time.time)
+        if (startTime + killAfterSeconds < Time.time)
         {
             Destroy(gameObject);
         }
