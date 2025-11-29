@@ -13,6 +13,8 @@ public class PlayerManager : MonoBehaviour
     float playerShotCooldown = 2f;
 
     GameObject playerInstance;
+    GameObject portalInstance;
+    Camera playerCameraInstance;
     PlayerModelHandler playerModelHandler;
     PlayerController playerController;
 
@@ -43,7 +45,11 @@ public class PlayerManager : MonoBehaviour
         playerModelHandler = tmp.GetComponent<PlayerModelHandler>();
         playerController.SetPlayerAnimator(playerModelHandler.GetAnimator());
 
-        Instantiate(playerCamera);
+        tmp = Instantiate(playerCamera);
+        playerCameraInstance = tmp.GetComponent<Camera>();
+
+        portalInstance = EffectsManager.instance.SpawnPortal(playerInstance.transform.position);
+        portalInstance.GetComponent<PortalScript>().SetupPortal(playerInstance, playerCameraInstance, PortalFunction.LEAVE);
     }
 
     public GameObject GetPlayer()

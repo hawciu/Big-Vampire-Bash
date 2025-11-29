@@ -38,8 +38,8 @@ public class PortalScript : MonoBehaviour
     Vector3 circleTargetScale = new Vector3(4,0,4);
     float characterCurrentHeight;
     float characterTargetHeight;
-    float characterHeightLow = -2.5f;
-    float characterHeightHigh = 1.4f;
+    float characterHeightLow = -3f;
+    float characterHeightHigh = 0;
     public ParticleSystem sparks;
     public ParticleSystem portalLines;
     public ParticleSystem end;
@@ -53,9 +53,6 @@ public class PortalScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //to remove upon implementation
-        mainCamera = Camera.main;
-        SetupPortal(guy, mainCamera, portalFunction);
     }
 
     // Update is called once per frame
@@ -212,6 +209,5 @@ public class PortalScript : MonoBehaviour
     void PortalActionCompleted()
     {
         rotate = false;
-
     }
 }
