@@ -5,6 +5,9 @@ public class EffectsManager : MonoBehaviour
 {
     public static EffectsManager instance;
 
+    [Header ("Loose prefabs")]
+    public GameObject PortalPrefab;
+
     [System.Serializable]
     public struct ParticleEntry
     {
@@ -12,6 +15,7 @@ public class EffectsManager : MonoBehaviour
         public ParticleSystem prefab;
     }
 
+    [Header("Dictionary effects")]
     public ParticleEntry[] entries;
     private Dictionary<ParticleType, ParticleSystem> effectsDictionary = new();
 
@@ -38,5 +42,10 @@ public class EffectsManager : MonoBehaviour
     public void SpawnAnEffect(ParticleType type, Vector3 location)
     {
         Instantiate(effectsDictionary[type], location, Quaternion.identity);
+    }
+
+    public GameObject SpawnPortal(Vector3 location)
+    {
+        return Instantiate(PortalPrefab, location, Quaternion.identity);
     }
 }

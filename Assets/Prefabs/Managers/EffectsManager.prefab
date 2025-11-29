@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d86194f13658a4f4e828179a1039910b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EffectsManager
+  PortalPrefab: {fileID: 7471207955577450599, guid: fc094fe6e4c26f94193792f08c2fc76c, type: 3}
   entries:
   - type: 0
     prefab: {fileID: 2667868056644848931, guid: ca49baa1cdf25f24b9aed265515130b9, type: 3}
