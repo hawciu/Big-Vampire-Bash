@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a333ff0315fbb8b4784ebb2a3810da0e, type: 3}
   m_Name: SaveObjectSO
   m_EditorClassIdentifier: Assembly-CSharp::SaveObjectScriptableObject
+  loadedOnce: 1
   PlayerChoice: 0
-  levelChoicePlaceholder: ph level not implemented yet
-  coinChoicePlaceholder: ph coin not implemented yet
+  levelChoice: 0
+  coinAmount: 20
