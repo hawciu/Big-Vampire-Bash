@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using static UnityEditor.Timeline.TimelinePlaybackControls;
 
-public class UIManager : MonoBehaviour
+public class IngameUIManager : MonoBehaviour
 {
-    public static UIManager instance;
+    public static IngameUIManager instance;
     public TMP_Text waveTextNumber;
     public TMP_Text coinsText;
 

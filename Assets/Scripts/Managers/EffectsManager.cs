@@ -1,13 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-public enum ParticleType
-{
-    ARROW_EXPLOSION,
-    PICKUP_PICKUP,
-    COIN_PICKUP,
-
-
-}
 
 public class EffectsManager : MonoBehaviour
 {

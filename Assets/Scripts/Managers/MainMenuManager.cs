@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,19 +11,22 @@ public class MainMenuManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
     }
 
-    public void StartLevel()
+    public void OnOpenHubPressed()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("Hub");
     }
+
+    // public void StartLevel()
+    // {
+    //     SceneManager.LoadScene("Level1");
+    // }
 }

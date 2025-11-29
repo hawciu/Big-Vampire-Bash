@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5712126499382827210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5359530692640107093}
+  - component: {fileID: 4241571075988078770}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5359530692640107093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5712126499382827210}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4241571075988078770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5712126499382827210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60798c6e186526341ac0b6d29dc0d70c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EffectsManager: {fileID: 4475273577940718833, guid: 56b3bd7d562b1ee42b3a59b808ea873d, type: 3}
+  EnemyDatabaseManagerPrefab: {fileID: 2790847158618368183, guid: 861b021403b97144097eb33418d5f3c9, type: 3}
+  EnemyManagerPrefab: {fileID: 6881046965842259441, guid: 5bab1ab002ff7a84e90848caa2bcb67b, type: 3}
+  HubManagerPrefab: {fileID: 8300477438504237261, guid: 11f472b0d41a5944ebc44f93c3b2634c, type: 3}
+  LevelManagerPrefab: {fileID: 6057042704722235580, guid: 685e3ac3299a98e49a4a82ae342ea0c5, type: 3}
+  MainMenuManagerPrefab: {fileID: 6986214466605384179, guid: c7b837c6df8709045bf6932165aec263, type: 3}
+  MaterialManager: {fileID: 3445870974311501017, guid: ed109d06a5c41024cb741772f8f8ba67, type: 3}
+  PickupManagerPrefab: {fileID: 1366772005704935695, guid: f8f561ea90c98eb44b75376841d0ebe3, type: 3}
+  PlayerManagerPrefab: {fileID: 3809537044865588174, guid: be2560ec9fc67014bae6e42f994ebb62, type: 3}
+  SaveManagerPrefab: {fileID: 1205093748282251796, guid: 399b2056a29fa0846a86f860f9fc9720, type: 3}
+  UIManagerPrefab: {fileID: 1560698392066257341, guid: 0c14680299ee4b84f932c2c20d1a0399, type: 3}
+  mapType: 0

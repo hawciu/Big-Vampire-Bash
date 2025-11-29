@@ -80,7 +80,7 @@ public class EnemyManager : MonoBehaviour
 
     private EnemyDataScriptableObject GetEnemyDataForWave(int wave)
     {
-        return EnemiesDatabaseManager.instance.EnemiesObjects[wave];
+        return EnemyDatabaseManager.instance.EnemiesObjects[wave];
     }
 
     internal void RemoveDeadEnemy(GameObject gameObject)

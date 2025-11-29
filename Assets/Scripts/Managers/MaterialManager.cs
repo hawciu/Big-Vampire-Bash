@@ -1,14 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyMaterialType
-{
-    ORANGE,
-    BLUE,
-    GRAY,
-    OUTLINE_BLACK,
-    OUTLINE_GOLD,
-}
 
 public class MaterialManager : MonoBehaviour
 {

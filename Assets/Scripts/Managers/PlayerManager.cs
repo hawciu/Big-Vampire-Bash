@@ -7,14 +7,17 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
 
-    public GameObject playerPrefab;
+    public GameObject playerMainPrefab;
     public GameObject playerCamera;
 
     float playerShotCooldown = 2f;
 
     GameObject playerInstance;
+    PlayerModelHandler playerModelHandler;
+    PlayerController playerController;
 
     bool playerControlsEnabled = false;
+    bool playerWeaponEnabled = false;
 
     private void Awake()
     {
@@ -34,7 +37,12 @@ public class PlayerManager : MonoBehaviour
 
     internal void SpawnPlayer()
     {
-        playerInstance = Instantiate(playerPrefab);
+        playerInstance = Instantiate(playerMainPrefab);
+        playerController = playerInstance.GetComponent<PlayerController>();
+        GameObject tmp = Instantiate(EnemyDatabaseManager.instance.GetPlayerByType(SaveManager.instance.GetPlayerChoiceType()).playerModelPrefab, playerInstance.transform);
+        playerModelHandler = tmp.GetComponent<PlayerModelHandler>();
+        playerController.SetPlayerAnimator(playerModelHandler.GetAnimator());
+
         Instantiate(playerCamera);
     }
 
@@ -65,8 +73,18 @@ public class PlayerManager : MonoBehaviour
         playerControlsEnabled = value;
     }
 
+    public void EnablePlayerWeapon(bool value)
+    {
+        playerWeaponEnabled = value;
+    }
+
     public bool GetPlayerControlsEnabled()
     {
         return playerControlsEnabled;
+    }
+
+    internal bool GetPlayerWeaponEnabled()
+    {
+        return playerWeaponEnabled;
     }
 }
