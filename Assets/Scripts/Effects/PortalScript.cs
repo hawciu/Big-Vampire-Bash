@@ -29,6 +29,7 @@ public class PortalScript : MonoBehaviour
     float waitTimeAfterOpening = 0.5f;
     float cameraTransitionCounter = 0f;
     float characterTransitionCounter = 0f;
+    float characterTransitionCounterCurve = 0f;
     float characterStartHeight;
     Vector3 cameraTargetPosition;
     Quaternion cameraTargetRotation;
@@ -47,6 +48,8 @@ public class PortalScript : MonoBehaviour
     bool noZoomIn = false;
     bool noZoomOut = false;
     public PortalFunction portalFunction = PortalFunction.ENTER_NOZOOMIN;
+
+    public AnimationCurve animationCurve = new();
 
     PortalState state = PortalState.NONE;
 
@@ -201,8 +204,9 @@ public class PortalScript : MonoBehaviour
     bool MoveCameraLerp()
     {
         cameraTransitionCounter += Time.deltaTime;
-        cinematicCamera.transform.position = Vector3.Lerp(startCameraTargetPosition, cameraTargetPosition, cameraTransitionCounter);
-        cinematicCamera.transform.rotation = Quaternion.Lerp(startCameraTargetRotation, cameraTargetRotation, cameraTransitionCounter);
+        characterTransitionCounterCurve = animationCurve.Evaluate(cameraTransitionCounter);
+        cinematicCamera.transform.position = Vector3.Lerp(startCameraTargetPosition, cameraTargetPosition, characterTransitionCounterCurve);
+        cinematicCamera.transform.rotation = Quaternion.Lerp(startCameraTargetRotation, cameraTargetRotation, characterTransitionCounterCurve);
         return cameraTransitionCounter >= 1;
     }
 
