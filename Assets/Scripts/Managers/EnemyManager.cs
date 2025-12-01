@@ -129,4 +129,12 @@ public class EnemyManager : MonoBehaviour
     {
         SpawnEnemy(true);
     }
+
+    internal void PauseAllEnemies(bool pause)
+    {
+        foreach (GameObject i in allEnemies)
+        {
+            i.GetComponent<EnemySimple>().Pause(pause);
+        }
+    }
 }

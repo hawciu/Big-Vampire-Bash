@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     int coins = 0;
 
+    bool gamePaused = false;
+
     private void Awake()
     {
         if (instance == null)
@@ -99,7 +101,9 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame(bool pause)
     {
+        gamePaused = pause;
         PlayerManager.instance.PausePlayer(pause);
+        EnemyManager.instance.PauseAllEnemies(pause);
     }
 
     public void OnGameOver()
@@ -127,4 +131,6 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
+    public bool IsGamePaused() { return gamePaused; }
 }

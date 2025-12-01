@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 
 public enum EnemyState
@@ -9,7 +10,7 @@ public enum EnemyState
     DEAD,
 }
 
-public class EnemySimple : MonoBehaviour
+public class EnemySimple : MonoBehaviour, IPausable
 {
     private EnemyDataScriptableObject enemyData;
     private Rigidbody rb;
@@ -43,11 +44,6 @@ public class EnemySimple : MonoBehaviour
     private void Update()
     {
         EnemyStateHandler();
-        if(whiteFadeCounter < 1)
-        {
-            whiteFadeCounter += Time.deltaTime * 5;
-            enemyModelHandler.GetMaterial().color = Color.white * (1 / whiteFadeCounter);
-        }
     }
 
     void SwitchState(EnemyState value)
@@ -86,7 +82,13 @@ public class EnemySimple : MonoBehaviour
 
     void EnemyStateHandler()
     {
-        switch(state)
+        if (GameManager.instance.IsGamePaused()) return;
+        if (whiteFadeCounter < 1)
+        {
+            whiteFadeCounter += Time.deltaTime * 5;
+            enemyModelHandler.GetMaterial().color = Color.white * (1 / whiteFadeCounter);
+        }
+        switch (state)
         {
             case EnemyState.INACTIVE:
                 break;
@@ -148,7 +150,7 @@ public class EnemySimple : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (state != EnemyState.ACTIVE) return;
+        if (state != EnemyState.ACTIVE || GameManager.instance.IsGamePaused()) return;
 
         if (enemyData == null)
         {
@@ -190,5 +192,10 @@ public class EnemySimple : MonoBehaviour
     {
         isGolden = true;
         enemyModelHandler.SetMaterialOutline(MaterialManager.instance.GetMaterial(EnemyMaterialType.OUTLINE_GOLD));
+    }
+
+    public void Pause(bool pause)
+    {
+        enemyModelHandler.PauseAnimator(pause);
     }
 }
