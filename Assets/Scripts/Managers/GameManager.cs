@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        print("game manager start");
         SwitchState(GameState.SETUP);
     }
 
@@ -30,7 +29,6 @@ public class GameManager : MonoBehaviour
 
     public void SwitchState(GameState targetState)
     {
-        print("game manager switch " + targetState.ToString());
         gameState = targetState;
         switch (gameState)
         {
@@ -120,6 +118,7 @@ public class GameManager : MonoBehaviour
         switch (portalFunction)
         {
             case PortalFunction.LEAVE:
+                IngameUIManager.instance.EnableCanvas(true);
                 PlayerManager.instance.EnablePlayerControls(true);
                 PlayerManager.instance.EnablePlayerWeapon(true);
                 SwitchState(GameState.WAVE);

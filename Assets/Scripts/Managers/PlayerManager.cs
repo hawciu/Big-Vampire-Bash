@@ -96,6 +96,7 @@ public class PlayerManager : MonoBehaviour
 
     internal void PausePlayer(bool pause)
     {
+        playerWeaponEnabled = !pause;
         EnablePlayerControls(!pause);
         playerController.Pause(pause);
     }

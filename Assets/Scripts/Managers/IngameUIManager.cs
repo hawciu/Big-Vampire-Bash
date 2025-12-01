@@ -10,6 +10,7 @@ public class IngameUIManager : MonoBehaviour
     public TMP_Text coinsText;
 
     public GameObject IngameMenu;
+    public GameObject IngameUICanvas;
     public GameObject GameOverScreen;
 
     private void Awake()
@@ -63,5 +64,10 @@ public class IngameUIManager : MonoBehaviour
     public void OnContinueButtonPressed()
     {
 
+    }
+
+    public void EnableCanvas(bool enable)
+    {
+        IngameUICanvas.SetActive(enable);
     }
 }
