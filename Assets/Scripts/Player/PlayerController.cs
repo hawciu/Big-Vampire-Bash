@@ -1,12 +1,13 @@
 using System;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPausable
 {
     private Vector3 movementVector;
     private readonly float movementSpeed = 12;
     public Animator animator;
     public Rigidbody rb;
+    Vector3 storedMovementVector;
 
     private void Update()
     {
@@ -30,9 +31,9 @@ public class PlayerController : MonoBehaviour
 
     void UpdateControlsInput()
     {
-        if (PlayerManager.instance == null || !PlayerManager.instance.GetPlayerControlsEnabled()) return;
-        
         movementVector = Vector3.zero;
+        if (!PlayerManager.instance.GetPlayerControlsEnabled()) return;
+        
         if (Input.GetKey(KeyCode.W))
         {
             movementVector.z += 1;
@@ -62,5 +63,17 @@ public class PlayerController : MonoBehaviour
     public void SetPlayerAnimator(Animator animator)
     {
         this.animator = animator;
+    }
+
+    public void Pause(bool pause)
+    {
+        if (pause)
+        {
+            animator.speed = 0;
+        }
+        else
+        {
+            animator.speed = 1;
+        }
     }
 }

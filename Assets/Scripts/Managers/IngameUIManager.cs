@@ -52,13 +52,11 @@ public class IngameUIManager : MonoBehaviour
 
     public void OnQuitButtonPressed()
     {
-        GameManager.instance.PauseGame(false);
         SceneManager.LoadScene("MainMenu");
     }
 
     public void OnRestartButtonPressed()
     {
-        GameManager.instance.PauseGame(false);
         SceneManager.LoadScene("Level1");
     }
 

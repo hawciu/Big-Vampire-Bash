@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        print("game manager start");
         SwitchState(GameState.SETUP);
     }
 
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     public void SwitchState(GameState targetState)
     {
+        print("game manager switch " + targetState.ToString());
         gameState = targetState;
         switch (gameState)
         {
@@ -83,12 +85,12 @@ public class GameManager : MonoBehaviour
 
     void GameSetup()
     {
-        PlayerManager.instance.SpawnPlayer();
-
         LevelManager.instance.SetupLevel();
-
         coins = SaveManager.instance.GetCoinsAmount();
         IngameUIManager.instance.UpdateCoinsText(coins);
+        PlayerManager.instance.SpawnPlayer();
+
+
     }
 
     internal void OnCoinPickup()
@@ -97,14 +99,13 @@ public class GameManager : MonoBehaviour
         IngameUIManager.instance.UpdateCoinsText(coins);
     }
 
-    public void PauseGame(bool value)
+    public void PauseGame(bool pause)
     {
-        Time.timeScale = value ? 0 : 1;
+        PlayerManager.instance.PausePlayer(pause);
     }
 
     public void OnGameOver()
-    {
-        Time.timeScale = 0;
+    {   
         SaveManager.instance.SaveCoinsAmount(coins);
         IngameUIManager.instance.OnGameOver();
     }
@@ -124,7 +125,6 @@ public class GameManager : MonoBehaviour
                 SwitchState(GameState.WAVE);
                 break;
             case PortalFunction.ENTER:
-                SwitchState(GameState.WAVE);
                 break;
         }
     }
