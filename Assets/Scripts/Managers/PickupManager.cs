@@ -24,6 +24,7 @@ public class PickupManager : MonoBehaviour
 
     private void PickupSpawnUpdate()
     {
+        if (GameManager.instance.IsGamePaused()) lastSpawnTime += Time.deltaTime;
         if (Time.time < lastSpawnTime + spawnCooldown)
         {
             return;
