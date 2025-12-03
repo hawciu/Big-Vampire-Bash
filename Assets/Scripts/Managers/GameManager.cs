@@ -108,7 +108,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void OnGameOver()
-    {   
+    {
+        PauseGame(true);
         SaveManager.instance.SaveCoinsAmount(coins);
         IngameUIManager.instance.OnGameOver();
     }

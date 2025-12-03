@@ -196,6 +196,7 @@ public class EnemySimple : MonoBehaviour, IPausable
 
     public void Pause(bool pause)
     {
+        rb.isKinematic = pause;
         enemyModelHandler.PauseAnimator(pause);
     }
 }
