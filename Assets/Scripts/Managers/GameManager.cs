@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.WAVE:
+                LevelManager.instance.StartWaves();
                 IngameUIManager.instance.UpdateWaveText($"=== Fala {LevelManager.instance.GetWaveNumber()} ===");
                 break;
 

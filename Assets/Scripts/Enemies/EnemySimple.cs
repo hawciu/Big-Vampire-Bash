@@ -167,9 +167,9 @@ public class EnemySimple : MonoBehaviour, IPausable
         rb.MoveRotation(Quaternion.LookRotation(moveDirection.normalized));
     }
 
-    public void Damage(int amoumt = 1)
+    public void Damage(int amount = 1)
     {
-        health -= amoumt;
+        health -= amount;
         whiteFadeCounter = 0;
         CheckIfDead();
     }
