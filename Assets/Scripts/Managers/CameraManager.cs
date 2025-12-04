@@ -5,8 +5,9 @@ public class CameraManager : MonoBehaviour
 {
     public static CameraManager instance;
     public GameObject playerFollowCameraPrefab;
-    Vector3 landscapeCameraOffset;
-    Vector3 portraitCameraOffset;
+    Vector3 landscapeCameraOffset = new Vector3(0, 12.5f, -10.5f);
+    Vector3 portraitCameraOffset = new Vector3(0, 35.5f, -22f);
+    Vector3 currentCameraOffset;
     int lastScreenWidth;
     bool isLandscapeMode;
     Camera playerCamera;
@@ -19,32 +20,32 @@ public class CameraManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        lastScreenWidth = Screen.width;
-        isLandscapeMode = Screen.width > Screen.height;
-        NotifyScreenOrientation();
     }
 
     // Update is called once per frame
     void Update()
     {
         ScreenRotationCheck();
+        UpdatePlayerFollowCamera();
     }
 
-    private void ScreenRotationCheck()
+    public void ScreenRotationCheck()
     {
         if (Screen.width == lastScreenWidth) return;
         lastScreenWidth = Screen.width;
         OnScreenOrientationChange();
-        NotifyScreenOrientation();
     }
 
     private void OnScreenOrientationChange()
     {
-
+        isLandscapeMode = Screen.width > Screen.height;
+        UpdateCameraOffset();
+        NotifyScreenOrientation();
     }
 
     void NotifyScreenOrientation()
     {
+        return;
         if (isLandscapeMode)
         {
             Debug.Log("screen is in LANDSCAPE mode");
@@ -64,5 +65,15 @@ public class CameraManager : MonoBehaviour
     public Camera GetPlayerCamera()
     {
         return playerCamera;
+    }
+
+    void UpdateCameraOffset()
+    {
+        currentCameraOffset = isLandscapeMode ? landscapeCameraOffset : portraitCameraOffset;
+    }
+
+    public void UpdatePlayerFollowCamera()
+    {
+        playerCamera.gameObject.transform.position = PlayerManager.instance.GetPlayer().transform.position + currentCameraOffset;
     }
 }

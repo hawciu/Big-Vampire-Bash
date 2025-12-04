@@ -45,6 +45,8 @@ public class PlayerManager : MonoBehaviour
         playerController.SetPlayerAnimator(playerModelHandler.GetAnimator());
 
         CameraManager.instance.SpawnPlayerCamera();
+        CameraManager.instance.ScreenRotationCheck();
+        CameraManager.instance.UpdatePlayerFollowCamera();
 
         portalInstance = EffectsManager.instance.SpawnPortal(playerInstance.transform.position);
         portalInstance.GetComponent<PortalScript>().SetupPortal(playerInstance, CameraManager.instance.GetPlayerCamera(), PortalFunction.LEAVE);

@@ -737,6 +737,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 386879194}
     m_Modifications:
+    - target: {fileID: 863557646164839679, guid: d199c2981d0bcfa4c86a061110c167ba, type: 3}
+      propertyPath: playerFollowCameraPrefab
+      value: 
+      objectReference: {fileID: 3337167871682362368, guid: 86d00b8b77995fe48ba80fc73783ff66, type: 3}
     - target: {fileID: 4538334734104393970, guid: d199c2981d0bcfa4c86a061110c167ba, type: 3}
       propertyPath: m_Name
       value: CameraManager
