@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour, IPausable
     public Animator animator;
     public Rigidbody rb;
     Vector3 storedMovementVector;
+    public PlayerDamageTrigger damageTrigger;
 
     private void Update()
     {
@@ -67,13 +68,7 @@ public class PlayerController : MonoBehaviour, IPausable
 
     public void Pause(bool pause)
     {
-        if (pause)
-        {
-            animator.speed = 0;
-        }
-        else
-        {
-            animator.speed = 1;
-        }
+        damageTrigger.EnableCollider(!pause);
+        animator.speed = pause ? 0 : 1;
     }
 }

@@ -66,7 +66,6 @@ public class PortalScript : MonoBehaviour
 
     public void SetupPortal(GameObject guyTarget, Camera targetCamera, PortalFunction function)
     {
-        print("portal setup, target camera location " + targetCamera.transform.position);
         guy = guyTarget;
         mainCamera = targetCamera;
         portalFunction = function;
