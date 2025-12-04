@@ -5,7 +5,7 @@ public class CameraManager : MonoBehaviour
 {
     public static CameraManager instance;
     public GameObject playerFollowCameraPrefab;
-    Vector3 landscapeCameraOffset = new Vector3(0, 12.5f, -10.5f);
+    Vector3 landscapeCameraOffset = new Vector3(0, 12.5f, -9f);
     Vector3 portraitCameraOffset = new Vector3(0, 35.5f, -22f);
     Vector3 currentCameraOffset;
     int lastScreenWidth;

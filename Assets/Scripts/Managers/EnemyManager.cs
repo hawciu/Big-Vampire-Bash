@@ -12,6 +12,7 @@ public class EnemyManager : MonoBehaviour
     bool gameOver = false;
 
     public Material orange, blue, gray;
+    int enemyNameIndex = 0;
 
     private void Awake()
     {
@@ -44,6 +45,8 @@ public class EnemyManager : MonoBehaviour
         Vector3 randomLocation = GetRandomSpawnPosition();
 
         GameObject enemy = Instantiate(enemyPrefab, randomLocation, Quaternion.identity);
+        enemy.name = enemy.name+enemyData.name + enemyNameIndex;
+        enemyNameIndex++;
 
         EnemySimple simpleEnemy = enemy.GetComponent<EnemySimple>();
 

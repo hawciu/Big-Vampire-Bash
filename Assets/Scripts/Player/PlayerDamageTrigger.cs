@@ -5,6 +5,6 @@ public class PlayerDamageTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         PlayerManager.instance.DamagePlayer();
-        print("trigger enter " + other.gameObject.name);
+        Debug.Log("Enter: " + other.name + " | Collider: " + other);
     }
 }
