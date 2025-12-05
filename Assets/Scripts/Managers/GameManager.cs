@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
     {
         PauseGame(true);
         SaveManager.instance.SaveCoinsAmount(coins);
+        CameraManager.instance.SwitchCameraState(CameraState.ZOOM_PLAYER);
         IngameUIManager.instance.OnGameOver();
     }
 

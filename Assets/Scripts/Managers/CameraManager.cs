@@ -11,6 +11,7 @@ public class CameraManager : MonoBehaviour
     int lastScreenWidth;
     bool isLandscapeMode;
     Camera playerCamera;
+    PlayerFollowCamera playerFollowCamera;
 
     private void Awake()
     {
@@ -26,7 +27,6 @@ public class CameraManager : MonoBehaviour
     void Update()
     {
         ScreenRotationCheck();
-        UpdatePlayerFollowCamera();
     }
 
     public void ScreenRotationCheck()
@@ -40,26 +40,13 @@ public class CameraManager : MonoBehaviour
     {
         isLandscapeMode = Screen.width > Screen.height;
         UpdateCameraOffset();
-        NotifyScreenOrientation();
-    }
-
-    void NotifyScreenOrientation()
-    {
-        return;
-        if (isLandscapeMode)
-        {
-            Debug.Log("screen is in LANDSCAPE mode");
-        }
-        else
-        {
-            Debug.Log("screen is in PORTRAIT mode");
-        }
     }
 
     public void SpawnPlayerCamera()
     {
         GameObject tmp =  Instantiate(playerFollowCameraPrefab);
         playerCamera = tmp.GetComponent<Camera>();
+        playerFollowCamera = tmp.GetComponent<PlayerFollowCamera>();
     }
 
     public Camera GetPlayerCamera()
@@ -72,8 +59,18 @@ public class CameraManager : MonoBehaviour
         currentCameraOffset = isLandscapeMode ? landscapeCameraOffset : portraitCameraOffset;
     }
 
+    public Vector3 GetCurrentCameraOffset()
+    {
+        return currentCameraOffset;
+    }
+
+    public void SwitchCameraState(CameraState state)
+    {
+        playerFollowCamera.SwitchCameraState(state);
+    }
+
     public void UpdatePlayerFollowCamera()
     {
-        playerCamera.gameObject.transform.position = PlayerManager.instance.GetPlayer().transform.position + currentCameraOffset;
+        playerFollowCamera.UpdateCameraState();
     }
 }

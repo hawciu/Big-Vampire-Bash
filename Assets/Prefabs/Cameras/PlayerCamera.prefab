@@ -105,3 +105,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e156609e31abf548a032e91c6934702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 7.2955313
+      outSlope: 7.2955313
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.09605502
+    - serializedVersion: 3
+      time: 0.063740134
+      value: 0.8224683
+      inSlope: 2.6563694
+      outSlope: 2.6563694
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.502987
+      outWeight: 0.29349947
+    - serializedVersion: 3
+      time: 0.18161336
+      value: 0.94301516
+      inSlope: 0.18513776
+      outSlope: 0.18513776
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.3535481
+      outWeight: 0.09786156
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.085763
+      outSlope: 0.085763
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.13503145
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

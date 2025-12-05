@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour, IPausable
     public Rigidbody rb;
     Vector3 storedMovementVector;
     public PlayerDamageTrigger damageTrigger;
+    public GameObject playerCameraZoomTarget;
+    public GameObject playerCameraZoomTargetPivot;
 
     private void Update()
     {
@@ -70,5 +72,15 @@ public class PlayerController : MonoBehaviour, IPausable
     {
         damageTrigger.EnableCollider(!pause);
         animator.speed = pause ? 0 : 1;
+    }
+
+    public GameObject GetPlayerCameraZoomTarget()
+    {
+        return playerCameraZoomTarget;
+    }
+
+    public GameObject GetPlayerCameraZoomTargetPivot()
+    {
+        return playerCameraZoomTargetPivot;
     }
 }

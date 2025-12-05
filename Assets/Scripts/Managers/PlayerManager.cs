@@ -100,4 +100,13 @@ public class PlayerManager : MonoBehaviour
         EnablePlayerControls(!pause);
         playerController.Pause(pause);
     }
+
+    public GameObject GetPlayerCameraZoomTarget()
+    {
+        return playerController.GetPlayerCameraZoomTarget();
+    }
+    public GameObject GetPlayerCameraZoomTargetPivot()
+    {
+        return playerController.GetPlayerCameraZoomTargetPivot();
+    }
 }
