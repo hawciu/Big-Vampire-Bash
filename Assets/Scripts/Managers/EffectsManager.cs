@@ -7,6 +7,7 @@ public class EffectsManager : MonoBehaviour
 
     [Header ("Loose prefabs")]
     public GameObject PortalPrefab;
+    public GameObject EndGamePortalPrefab;
 
     [System.Serializable]
     public struct ParticleEntry
@@ -47,5 +48,10 @@ public class EffectsManager : MonoBehaviour
     public GameObject SpawnPortal(Vector3 location)
     {
         return Instantiate(PortalPrefab, location, Quaternion.identity);
+    }
+
+    public GameObject SpawnEndGamePortal(Vector3 location)
+    {
+        return Instantiate(EndGamePortalPrefab, location, Quaternion.identity);
     }
 }

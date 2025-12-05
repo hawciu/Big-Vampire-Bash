@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.WAVE:
-                LevelManager.instance.StartWaves();
+                LevelManager.instance.StartWave();
                 IngameUIManager.instance.UpdateWaveText($"=== Fala {LevelManager.instance.GetWaveNumber()} ===");
                 break;
 
@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
 
             case GameState.ENDGAME:
                 IngameUIManager.instance.UpdateWaveText("Wszystkie fale zakoñczone.");
+                EffectsManager.instance.SpawnEndGamePortal(EnemyManager.instance.GetLastBossDeathLocation());
                 break;
         }
     }
@@ -131,9 +132,18 @@ public class GameManager : MonoBehaviour
                 SwitchState(GameState.WAVE);
                 break;
             case PortalFunction.ENTER:
+                IngameUIManager.instance.OnQuitButtonPressed();
                 break;
         }
     }
 
     public bool IsGamePaused() { return gamePaused; }
+
+    internal void OnEndGamePortalEnter()
+    {
+        PauseGame(true);
+        GameObject portalInstance = EffectsManager.instance.SpawnPortal(PlayerManager.instance.GetPlayer().transform.position);
+        portalInstance.GetComponent<PortalScript>().SetupPortal(PlayerManager.instance.GetPlayer(), CameraManager.instance.GetPlayerCamera(), PortalFunction.ENTER);
+
+    }
 }

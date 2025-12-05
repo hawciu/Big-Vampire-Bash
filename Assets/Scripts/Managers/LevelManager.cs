@@ -36,11 +36,11 @@ public class LevelManager : MonoBehaviour
     public void SetupLevel()
     {
         SetupWalls();
+        waveNumber = 0;
     }
 
-    internal void StartWaves()
+    internal void StartWave()
     {
-        waveNumber = 0;
         lastWaveTime = Time.time;
         levelStartTime = Time.time;
     }

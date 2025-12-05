@@ -70,7 +70,7 @@ public class EnemySimple : MonoBehaviour, IPausable
             case EnemyState.DEAD:
                 state = EnemyState.DEAD;
                 SetEnemyMaterial(EnemyManager.instance.GetMaterial());
-                if (isBoss) EnemyManager.instance.OnBossDeath();
+                if (isBoss) EnemyManager.instance.OnBossDeath(transform.position);
                 EnemyManager.instance.RemoveDeadEnemy(gameObject);
                 modelInstance.gameObject.transform.GetChild(0).GetComponent<Animator>().enabled = false;
                 GetComponent<Rigidbody>().isKinematic = true;

@@ -13,6 +13,7 @@ public class EnemyManager : MonoBehaviour
 
     public Material orange, blue, gray;
     int enemyNameIndex = 0;
+    private Vector3 lastBossLocation;
 
     private void Awake()
     {
@@ -32,8 +33,9 @@ public class EnemyManager : MonoBehaviour
     {
     }
 
-    public void OnBossDeath()
+    public void OnBossDeath(Vector3 position)
     {
+        lastBossLocation = position;
         LevelManager.instance.OnMinibossDeath();
     }
 
@@ -139,5 +141,10 @@ public class EnemyManager : MonoBehaviour
         {
             i.GetComponent<EnemySimple>().Pause(pause);
         }
+    }
+
+    public Vector3 GetLastBossDeathLocation()
+    {
+        return lastBossLocation;
     }
 }
