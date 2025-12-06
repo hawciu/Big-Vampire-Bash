@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour, IPausable
     private void UpdatePlayerMovement()
     {
         rb.linearVelocity = movementVector.normalized * movementSpeed;
+        if (movementVector == Vector3.zero) return;
         playerModel.transform.localRotation = Quaternion.LookRotation(movementVector);
     }
 

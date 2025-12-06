@@ -1030,6 +1030,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8892753650395448295, guid: f8f561ea90c98eb44b75376841d0ebe3, type: 3}
+      propertyPath: pickupCoinPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8892753650395448295, guid: f8f561ea90c98eb44b75376841d0ebe3, type: 3}
+      propertyPath: effectPrefabs.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
