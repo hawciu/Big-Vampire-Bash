@@ -66,7 +66,6 @@ public class CameraManager : MonoBehaviour
 
     public void SwitchCameraState(CameraState state)
     {
-        print("switch cam 2");
         playerFollowCamera.SwitchCameraState(state);
     }
 

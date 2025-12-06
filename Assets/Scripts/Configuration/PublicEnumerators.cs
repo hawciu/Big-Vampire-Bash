@@ -40,6 +40,7 @@ public enum ParticleType
     PICKUP_PICKUP,
     COIN_PICKUP,
     GROUND_SPIKE,
+    RESURRECTION,
 }
 
 public enum PortalFunction

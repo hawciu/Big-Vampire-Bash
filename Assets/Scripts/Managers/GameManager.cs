@@ -149,7 +149,6 @@ public class GameManager : MonoBehaviour
     {
         PlayerManager.instance.ResurrectPlayer();
         EnemyManager.instance.ClearEnemiesAroundPlayer();
-        print("switch cam 1");
         CameraManager.instance.SwitchCameraState(CameraState.FOLLOW_PLAYER);
         PauseGame(false);
     }

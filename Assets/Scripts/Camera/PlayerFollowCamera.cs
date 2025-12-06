@@ -50,11 +50,11 @@ public class PlayerFollowCamera : MonoBehaviour
 
     public void SwitchCameraState(CameraState newState)
     {
-        print("switch cam 3 "+ newState.ToString());
-        switch (newState)
+        state = newState;
+        switch (state)
         {
             case CameraState.FOLLOW_PLAYER:
-                print("switch cam 41");
+                gameObject.transform.rotation = PlayerManager.instance.GetPlayerCameraDefaultRotationObject().transform.rotation;
                 break;
 
             case CameraState.ZOOM_PLAYER:

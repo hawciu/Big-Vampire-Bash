@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour, IPausable
     public PlayerDamageTrigger damageTrigger;
     public GameObject playerCameraZoomTarget;
     public GameObject playerCameraZoomTargetPivot;
+    public GameObject playerCameraDefaultRotation;
+
+    GameObject playerModel;
 
     private void Update()
     {
@@ -25,11 +28,7 @@ public class PlayerController : MonoBehaviour, IPausable
     private void UpdatePlayerMovement()
     {
         rb.linearVelocity = movementVector.normalized * movementSpeed;
-        if (movementVector != Vector3.zero)
-        {
-            rb.MoveRotation(Quaternion.LookRotation(movementVector));
-        }
-
+        playerModel.transform.localRotation = Quaternion.LookRotation(movementVector);
     }
 
     void UpdateControlsInput()
@@ -82,5 +81,15 @@ public class PlayerController : MonoBehaviour, IPausable
     public GameObject GetPlayerCameraZoomTargetPivot()
     {
         return playerCameraZoomTargetPivot;
+    }
+
+    public GameObject GetPlayerCameraDefaultRotation()
+    {
+        return playerCameraDefaultRotation;
+    }
+
+    public void SetPlayerModel(GameObject model)
+    {
+        playerModel = model;
     }
 }

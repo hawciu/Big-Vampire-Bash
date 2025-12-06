@@ -142,11 +142,6 @@ public class EnemyManager : MonoBehaviour
     {
         foreach (GameObject i in allEnemies)
         {
-            if (i==null)
-            {
-                print("lol");
-                print("null in allEnemies at " + allEnemies.IndexOf(i));
-            }
             i.GetComponent<EnemySimple>().Pause(pause);
         }
     }

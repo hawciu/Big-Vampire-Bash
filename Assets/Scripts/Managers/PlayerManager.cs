@@ -12,8 +12,9 @@ public class PlayerManager : MonoBehaviour
 
     float playerShotCooldown = 2f;
 
-    GameObject playerInstance;
     GameObject portalInstance;
+    GameObject playerInstance;
+    GameObject playerModel;
     PlayerModelHandler playerModelHandler;
     PlayerController playerController;
 
@@ -41,8 +42,9 @@ public class PlayerManager : MonoBehaviour
     {
         playerInstance = Instantiate(playerMainPrefab);
         playerController = playerInstance.GetComponent<PlayerController>();
-        GameObject tmp = Instantiate(EnemyDatabaseManager.instance.GetPlayerByType(SaveManager.instance.GetPlayerChoiceType()).playerModelPrefab, playerInstance.transform);
-        playerModelHandler = tmp.GetComponent<PlayerModelHandler>();
+        playerModel = Instantiate(EnemyDatabaseManager.instance.GetPlayerByType(SaveManager.instance.GetPlayerChoiceType()).playerModelPrefab, playerInstance.transform);
+        playerController.SetPlayerModel(playerModel);
+        playerModelHandler = playerModel.GetComponent<PlayerModelHandler>();
         playerController.SetPlayerAnimator(playerModelHandler.GetAnimator());
 
         CameraManager.instance.SpawnPlayerCamera();
@@ -115,6 +117,7 @@ public class PlayerManager : MonoBehaviour
     internal void ResurrectPlayer()
     {
         MakeInvincible(1);
+        EffectsManager.instance.SpawnAnEffect(ParticleType.RESURRECTION, playerInstance.transform.position);
     }
 
     internal void MakeInvincible(float duration = 1)
@@ -127,5 +130,9 @@ public class PlayerManager : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         playerInvincible = false;
+    }
+    public GameObject GetPlayerCameraDefaultRotationObject()
+    {
+        return playerController.GetPlayerCameraDefaultRotation();
     }
 }
