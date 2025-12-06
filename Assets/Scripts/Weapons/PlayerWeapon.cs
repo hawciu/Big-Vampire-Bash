@@ -18,7 +18,7 @@ public class PlayerWeapon : MonoBehaviour
         if (lastShot + PlayerManager.instance.GetShotCooldown() < Time.time)
         {
             lastShot = Time.time;
-
+            print("shot update " + gameObject);
             GameObject tmp = EnemyManager.instance.GetNearestEnemy(gameObject);
 
             Vector3 direction;

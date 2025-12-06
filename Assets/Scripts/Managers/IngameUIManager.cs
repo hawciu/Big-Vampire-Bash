@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -48,7 +49,7 @@ public class IngameUIManager : MonoBehaviour
 
     public void OnGameOver()
     {
-        GameOverScreen.SetActive(true);
+        ShowEndGameScreen(true);
     }
 
     public void OnQuitButtonPressed()
@@ -63,7 +64,13 @@ public class IngameUIManager : MonoBehaviour
 
     public void OnContinueButtonPressed()
     {
+        ShowEndGameScreen(false);
+        GameManager.instance.OnContinueButtonPressed();
+    }
 
+    private void ShowEndGameScreen(bool show)
+    {
+        GameOverScreen.SetActive(show);
     }
 
     public void EnableCanvas(bool enable)

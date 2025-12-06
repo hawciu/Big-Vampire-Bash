@@ -2,15 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CameraState
-{
-    FOLLOW_PLAYER,
-    ZOOM_PLAYER,
-}
 
 public class PlayerFollowCamera : MonoBehaviour
 {
-    CameraState state = CameraState.FOLLOW_PLAYER;
+    public CameraState state = CameraState.FOLLOW_PLAYER;
     private float cameraTransitionCounter;
     private float characterTransitionCounterCurve;
     public AnimationCurve animationCurve;
@@ -55,9 +50,11 @@ public class PlayerFollowCamera : MonoBehaviour
 
     public void SwitchCameraState(CameraState newState)
     {
+        print("switch cam 3 "+ newState.ToString());
         switch (newState)
         {
             case CameraState.FOLLOW_PLAYER:
+                print("switch cam 41");
                 break;
 
             case CameraState.ZOOM_PLAYER:

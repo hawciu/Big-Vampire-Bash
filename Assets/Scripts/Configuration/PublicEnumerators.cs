@@ -54,3 +54,8 @@ public enum LevelType
     LEVEL1,
     LEVEL2,
 }
+public enum CameraState
+{
+    FOLLOW_PLAYER,
+    ZOOM_PLAYER,
+}

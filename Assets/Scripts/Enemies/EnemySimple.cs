@@ -8,6 +8,7 @@ public enum EnemyState
     SPAWNING,
     ACTIVE,
     DEAD,
+    KNOCKBACK,
 }
 
 public class EnemySimple : MonoBehaviour, IPausable
@@ -20,10 +21,11 @@ public class EnemySimple : MonoBehaviour, IPausable
     public GameObject hatPrefab;
     float whiteFadeCounter = 1;
     EnemyModelHandler enemyModelHandler;
-    EnemyState state = EnemyState.INACTIVE;
+    public EnemyState state = EnemyState.INACTIVE;
     CapsuleCollider selfCollider;
 
     float rotationCounter = 0;
+    float knockbackTimer = 0;
     bool isGolden = false;
 
     public void Setup(EnemyDataScriptableObject data)
@@ -48,7 +50,8 @@ public class EnemySimple : MonoBehaviour, IPausable
 
     void SwitchState(EnemyState value)
     {
-        switch (value)
+        state = value;
+        switch (state)
         {
             case EnemyState.INACTIVE:
                 state = EnemyState.INACTIVE;
@@ -65,6 +68,9 @@ public class EnemySimple : MonoBehaviour, IPausable
                 GetComponent<Rigidbody>().isKinematic = false;
                 selfCollider.enabled = true;
                 modelInstance.gameObject.transform.GetChild(0).GetComponent<Animator>().enabled = true;
+                break;
+
+            case EnemyState.KNOCKBACK:
                 break;
 
             case EnemyState.DEAD:
@@ -104,6 +110,20 @@ public class EnemySimple : MonoBehaviour, IPausable
                 break;
 
             case EnemyState.ACTIVE:
+                break;
+
+            case EnemyState.KNOCKBACK:
+                if (state == EnemyState.KNOCKBACK)
+                {
+                    knockbackTimer -= Time.deltaTime;
+                    if (knockbackTimer < 0)
+                    {
+                        rb.linearVelocity = Vector3.zero;
+                        rb.angularVelocity = Vector3.zero;
+                        SwitchState(EnemyState.ACTIVE);
+                    }
+                    return;
+                }
                 break;
 
             case EnemyState.DEAD:
@@ -150,21 +170,20 @@ public class EnemySimple : MonoBehaviour, IPausable
 
     private void FixedUpdate()
     {
-        if (state != EnemyState.ACTIVE || GameManager.instance.IsGamePaused()) return;
-
-        if (enemyData == null)
+        if (GameManager.instance.IsGamePaused()) return;
+        switch (state)
         {
-            return;
-        }
+            case EnemyState.ACTIVE:
+                rb.linearVelocity = Vector3.zero;
 
-        rb.linearVelocity = Vector3.zero;
+                float speed = enemyData.moveSpeed;
+                Vector3 moveDirection = PlayerManager.instance.GetPlayer().transform.position - transform.position;
+                moveDirection.y = 0;
 
-        float speed = enemyData.moveSpeed;
-        Vector3 moveDirection = PlayerManager.instance.GetPlayer().transform.position - transform.position;
-        moveDirection.y = 0;
-
-        rb.MovePosition(transform.position + (moveDirection.normalized * speed * Time.fixedDeltaTime));
-        rb.MoveRotation(Quaternion.LookRotation(moveDirection.normalized));
+                rb.MovePosition(transform.position + (moveDirection.normalized * speed * Time.fixedDeltaTime));
+                rb.MoveRotation(Quaternion.LookRotation(moveDirection.normalized));
+                break;
+        }        
     }
 
     public void Damage(int amount = 1)
@@ -198,5 +217,12 @@ public class EnemySimple : MonoBehaviour, IPausable
     {
         rb.isKinematic = pause;
         enemyModelHandler.PauseAnimator(pause);
+    }
+
+    public void KnockBack(float time, Vector3 direction)
+    {
+        SwitchState(EnemyState.KNOCKBACK);
+        knockbackTimer = time;
+        rb.AddForce(direction.normalized * 5, ForceMode.Impulse);
     }
 }

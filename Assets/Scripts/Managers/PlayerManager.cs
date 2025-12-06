@@ -10,7 +10,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject playerMainPrefab;
     public GameObject playerCamera;
 
-    float playerShotCooldown = 0f;
+    float playerShotCooldown = 2f;
 
     GameObject playerInstance;
     GameObject portalInstance;
@@ -19,6 +19,7 @@ public class PlayerManager : MonoBehaviour
 
     bool playerControlsEnabled = false;
     bool playerWeaponEnabled = false;
+    public bool playerInvincible = false;
 
     private void Awake()
     {
@@ -71,6 +72,7 @@ public class PlayerManager : MonoBehaviour
 
     internal void DamagePlayer()
     {
+        if (playerInvincible) return;
         GameManager.instance.OnGameOver();
     }
 
@@ -108,5 +110,22 @@ public class PlayerManager : MonoBehaviour
     public GameObject GetPlayerCameraZoomTargetPivot()
     {
         return playerController.GetPlayerCameraZoomTargetPivot();
+    }
+
+    internal void ResurrectPlayer()
+    {
+        MakeInvincible(1);
+    }
+
+    internal void MakeInvincible(float duration = 1)
+    {
+        playerInvincible = true;
+        StartCoroutine(MakeVincibleAfterTime(duration));
+    }
+
+    IEnumerator MakeVincibleAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        playerInvincible = false;
     }
 }

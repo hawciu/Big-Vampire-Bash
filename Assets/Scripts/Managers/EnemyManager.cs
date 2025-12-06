@@ -1,19 +1,21 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager instance;
     public GameObject enemyPrefab;
 
-    private readonly List<GameObject> allEnemies = new();
+    public List<GameObject> allEnemies = new();
 
     bool gameOver = false;
 
     public Material orange, blue, gray;
     int enemyNameIndex = 0;
     private Vector3 lastBossLocation;
+
 
     private void Awake()
     {
@@ -95,12 +97,13 @@ public class EnemyManager : MonoBehaviour
 
     public void AddEnemyToAllEnemies(GameObject gameObject)
     {
+        if (allEnemies.Contains(gameObject)) return;
         allEnemies.Add(gameObject);
     }
 
     public List<GameObject> GetAllEnemies()
     {
-        return new List<GameObject>(allEnemies);
+        return allEnemies;
     }
 
     public GameObject GetNearestEnemy(GameObject closestTo)
@@ -139,6 +142,11 @@ public class EnemyManager : MonoBehaviour
     {
         foreach (GameObject i in allEnemies)
         {
+            if (i==null)
+            {
+                print("lol");
+                print("null in allEnemies at " + allEnemies.IndexOf(i));
+            }
             i.GetComponent<EnemySimple>().Pause(pause);
         }
     }
@@ -146,5 +154,24 @@ public class EnemyManager : MonoBehaviour
     public Vector3 GetLastBossDeathLocation()
     {
         return lastBossLocation;
+    }
+
+    internal void ClearEnemiesAroundPlayer()
+    {
+        List<GameObject> enemiesToClear = new();
+        foreach(GameObject i in allEnemies)
+        {
+            if(Vector3.Distance(i.transform.position, PlayerManager.instance.GetPlayer().transform.position) < 10)
+            {
+                enemiesToClear.Add(i);
+            }
+        }
+        Vector3 direction;
+        PauseAllEnemies(false);
+        foreach(GameObject i in enemiesToClear)
+        {
+            direction = (i.transform.position - PlayerManager.instance.GetPlayer().transform.position).normalized;
+            i.GetComponent<EnemySimple>().KnockBack(1, direction);
+        }
     }
 }

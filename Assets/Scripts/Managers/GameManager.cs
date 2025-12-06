@@ -91,8 +91,6 @@ public class GameManager : MonoBehaviour
         coins = SaveManager.instance.GetCoinsAmount();
         IngameUIManager.instance.UpdateCoinsText(coins);
         PlayerManager.instance.SpawnPlayer();
-
-
     }
 
     internal void OnCoinPickup()
@@ -145,5 +143,14 @@ public class GameManager : MonoBehaviour
         GameObject portalInstance = EffectsManager.instance.SpawnPortal(PlayerManager.instance.GetPlayer().transform.position);
         portalInstance.GetComponent<PortalScript>().SetupPortal(PlayerManager.instance.GetPlayer(), CameraManager.instance.GetPlayerCamera(), PortalFunction.ENTER);
 
+    }
+
+    public void OnContinueButtonPressed()
+    {
+        PlayerManager.instance.ResurrectPlayer();
+        EnemyManager.instance.ClearEnemiesAroundPlayer();
+        print("switch cam 1");
+        CameraManager.instance.SwitchCameraState(CameraState.FOLLOW_PLAYER);
+        PauseGame(false);
     }
 }
