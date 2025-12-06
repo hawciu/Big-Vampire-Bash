@@ -13,6 +13,7 @@ public class PlayerProjectile : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (GameManager.instance.IsGamePaused()) return;
         if (Vector3.Distance(startLocation, transform.position) > 50)
         {
             Destroy(gameObject);

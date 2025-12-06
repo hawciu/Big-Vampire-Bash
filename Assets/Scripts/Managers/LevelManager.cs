@@ -37,6 +37,10 @@ public class LevelManager : MonoBehaviour
     {
         SetupWalls();
         waveNumber = 0;
+    }
+
+    internal void StartWave()
+    {
         lastWaveTime = Time.time;
         levelStartTime = Time.time;
     }
@@ -100,6 +104,8 @@ public class LevelManager : MonoBehaviour
 
     private void WaveProgressCheck()
     {
+        if (GameManager.instance.IsGamePaused()) lastWaveTime += Time.deltaTime;
+
         if (Time.time > lastWaveTime + waveDuration)
         {
             GameManager.instance.SwitchState(GameState.MINIBOSS);
@@ -114,6 +120,8 @@ public class LevelManager : MonoBehaviour
 
     private void EnemySpawnCheck()
     {
+        if (GameManager.instance.IsGamePaused()) lastEnemySpawn += Time.deltaTime;
+
         if (waveNumber != 5 && Time.time > lastEnemySpawn + spawnCooldown)
         {
             EnemyManager.instance.SpawnEnemy(false);

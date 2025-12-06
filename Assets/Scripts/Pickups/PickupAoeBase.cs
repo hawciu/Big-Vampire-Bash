@@ -39,7 +39,8 @@ public class PickupAoeBase : MonoBehaviour, IPickupEffect
 
     void UpdatePickup()
     {
-        switch(state)
+        if(GameManager.instance.IsGamePaused())return;
+        switch (state)
         {
             case State.INACTIVE:
                 break;

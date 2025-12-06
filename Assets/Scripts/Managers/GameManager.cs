@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     int coins = 0;
 
+    bool gamePaused = false;
+
     private void Awake()
     {
         if (instance == null)
@@ -38,6 +40,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.WAVE:
+                LevelManager.instance.StartWave();
                 IngameUIManager.instance.UpdateWaveText($"=== Fala {LevelManager.instance.GetWaveNumber()} ===");
                 break;
 
@@ -52,6 +55,7 @@ public class GameManager : MonoBehaviour
 
             case GameState.ENDGAME:
                 IngameUIManager.instance.UpdateWaveText("Wszystkie fale zakoñczone.");
+                EffectsManager.instance.SpawnEndGamePortal(EnemyManager.instance.GetLastBossDeathLocation());
                 break;
         }
     }
@@ -83,12 +87,10 @@ public class GameManager : MonoBehaviour
 
     void GameSetup()
     {
-        PlayerManager.instance.SpawnPlayer();
-
         LevelManager.instance.SetupLevel();
-
         coins = SaveManager.instance.GetCoinsAmount();
         IngameUIManager.instance.UpdateCoinsText(coins);
+        PlayerManager.instance.SpawnPlayer();
     }
 
     internal void OnCoinPickup()
@@ -97,15 +99,18 @@ public class GameManager : MonoBehaviour
         IngameUIManager.instance.UpdateCoinsText(coins);
     }
 
-    public void PauseGame(bool value)
+    public void PauseGame(bool pause)
     {
-        Time.timeScale = value ? 0 : 1;
+        gamePaused = pause;
+        PlayerManager.instance.PausePlayer(pause);
+        EnemyManager.instance.PauseAllEnemies(pause);
     }
 
     public void OnGameOver()
     {
-        Time.timeScale = 0;
+        PauseGame(true);
         SaveManager.instance.SaveCoinsAmount(coins);
+        CameraManager.instance.SwitchCameraState(CameraState.ZOOM_PLAYER);
         IngameUIManager.instance.OnGameOver();
     }
 
@@ -119,13 +124,32 @@ public class GameManager : MonoBehaviour
         switch (portalFunction)
         {
             case PortalFunction.LEAVE:
+                IngameUIManager.instance.EnableCanvas(true);
                 PlayerManager.instance.EnablePlayerControls(true);
                 PlayerManager.instance.EnablePlayerWeapon(true);
                 SwitchState(GameState.WAVE);
                 break;
             case PortalFunction.ENTER:
-                SwitchState(GameState.WAVE);
+                IngameUIManager.instance.OnQuitButtonPressed();
                 break;
         }
+    }
+
+    public bool IsGamePaused() { return gamePaused; }
+
+    internal void OnEndGamePortalEnter()
+    {
+        PauseGame(true);
+        GameObject portalInstance = EffectsManager.instance.SpawnPortal(PlayerManager.instance.GetPlayer().transform.position);
+        portalInstance.GetComponent<PortalScript>().SetupPortal(PlayerManager.instance.GetPlayer(), CameraManager.instance.GetPlayerCamera(), PortalFunction.ENTER);
+
+    }
+
+    public void OnContinueButtonPressed()
+    {
+        PlayerManager.instance.ResurrectPlayer();
+        EnemyManager.instance.ClearEnemiesAroundPlayer();
+        CameraManager.instance.SwitchCameraState(CameraState.FOLLOW_PLAYER);
+        PauseGame(false);
     }
 }

@@ -1,17 +1,21 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager instance;
     public GameObject enemyPrefab;
 
-    private readonly List<GameObject> allEnemies = new();
+    public List<GameObject> allEnemies = new();
 
     bool gameOver = false;
 
     public Material orange, blue, gray;
+    int enemyNameIndex = 0;
+    private Vector3 lastBossLocation;
+
 
     private void Awake()
     {
@@ -31,8 +35,9 @@ public class EnemyManager : MonoBehaviour
     {
     }
 
-    public void OnBossDeath()
+    public void OnBossDeath(Vector3 position)
     {
+        lastBossLocation = position;
         LevelManager.instance.OnMinibossDeath();
     }
 
@@ -44,6 +49,8 @@ public class EnemyManager : MonoBehaviour
         Vector3 randomLocation = GetRandomSpawnPosition();
 
         GameObject enemy = Instantiate(enemyPrefab, randomLocation, Quaternion.identity);
+        enemy.name = enemy.name+enemyData.name + enemyNameIndex;
+        enemyNameIndex++;
 
         EnemySimple simpleEnemy = enemy.GetComponent<EnemySimple>();
 
@@ -90,12 +97,13 @@ public class EnemyManager : MonoBehaviour
 
     public void AddEnemyToAllEnemies(GameObject gameObject)
     {
+        if (allEnemies.Contains(gameObject)) return;
         allEnemies.Add(gameObject);
     }
 
     public List<GameObject> GetAllEnemies()
     {
-        return new List<GameObject>(allEnemies);
+        return allEnemies;
     }
 
     public GameObject GetNearestEnemy(GameObject closestTo)
@@ -128,5 +136,37 @@ public class EnemyManager : MonoBehaviour
     internal void SpawnMiniboss()
     {
         SpawnEnemy(true);
+    }
+
+    internal void PauseAllEnemies(bool pause)
+    {
+        foreach (GameObject i in allEnemies)
+        {
+            i.GetComponent<EnemySimple>().Pause(pause);
+        }
+    }
+
+    public Vector3 GetLastBossDeathLocation()
+    {
+        return lastBossLocation;
+    }
+
+    internal void ClearEnemiesAroundPlayer()
+    {
+        List<GameObject> enemiesToClear = new();
+        foreach(GameObject i in allEnemies)
+        {
+            if(Vector3.Distance(i.transform.position, PlayerManager.instance.GetPlayer().transform.position) < 10)
+            {
+                enemiesToClear.Add(i);
+            }
+        }
+        Vector3 direction;
+        PauseAllEnemies(false);
+        foreach(GameObject i in enemiesToClear)
+        {
+            direction = (i.transform.position - PlayerManager.instance.GetPlayer().transform.position).normalized;
+            i.GetComponent<EnemySimple>().KnockBack(1, direction);
+        }
     }
 }
