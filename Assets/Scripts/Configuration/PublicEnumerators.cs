@@ -40,6 +40,7 @@ public enum ParticleType
     PICKUP_PICKUP,
     COIN_PICKUP,
     GROUND_SPIKE,
+    RESURRECTION,
 }
 
 public enum PortalFunction
@@ -53,4 +54,9 @@ public enum LevelType
 {
     LEVEL1,
     LEVEL2,
+}
+public enum CameraState
+{
+    FOLLOW_PLAYER,
+    ZOOM_PLAYER,
 }

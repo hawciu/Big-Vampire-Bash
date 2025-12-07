@@ -12,14 +12,15 @@ public class PlayerManager : MonoBehaviour
 
     float playerShotCooldown = 2f;
 
-    GameObject playerInstance;
     GameObject portalInstance;
-    Camera playerCameraInstance;
+    GameObject playerInstance;
+    GameObject playerModel;
     PlayerModelHandler playerModelHandler;
     PlayerController playerController;
 
     bool playerControlsEnabled = false;
     bool playerWeaponEnabled = false;
+    public bool playerInvincible = false;
 
     private void Awake()
     {
@@ -41,15 +42,17 @@ public class PlayerManager : MonoBehaviour
     {
         playerInstance = Instantiate(playerMainPrefab);
         playerController = playerInstance.GetComponent<PlayerController>();
-        GameObject tmp = Instantiate(EnemyDatabaseManager.instance.GetPlayerByType(SaveManager.instance.GetPlayerChoiceType()).playerModelPrefab, playerInstance.transform);
-        playerModelHandler = tmp.GetComponent<PlayerModelHandler>();
+        playerModel = Instantiate(EnemyDatabaseManager.instance.GetPlayerByType(SaveManager.instance.GetPlayerChoiceType()).playerModelPrefab, playerInstance.transform);
+        playerController.SetPlayerModel(playerModel);
+        playerModelHandler = playerModel.GetComponent<PlayerModelHandler>();
         playerController.SetPlayerAnimator(playerModelHandler.GetAnimator());
 
-        tmp = Instantiate(playerCamera);
-        playerCameraInstance = tmp.GetComponent<Camera>();
+        CameraManager.instance.SpawnPlayerCamera();
+        CameraManager.instance.ScreenRotationCheck();
+        CameraManager.instance.UpdatePlayerFollowCamera();
 
         portalInstance = EffectsManager.instance.SpawnPortal(playerInstance.transform.position);
-        portalInstance.GetComponent<PortalScript>().SetupPortal(playerInstance, playerCameraInstance, PortalFunction.LEAVE);
+        portalInstance.GetComponent<PortalScript>().SetupPortal(playerInstance, CameraManager.instance.GetPlayerCamera(), PortalFunction.LEAVE);
     }
 
     public GameObject GetPlayer()
@@ -71,6 +74,7 @@ public class PlayerManager : MonoBehaviour
 
     internal void DamagePlayer()
     {
+        if (playerInvincible) return;
         GameManager.instance.OnGameOver();
     }
 
@@ -92,5 +96,43 @@ public class PlayerManager : MonoBehaviour
     internal bool GetPlayerWeaponEnabled()
     {
         return playerWeaponEnabled;
+    }
+
+    internal void PausePlayer(bool pause)
+    {
+        playerWeaponEnabled = !pause;
+        EnablePlayerControls(!pause);
+        playerController.Pause(pause);
+    }
+
+    public GameObject GetPlayerCameraZoomTarget()
+    {
+        return playerController.GetPlayerCameraZoomTarget();
+    }
+    public GameObject GetPlayerCameraZoomTargetPivot()
+    {
+        return playerController.GetPlayerCameraZoomTargetPivot();
+    }
+
+    internal void ResurrectPlayer()
+    {
+        MakeInvincible(1);
+        EffectsManager.instance.SpawnAnEffect(ParticleType.RESURRECTION, playerInstance.transform.position);
+    }
+
+    internal void MakeInvincible(float duration = 1)
+    {
+        playerInvincible = true;
+        StartCoroutine(MakeVincibleAfterTime(duration));
+    }
+
+    IEnumerator MakeVincibleAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        playerInvincible = false;
+    }
+    public GameObject GetPlayerCameraDefaultRotationObject()
+    {
+        return playerController.GetPlayerCameraDefaultRotation();
     }
 }

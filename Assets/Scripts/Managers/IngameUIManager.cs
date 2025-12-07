@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,6 +11,7 @@ public class IngameUIManager : MonoBehaviour
     public TMP_Text coinsText;
 
     public GameObject IngameMenu;
+    public GameObject IngameUICanvas;
     public GameObject GameOverScreen;
 
     private void Awake()
@@ -47,23 +49,32 @@ public class IngameUIManager : MonoBehaviour
 
     public void OnGameOver()
     {
-        GameOverScreen.SetActive(true);
+        ShowEndGameScreen(true);
     }
 
     public void OnQuitButtonPressed()
     {
-        GameManager.instance.PauseGame(false);
         SceneManager.LoadScene("MainMenu");
     }
 
     public void OnRestartButtonPressed()
     {
-        GameManager.instance.PauseGame(false);
         SceneManager.LoadScene("Level1");
     }
 
     public void OnContinueButtonPressed()
     {
+        ShowEndGameScreen(false);
+        GameManager.instance.OnContinueButtonPressed();
+    }
 
+    private void ShowEndGameScreen(bool show)
+    {
+        GameOverScreen.SetActive(show);
+    }
+
+    public void EnableCanvas(bool enable)
+    {
+        IngameUICanvas.SetActive(enable);
     }
 }

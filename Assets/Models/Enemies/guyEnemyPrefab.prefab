@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyModelHandler
   hatTargetObject: {fileID: 2199460349385710399}
+  modelMain: {fileID: 8867187990793065355}
   body: {fileID: 5391178512985261336}
   outline: {fileID: 106256390079541209}
 --- !u!1001 &8169508624043668063

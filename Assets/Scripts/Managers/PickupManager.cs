@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PickupManager : MonoBehaviour
@@ -5,7 +6,7 @@ public class PickupManager : MonoBehaviour
     public static PickupManager instance;
 
     public GameObject pickupPrefab;
-    public GameObject[] effectPrefabs;
+    public List<GameObject> effectPrefabs = new();
     public GameObject pickupCoinPrefab;
     public float spawnCooldown = 5f;
 
@@ -24,23 +25,24 @@ public class PickupManager : MonoBehaviour
 
     private void PickupSpawnUpdate()
     {
-        if (Time.time < lastSpawnTime + spawnCooldown)
+        if (GameManager.instance.IsGamePaused()) lastSpawnTime += Time.deltaTime;
+
+        if (effectPrefabs.Count > 0)
         {
-            return;
-        }
+            if (Time.time < lastSpawnTime + spawnCooldown)
+            {
+                return;
+            }
 
-        float bounds = LevelManager.instance.GetBounds() - 1f;
-        Vector3 spawnPos = new(
-            Random.Range(-bounds, bounds),
-            0f,
-            Random.Range(-bounds, bounds)
-        );
+            float bounds = LevelManager.instance.GetBounds() - 1f;
+            Vector3 spawnPos = new(
+                Random.Range(-bounds, bounds),
+                0f,
+                Random.Range(-bounds, bounds)
+            );
 
-        GameObject pickup = Instantiate(pickupPrefab, spawnPos, Quaternion.identity);
-
-        if (effectPrefabs != null && effectPrefabs.Length > 0)
-        {
-            int index = Random.Range(0, effectPrefabs.Length);
+            GameObject pickup = Instantiate(pickupPrefab, spawnPos, Quaternion.identity);
+            int index = Random.Range(0, effectPrefabs.Count);
             GameObject effectInstance = Instantiate(effectPrefabs[index], pickup.transform);
             effectInstance.transform.localPosition = Vector3.zero;
 
@@ -56,10 +58,9 @@ public class PickupManager : MonoBehaviour
 
     internal void SpawnGoldCoin(Vector3 position)
     {
-        GameObject pickup = Instantiate(pickupPrefab, position, Quaternion.identity);
-
-        if (effectPrefabs != null && effectPrefabs.Length > 0)
+        if (pickupCoinPrefab != null)
         {
+            GameObject pickup = Instantiate(pickupPrefab, position, Quaternion.identity);
             GameObject effectInstance = Instantiate(pickupCoinPrefab, pickup.transform);
             effectInstance.transform.localPosition = Vector3.zero;
 
