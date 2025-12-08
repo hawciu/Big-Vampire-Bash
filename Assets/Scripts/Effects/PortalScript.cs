@@ -179,7 +179,8 @@ public class PortalScript : MonoBehaviour
                 if (characterTransitionCounter >= 1)
                 {
                     portalLines.Stop();
-                    state = PortalState.CLOSING; 
+                    state = PortalState.CLOSING;
+                    EffectsManager.instance.SpawnAnEffect(ParticleType.PORTAL_LEAVE_EFFECT, PlayerManager.instance.GetPlayer().transform.position, new Vector3(0,1,0));
                 }
                 break;
 
