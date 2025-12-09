@@ -30,6 +30,7 @@ public enum EnemyMaterialType
     ORANGE,
     BLUE,
     GRAY,
+    ON_HIT,
     OUTLINE_BLACK,
     OUTLINE_GOLD,
 }
