@@ -40,9 +40,14 @@ public class EffectsManager : MonoBehaviour
         
     }
 
-    public void SpawnAnEffect(ParticleType type, Vector3 location)
+    public void SpawnAnEffect(ParticleType particleType, Vector3 location, Vector3 offset)
     {
-        Instantiate(effectsDictionary[type], location, Quaternion.identity);
+        Instantiate(effectsDictionary[particleType], location + offset, Quaternion.identity);
+    }
+
+    public void SpawnAnEffect(ParticleType particleType, Vector3 location)
+    {
+        SpawnAnEffect(particleType, location, Vector3.zero);
     }
 
     public GameObject SpawnPortal(Vector3 location)

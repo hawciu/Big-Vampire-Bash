@@ -725,9 +725,41 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8876701946030562408, guid: 56b3bd7d562b1ee42b3a59b808ea873d, type: 3}
+      propertyPath: entries.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8876701946030562408, guid: 56b3bd7d562b1ee42b3a59b808ea873d, type: 3}
       propertyPath: EndGamePortalPrefab
       value: 
       objectReference: {fileID: 5034576547788962479, guid: fc4cdb804f23cf44c925d9bc0fb93cfc, type: 3}
+    - target: {fileID: 8876701946030562408, guid: 56b3bd7d562b1ee42b3a59b808ea873d, type: 3}
+      propertyPath: entries.Array.data[3].type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8876701946030562408, guid: 56b3bd7d562b1ee42b3a59b808ea873d, type: 3}
+      propertyPath: entries.Array.data[4].type
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8876701946030562408, guid: 56b3bd7d562b1ee42b3a59b808ea873d, type: 3}
+      propertyPath: entries.Array.data[5].type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8876701946030562408, guid: 56b3bd7d562b1ee42b3a59b808ea873d, type: 3}
+      propertyPath: entries.Array.data[0].prefab
+      value: 
+      objectReference: {fileID: 7692293660780484361, guid: 7ba95121e2d18bd4aa03fc3055c9b40c, type: 3}
+    - target: {fileID: 8876701946030562408, guid: 56b3bd7d562b1ee42b3a59b808ea873d, type: 3}
+      propertyPath: entries.Array.data[3].prefab
+      value: 
+      objectReference: {fileID: 2209244007333745955, guid: 75e2c72e92eae844ca7d56746c252713, type: 3}
+    - target: {fileID: 8876701946030562408, guid: 56b3bd7d562b1ee42b3a59b808ea873d, type: 3}
+      propertyPath: entries.Array.data[4].prefab
+      value: 
+      objectReference: {fileID: 8019901844380492120, guid: d6c8b20011c825e44a24d7dad62b55fc, type: 3}
+    - target: {fileID: 8876701946030562408, guid: 56b3bd7d562b1ee42b3a59b808ea873d, type: 3}
+      propertyPath: entries.Array.data[5].prefab
+      value: 
+      objectReference: {fileID: 378799241874493814, guid: 38894f9b22ca2f3418bbaf572a1875f2, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
