@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,8 +37,8 @@ public class MaterialManager : MonoBehaviour
 
     }
 
-    public Material GetMaterial(EnemyMaterialType type)
+    public Material GetMaterialByID(EnemyMaterialType materialType)
     {
-        return materialsDictionary[type];
+        return materialsDictionary[materialType];
     }
 }
