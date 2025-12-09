@@ -75,7 +75,7 @@ public class EnemySimple : MonoBehaviour, IPausable
 
             case EnemyState.DEAD:
                 state = EnemyState.DEAD;
-                SetEnemyMaterial(EnemyManager.instance.GetMaterial());
+                SetEnemyMaterial(MaterialManager.instance.GetMaterialByID(EnemyMaterialType.GRAY));
                 if (isBoss) EnemyManager.instance.OnBossDeath(transform.position);
                 EnemyManager.instance.RemoveDeadEnemy(gameObject);
                 modelInstance.gameObject.transform.GetChild(0).GetComponent<Animator>().enabled = false;
@@ -92,57 +92,61 @@ public class EnemySimple : MonoBehaviour, IPausable
         if (whiteFadeCounter < 1)
         {
             whiteFadeCounter += Time.deltaTime * 5;
-            enemyModelHandler.GetMaterial().color = Color.white * (1 / whiteFadeCounter);
+        }
+        else
+        {
+            enemyModelHandler.SetDefaultMaterial();
         }
         switch (state)
-        {
-            case EnemyState.INACTIVE:
-                break;
-
-            case EnemyState.SPAWNING:
-                if (transform.position.y >= 0)
-                {
-                    transform.position = new Vector3(transform.position.x, 0, transform.position.z);
-                    SwitchState(EnemyState.ACTIVE);
+            {
+                case EnemyState.INACTIVE:
                     break;
-                }
-                transform.position = transform.position + Vector3.up * Time.deltaTime * 3;
-                break;
 
-            case EnemyState.ACTIVE:
-                break;
-
-            case EnemyState.KNOCKBACK:
-                if (state == EnemyState.KNOCKBACK)
-                {
-                    knockbackTimer -= Time.deltaTime;
-                    if (knockbackTimer < 0)
+                case EnemyState.SPAWNING:
+                    if (transform.position.y >= 0)
                     {
-                        rb.linearVelocity = Vector3.zero;
-                        rb.angularVelocity = Vector3.zero;
+                        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
                         SwitchState(EnemyState.ACTIVE);
-                    }
-                    return;
-                }
-                break;
-
-            case EnemyState.DEAD:
-                if (rotationCounter < 1)
-                {
-                    rotationCounter += Time.deltaTime * 2;
-                    modelInstance.transform.Rotate(Vector3.left * Time.deltaTime * 100 * 2);
-                }
-                else {
-                    if (transform.position.y <= -3)
-                    {
-                        SwitchState(EnemyState.INACTIVE);
-                        Destroy(gameObject);
                         break;
                     }
-                    transform.position = transform.position - Vector3.up * Time.deltaTime * 3;
-                }
-                break;
-        }
+                    transform.position = transform.position + Vector3.up * Time.deltaTime * 3;
+                    break;
+
+                case EnemyState.ACTIVE:
+                    break;
+
+                case EnemyState.KNOCKBACK:
+                    if (state == EnemyState.KNOCKBACK)
+                    {
+                        knockbackTimer -= Time.deltaTime;
+                        if (knockbackTimer < 0)
+                        {
+                            rb.linearVelocity = Vector3.zero;
+                            rb.angularVelocity = Vector3.zero;
+                            SwitchState(EnemyState.ACTIVE);
+                        }
+                        return;
+                    }
+                    break;
+
+                case EnemyState.DEAD:
+                    if (rotationCounter < 1)
+                    {
+                        rotationCounter += Time.deltaTime * 2;
+                        modelInstance.transform.Rotate(Vector3.left * Time.deltaTime * 100 * 2);
+                    }
+                    else
+                    {
+                        if (transform.position.y <= -3)
+                        {
+                            SwitchState(EnemyState.INACTIVE);
+                            Destroy(gameObject);
+                            break;
+                        }
+                        transform.position = transform.position - Vector3.up * Time.deltaTime * 3;
+                    }
+                    break;
+            }
     }
 
     private void SpawnModel()
@@ -190,6 +194,7 @@ public class EnemySimple : MonoBehaviour, IPausable
     {
         health -= amount;
         whiteFadeCounter = 0;
+        SetEnemyMaterial(MaterialManager.instance.GetMaterialByID(EnemyMaterialType.ON_HIT));
         CheckIfDead();
     }
 
@@ -210,7 +215,7 @@ public class EnemySimple : MonoBehaviour, IPausable
     internal void MakeGolden()
     {
         isGolden = true;
-        enemyModelHandler.SetMaterialOutline(MaterialManager.instance.GetMaterial(EnemyMaterialType.OUTLINE_GOLD));
+        enemyModelHandler.SetMaterialOutline(MaterialManager.instance.GetMaterialByID(EnemyMaterialType.OUTLINE_GOLD));
     }
 
     public void Pause(bool pause)

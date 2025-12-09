@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyModelHandler : MonoBehaviour
@@ -29,6 +30,11 @@ public class EnemyModelHandler : MonoBehaviour
     public void SetMaterial(Material material)
     {
         body.GetComponent<Renderer>().material = material;
+    }
+
+    public void SetDefaultMaterial()
+    {
+        body.GetComponent<Renderer>().material = EnemyManager.instance.GetCurrentDefaultEnemyMaterial();
     }
 
     public void SetMaterialOutline(Material material)

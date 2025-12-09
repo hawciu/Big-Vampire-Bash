@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Rendering.Universal.ShaderGraph;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,7 +13,6 @@ public class EnemyManager : MonoBehaviour
 
     bool gameOver = false;
 
-    public Material orange, blue, gray;
     int enemyNameIndex = 0;
     private Vector3 lastBossLocation;
 
@@ -58,6 +58,8 @@ public class EnemyManager : MonoBehaviour
         {
             simpleEnemy.Setup(enemyData);
         }
+
+        simpleEnemy.SetEnemyMaterial(GetCurrentDefaultEnemyMaterial());
 
         if (ifBoss)
         {
@@ -128,11 +130,6 @@ public class EnemyManager : MonoBehaviour
         return closest;
     }
 
-    public Material GetMaterial()
-    {
-        return gray;
-    }
-
     internal void SpawnMiniboss()
     {
         SpawnEnemy(true);
@@ -168,5 +165,10 @@ public class EnemyManager : MonoBehaviour
             direction = (i.transform.position - PlayerManager.instance.GetPlayer().transform.position).normalized;
             i.GetComponent<EnemySimple>().KnockBack(1, direction);
         }
+    }
+
+    public Material GetCurrentDefaultEnemyMaterial()
+    {
+        return MaterialManager.instance.GetMaterialByID(EnemyMaterialType.ORANGE);
     }
 }
