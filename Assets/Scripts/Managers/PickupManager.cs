@@ -1,17 +1,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class PickupData
+{
+    public string pickupName;
+    public GameObject pickupCollectablePrefab;
+    public float spawnCooldown = 5f;
+
+    [HideInInspector]
+    public float lastSpawnTime;
+}
+
 public class PickupManager : MonoBehaviour
 {
     public static PickupManager instance;
 
     public GameObject pickupPrefab;
-    public List<GameObject> effectPrefabs = new();
+
+    public List<PickupData> pickups = new();
+
     public GameObject pickupCoinPrefab;
-    public float spawnCooldown = 5f;
-
-    private float lastSpawnTime = 0f;
-
 
     private void Awake()
     {
@@ -25,13 +34,18 @@ public class PickupManager : MonoBehaviour
 
     private void PickupSpawnUpdate()
     {
-        if (GameManager.instance.IsGamePaused()) lastSpawnTime += Time.deltaTime;
-
-        if (effectPrefabs.Count > 0)
+        if (pickups.Count == 0)
         {
-            if (Time.time < lastSpawnTime + spawnCooldown)
+            return;
+        }
+
+        for (int i = 0; i < pickups.Count; i++)
+        {
+            PickupData data = pickups[i];
+
+            if (Time.time < data.lastSpawnTime + data.spawnCooldown)
             {
-                return;
+                continue;
             }
 
             float bounds = LevelManager.instance.GetBounds() - 1f;
@@ -42,8 +56,7 @@ public class PickupManager : MonoBehaviour
             );
 
             GameObject pickup = Instantiate(pickupPrefab, spawnPos, Quaternion.identity);
-            int index = Random.Range(0, effectPrefabs.Count);
-            GameObject effectInstance = Instantiate(effectPrefabs[index], pickup.transform);
+            GameObject effectInstance = Instantiate(data.pickupCollectablePrefab, pickup.transform);
             effectInstance.transform.localPosition = Vector3.zero;
 
             PickupBaseController controller = pickup.GetComponent<PickupBaseController>();
@@ -51,9 +64,9 @@ public class PickupManager : MonoBehaviour
             {
                 controller.effectChild = effectInstance;
             }
-        }
 
-        lastSpawnTime = Time.time;
+            data.lastSpawnTime = Time.time;
+        }
     }
 
     internal void SpawnGoldCoin(Vector3 position)
