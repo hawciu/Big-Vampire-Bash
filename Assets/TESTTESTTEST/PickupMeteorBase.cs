@@ -4,6 +4,7 @@ using UnityEngine;
 public class PickupMeteorBase : MonoBehaviour, IPickupEffect
 {
     public GameObject meteorPrefab;
+    public GameObject MeteorCollectableFX;
     public int meteorCount = 10;
     public float spawnHeight = 6f;
     public float interval = 0.2f;
@@ -12,13 +13,11 @@ public class PickupMeteorBase : MonoBehaviour, IPickupEffect
     public void Activate()
     {
         GameObject player = PlayerManager.instance.GetPlayer();
-
+        MeteorCollectableFX.SetActive(false);
         if (player != null)
         {
             _ = StartCoroutine(SpawnMeteors(player));
         }
-
-        //  gameObject.SetActive(false);
     }
 
     private IEnumerator SpawnMeteors(GameObject player)
