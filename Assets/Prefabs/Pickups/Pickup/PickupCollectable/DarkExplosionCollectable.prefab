@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1339508036770145150}
   - component: {fileID: 8618559395897771350}
   m_Layer: 0
-  m_Name: Sparkle2
+  m_Name: Sparkle3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14614,7 +14614,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0, b: 0, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -19185,7 +19185,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b19b3043d4439f54099bd9509f024fa8, type: 2}
+  - {fileID: 2100000, guid: b12e14c41e0c00644b3dafb815291ede, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -24096,9 +24096,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4376869557672447194}
-  - component: {fileID: 4409642757634332984}
+  - component: {fileID: 5342794942707115020}
   m_Layer: 0
-  m_Name: MeteorCollectable
+  m_Name: DarkExplosionCollectable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24120,7 +24120,7 @@ Transform:
   - {fileID: 3726898008698579983}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4409642757634332984
+--- !u!114 &5342794942707115020
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -24129,15 +24129,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3377841756737167684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0a884da977f2394c87b35a240c329a0, type: 3}
+  m_Script: {fileID: 11500000, guid: d044524bef4ed5745ac2527ba0d4ad03, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PickupMeteorBase
-  meteorPrefab: {fileID: 3612237608125890228, guid: 4adf950c725553c4cbc577cff4563edd, type: 3}
-  MeteorCollectableFX: {fileID: 7460949096384861912}
-  meteorCount: 10
-  spawnHeight: 20
-  interval: 0.2
-  spawnRadius: 10
+  m_EditorClassIdentifier: Assembly-CSharp::PickupDarkExplosionBase
+  PickupDarkExplosion: {fileID: 3940036432451144812, guid: 3eaa300e000e70e4191c0791b9c9dda3, type: 3}
+  PickupDarkExplosionCollectableFX: {fileID: 7460949096384861912}
 --- !u!1 &4540853737059737781
 GameObject:
   m_ObjectHideFlags: 0
@@ -24150,7 +24146,7 @@ GameObject:
   - component: {fileID: 1394036378876194981}
   - component: {fileID: 5716087029781880173}
   m_Layer: 0
-  m_Name: Sparkle1
+  m_Name: Sparkle2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28863,7 +28859,7 @@ GameObject:
   - component: {fileID: 126786937234905786}
   - component: {fileID: 4867197867484821574}
   m_Layer: 0
-  m_Name: MeteorCollectableFX
+  m_Name: DarkExplosionCollectableFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33718,7 +33714,7 @@ GameObject:
   - component: {fileID: 7140458739798557468}
   - component: {fileID: 6478382975878982569}
   m_Layer: 0
-  m_Name: Sparkle
+  m_Name: Sparkle1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

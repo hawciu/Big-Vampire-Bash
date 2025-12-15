@@ -1201,7 +1201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8892753650395448295, guid: f8f561ea90c98eb44b75376841d0ebe3, type: 3}
       propertyPath: pickups.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8892753650395448295, guid: f8f561ea90c98eb44b75376841d0ebe3, type: 3}
       propertyPath: effectPrefabs.Array.size
@@ -1212,13 +1212,25 @@ PrefabInstance:
       value: Meteor
       objectReference: {fileID: 0}
     - target: {fileID: 8892753650395448295, guid: f8f561ea90c98eb44b75376841d0ebe3, type: 3}
+      propertyPath: pickups.Array.data[1].pickupName
+      value: DarkExplosion
+      objectReference: {fileID: 0}
+    - target: {fileID: 8892753650395448295, guid: f8f561ea90c98eb44b75376841d0ebe3, type: 3}
       propertyPath: pickups.Array.data[0].spawnCooldown
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8892753650395448295, guid: f8f561ea90c98eb44b75376841d0ebe3, type: 3}
+      propertyPath: pickups.Array.data[1].spawnCooldown
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8892753650395448295, guid: f8f561ea90c98eb44b75376841d0ebe3, type: 3}
       propertyPath: pickups.Array.data[0].pickupCollectablePrefab
       value: 
       objectReference: {fileID: 3377841756737167684, guid: c7d9760c14e641d4bae84683f7328570, type: 3}
+    - target: {fileID: 8892753650395448295, guid: f8f561ea90c98eb44b75376841d0ebe3, type: 3}
+      propertyPath: pickups.Array.data[1].pickupCollectablePrefab
+      value: 
+      objectReference: {fileID: 3377841756737167684, guid: c6c5d7e3eab95e04c92aea022b2e17f8, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
