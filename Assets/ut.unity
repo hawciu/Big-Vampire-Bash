@@ -1935,6 +1935,7 @@ MonoBehaviour:
   jumpBufferTime: 0.15
   animator: {fileID: 2110814440}
   state: 0
+  swordScript: {fileID: 0}
 --- !u!1 &1058793044
 GameObject:
   m_ObjectHideFlags: 0
@@ -3866,18 +3867,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1947747344}
     m_Modifications:
-    - target: {fileID: 921319347692688122, guid: 855eb8a790d7cf648a85e0889981fcf7, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.100000076
-      objectReference: {fileID: 0}
-    - target: {fileID: 921319347692688122, guid: 855eb8a790d7cf648a85e0889981fcf7, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.099999994
-      objectReference: {fileID: 0}
-    - target: {fileID: 921319347692688122, guid: 855eb8a790d7cf648a85e0889981fcf7, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.10000004
-      objectReference: {fileID: 0}
     - target: {fileID: 921319347692688122, guid: 855eb8a790d7cf648a85e0889981fcf7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.016

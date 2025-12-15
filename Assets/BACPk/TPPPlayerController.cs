@@ -48,6 +48,8 @@ public class TPPPlayerController : MonoBehaviour
     bool canCombo = false;
     float attackCombo = 0;
 
+    public SwordScript swordScript;
+
     void OnEnable() => input.Enable();
     void OnDisable() => input.Disable();
 
@@ -70,7 +72,6 @@ public class TPPPlayerController : MonoBehaviour
 
     void SwitchState(PlayerState newState)
     {
-        print("switch state " + newState);
         state = newState;
         switch (state)
         {
@@ -141,7 +142,6 @@ public class TPPPlayerController : MonoBehaviour
             }
             canCancelAttack = false;
             canCombo = false;
-            print("attack pressed");
             SwitchState(PlayerState.ATTACKING);
         }
     }
@@ -262,14 +262,12 @@ public class TPPPlayerController : MonoBehaviour
 
     internal void CanCancelAttack()
     {
-        print("can cancel attack");
         canCombo = true;
         canCancelAttack = true;
     }
 
     internal void AttackEnd()
     {
-        print("attack end");
         animator.SetTrigger("attackEnd");
         SwitchState(PlayerState.MOVING);
     }
@@ -277,12 +275,16 @@ public class TPPPlayerController : MonoBehaviour
     void NextAttackCombo()
     {
         attackCombo = (attackCombo == 0 || attackCombo == 2) ? 1 : 2;
-        print("next attack combo2 " + attackCombo);
     }
 
     public void ComboWindowEnd()
     {
         canCombo = false;
         attackCombo = 0;
+    }
+
+    public void ActivateWeaponDamage(bool ifActivate)
+    {
+        swordScript.ActivateWeaponDamage(ifActivate);
     }
 }

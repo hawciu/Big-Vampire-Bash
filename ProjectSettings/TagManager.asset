@@ -13,9 +13,9 @@ TagManager:
   - Water
   - UI
   - PLAYER
-  - 
-  - 
-  - 
+  - PLAYER_SWORD
+  - ENEMY
+  - ENEMY_SWORD
   - 
   - 
   - 
