@@ -93,4 +93,9 @@ public class PlayerController : MonoBehaviour, IPausable
     {
         playerModel = model;
     }
+
+    internal void CheckForGround()
+    {
+        throw new NotImplementedException();
+    }
 }

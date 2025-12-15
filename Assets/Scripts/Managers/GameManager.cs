@@ -35,26 +35,21 @@ public class GameManager : MonoBehaviour
         switch (gameState)
         {
             case GameState.SETUP:
-                IngameUIManager.instance.UpdateWaveText("Przygotowanie poziomu");
                 GameSetup();
                 break;
 
             case GameState.WAVE:
                 LevelManager.instance.StartWave();
-                IngameUIManager.instance.UpdateWaveText($"=== Fala {LevelManager.instance.GetWaveNumber()} ===");
                 break;
 
             case GameState.MINIBOSS:
-                IngameUIManager.instance.UpdateWaveText("To jest fala Minibossa!");
                 EnemyManager.instance.SpawnMiniboss();
                 break;
 
             case GameState.BOSS:
-                IngameUIManager.instance.UpdateWaveText("To jest fala Bossa!");
                 break;
 
             case GameState.ENDGAME:
-                IngameUIManager.instance.UpdateWaveText("Wszystkie fale zakoñczone.");
                 EffectsManager.instance.SpawnEndGamePortal(EnemyManager.instance.GetLastBossDeathLocation());
                 break;
         }
@@ -89,14 +84,12 @@ public class GameManager : MonoBehaviour
     {
         LevelManager.instance.SetupLevel();
         coins = SaveManager.instance.GetCoinsAmount();
-        IngameUIManager.instance.UpdateCoinsText(coins);
         PlayerManager.instance.SpawnPlayer();
     }
 
     internal void OnCoinPickup()
     {
         coins++;
-        IngameUIManager.instance.UpdateCoinsText(coins);
     }
 
     public void PauseGame(bool pause)
@@ -111,7 +104,6 @@ public class GameManager : MonoBehaviour
         PauseGame(true);
         SaveManager.instance.SaveCoinsAmount(coins);
         CameraManager.instance.SwitchCameraState(CameraState.ZOOM_PLAYER);
-        IngameUIManager.instance.OnGameOver();
     }
 
     internal GameState GetGameState()
@@ -124,13 +116,11 @@ public class GameManager : MonoBehaviour
         switch (portalFunction)
         {
             case PortalFunction.LEAVE:
-                IngameUIManager.instance.EnableCanvas(true);
                 PlayerManager.instance.EnablePlayerControls(true);
                 PlayerManager.instance.EnablePlayerWeapon(true);
                 SwitchState(GameState.WAVE);
                 break;
             case PortalFunction.ENTER:
-                IngameUIManager.instance.OnQuitButtonPressed();
                 break;
         }
     }
