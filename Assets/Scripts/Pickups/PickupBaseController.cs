@@ -20,7 +20,6 @@ public class PickupBaseController : MonoBehaviour
 
         if (effectChild != null)
         {
-            EffectsManager.instance.SpawnAnEffect(ParticleType.PICKUP_PICKUP, transform.position);
             IPickupEffect effect = effectChild.GetComponent<IPickupEffect>();
             effect?.Activate();
         }

@@ -117,7 +117,6 @@ public class PlayerManager : MonoBehaviour
     internal void ResurrectPlayer()
     {
         MakeInvincible(1);
-        EffectsManager.instance.SpawnAnEffect(ParticleType.RESURRECTION, playerInstance.transform.position);
     }
 
     internal void MakeInvincible(float duration = 1)

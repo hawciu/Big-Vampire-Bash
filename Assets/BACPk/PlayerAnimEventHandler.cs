@@ -35,4 +35,9 @@ public class PlayerAnimEventHandler : MonoBehaviour
     {
         tppPlayerController.ComboWindowEnd();
     }
+
+    public void ActivateWeaponDamage()
+    {
+        tppPlayerController.ActivateWeaponDamage(true);
+    }
 }

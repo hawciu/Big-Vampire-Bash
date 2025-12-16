@@ -39,7 +39,6 @@ public class PlayerProjectile : MonoBehaviour
         {
             t.Damage();
         }
-        EffectsManager.instance.SpawnAnEffect(ParticleType.ARROW_EXPLOSION, transform.position, new Vector3(0,1,0));
         Destroy(gameObject);
     }
 }

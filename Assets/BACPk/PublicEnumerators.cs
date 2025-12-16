@@ -1,5 +1,10 @@
 using UnityEngine;
 
+public enum ParticleType
+{
+    SNOW_TREE,
+}
+
 public enum GameState
 {
     NONE,
@@ -35,15 +40,6 @@ public enum EnemyMaterialType
     OUTLINE_GOLD,
 }
 
-public enum ParticleType
-{
-    ARROW_EXPLOSION,
-    PICKUP_PICKUP,
-    COIN_PICKUP,
-    GROUND_SPIKE,
-    RESURRECTION,
-    PORTAL_LEAVE_EFFECT,
-}
 
 public enum PortalFunction
 {

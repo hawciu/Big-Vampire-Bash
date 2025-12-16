@@ -264,6 +264,7 @@ public class TPPPlayerController : MonoBehaviour
     {
         canCombo = true;
         canCancelAttack = true;
+        ActivateWeaponDamage(false);
     }
 
     internal void AttackEnd()
@@ -285,6 +286,7 @@ public class TPPPlayerController : MonoBehaviour
 
     public void ActivateWeaponDamage(bool ifActivate)
     {
+        print("act "+ifActivate);
         swordScript.ActivateWeaponDamage(ifActivate);
     }
 }

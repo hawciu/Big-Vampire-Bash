@@ -27,10 +27,12 @@ public class SwordScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        print(other.name);
         if (!targetsHitThisSwing.Contains(other.gameObject))
         {
             targetsHitThisSwing.Add(other.gameObject);
-            //damage
+            other.gameObject.TryGetComponent<IDamageable>(out IDamageable component);
+            component.Damage(1);
         }
     }
 }

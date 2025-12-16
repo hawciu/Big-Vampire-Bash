@@ -180,7 +180,6 @@ public class PortalScript : MonoBehaviour
                 {
                     portalLines.Stop();
                     state = PortalState.CLOSING;
-                    EffectsManager.instance.SpawnAnEffect(ParticleType.PORTAL_LEAVE_EFFECT, PlayerManager.instance.GetPlayer().transform.position, new Vector3(0,1,0));
                 }
                 break;
 
