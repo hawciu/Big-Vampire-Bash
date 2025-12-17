@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class SwordScript : MonoBehaviour
 {
+    public ParticleSystem swordTrail;
     public CapsuleCollider capsuleCollider;
     List<GameObject> targetsHitThisSwing = new();
 
@@ -23,6 +25,14 @@ public class SwordScript : MonoBehaviour
     {
         capsuleCollider.enabled = ifActivate;
         targetsHitThisSwing.Clear();
+        if (ifActivate)
+        {
+            swordTrail.Play();
+        }
+        else
+        {
+            swordTrail.Stop();
+        }
     }
 
     private void OnTriggerEnter(Collider other)

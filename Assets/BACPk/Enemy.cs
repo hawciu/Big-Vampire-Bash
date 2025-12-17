@@ -140,7 +140,16 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public void Damage(int amount)
     {
-        throw new NotImplementedException();
+        health = health - amount;
+        CheckIfDead();
+    }
+
+    private void CheckIfDead()
+    {
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     internal void PlayerSpotted(GameObject playerTarget)

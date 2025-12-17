@@ -282,6 +282,7 @@ public class TPPPlayerController : MonoBehaviour
     {
         canCombo = false;
         attackCombo = 0;
+        swordScript.ActivateWeaponDamage(false);
     }
 
     public void ActivateWeaponDamage(bool ifActivate)
