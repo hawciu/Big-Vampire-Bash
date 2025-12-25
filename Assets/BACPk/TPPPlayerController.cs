@@ -10,6 +10,7 @@ public enum PlayerState
     MOVING,
     JUMPING,
     ATTACKING,
+    PARRYING,
 }
 
 
@@ -49,6 +50,8 @@ public class TPPPlayerController : MonoBehaviour
     float attackCombo = 0;
 
     public SwordScript swordScript;
+
+    bool isParrying = false;
 
     void OnEnable() => input.Enable();
     void OnDisable() => input.Disable();
@@ -91,6 +94,10 @@ public class TPPPlayerController : MonoBehaviour
                 animator.SetFloat("attackCombo", attackCombo);
                 animator.SetTrigger("attack");
                 break;
+
+            case PlayerState.PARRYING:
+                animator.SetTrigger("Parry");
+                break;
         }
     }
 
@@ -108,6 +115,10 @@ public class TPPPlayerController : MonoBehaviour
                 ApplyGravity();
                 UpdateMovement();
                 UpdateAnimator();
+                if (input.Player.Parry.WasPressedThisFrame())
+                {
+                    SwitchState(PlayerState.PARRYING);
+                }
                 break;
 
             case PlayerState.JUMPING:
@@ -129,6 +140,9 @@ public class TPPPlayerController : MonoBehaviour
                     }
                 }
                 break;
+
+            case PlayerState.PARRYING:
+                break;
         }
     }
 
@@ -136,6 +150,11 @@ public class TPPPlayerController : MonoBehaviour
     {
         if (input.Player.Attack.WasPressedThisFrame())
         {
+            if (CheckForBackstab())
+            {
+                canCancelAttack = false;
+                canCombo = false;
+            }
             if (canCombo)
             {
                 NextAttackCombo();
@@ -144,6 +163,18 @@ public class TPPPlayerController : MonoBehaviour
             canCombo = false;
             SwitchState(PlayerState.ATTACKING);
         }
+    }
+
+    private bool CheckForBackstab()
+    {
+        Debug.DrawRay(transform.position + Vector3.up, transform.forward * 3, Color.red, 10);
+        RaycastHit hitInfo;
+        if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out hitInfo, 3, LayerMask.GetMask("ENEMY")))
+        {
+            print("raycast "+hitInfo.collider.gameObject);
+            return true;
+        }
+        return false;
     }
 
     void UpdateUIDebug()
@@ -275,7 +306,21 @@ public class TPPPlayerController : MonoBehaviour
 
     void NextAttackCombo()
     {
-        attackCombo = (attackCombo == 0 || attackCombo == 2) ? 1 : 2;
+        switch (attackCombo)
+        {
+            case 0:
+                attackCombo = 1;
+                break;
+            case 1:
+                attackCombo = 2;
+                break;
+            case 2:
+                attackCombo = 0;
+                break;
+            case 3:
+                attackCombo = 0;
+                break;
+        }
     }
 
     public void ComboWindowEnd()
@@ -287,7 +332,21 @@ public class TPPPlayerController : MonoBehaviour
 
     public void ActivateWeaponDamage(bool ifActivate)
     {
-        print("act "+ifActivate);
         swordScript.ActivateWeaponDamage(ifActivate);
+    }
+
+    internal void ParryStart()
+    {
+        isParrying = true;
+    }
+
+    internal void ParryStop()
+    {
+        isParrying = false;
+    }
+
+    internal void ParryEnd()
+    {
+        SwitchState(PlayerState.MOVING);
     }
 }

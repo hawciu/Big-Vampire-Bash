@@ -954,7 +954,7 @@ GameObject:
   - component: {fileID: 681444095}
   - component: {fileID: 681444094}
   - component: {fileID: 681444093}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2011,7 +2011,7 @@ GameObject:
   - component: {fileID: 977749108}
   - component: {fileID: 977749107}
   m_Layer: 10
-  m_Name: vision
+  m_Name: EnemyVision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2822,11 +2822,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 528160128005341344, guid: 0104293112e938846b2e2d07dbd2d05c, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1797701907914634725, guid: 0104293112e938846b2e2d07dbd2d05c, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8512554957329402750, guid: 0104293112e938846b2e2d07dbd2d05c, type: 3}
       propertyPath: m_Name
@@ -2834,7 +2834,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8512554957329402750, guid: 0104293112e938846b2e2d07dbd2d05c, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 9036889424137048516, guid: 0104293112e938846b2e2d07dbd2d05c, type: 3}
       propertyPath: m_LocalScale.x
@@ -3253,6 +3253,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7506485177736134929, guid: ca92f794761c9094aa1a89b71419f9eb, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 96ffea0abc7b3a147a77d36caf233bc5, type: 2}
     - target: {fileID: -7265262024876203867, guid: ca92f794761c9094aa1a89b71419f9eb, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -4045,6 +4049,10 @@ PrefabInstance:
     - target: {fileID: 1951572413941995593, guid: 8c8edf84465a01e408b371df71f1d5bf, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2092462895210179046, guid: 8c8edf84465a01e408b371df71f1d5bf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2330739996914300928, guid: 8c8edf84465a01e408b371df71f1d5bf, type: 3}
       propertyPath: m_Layer

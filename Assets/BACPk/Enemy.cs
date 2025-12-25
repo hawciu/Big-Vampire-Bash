@@ -8,15 +8,13 @@ public enum EnemyBacparState
     IDLE,
     MOVING,
     ATTACKING,
+    STUN,
     DEAD,
 }
 
 public class Enemy : MonoBehaviour, IDamageable
 {
-    private Rigidbody rb;
-    private GameObject modelInstance;
     int health = 3;
-    EnemyModelHandler enemyModelHandler;
     public EnemyBacparState state = EnemyBacparState.IDLE;
     private CharacterController controller;
     public Animator animator;
@@ -29,6 +27,7 @@ public class Enemy : MonoBehaviour, IDamageable
     float chaseRange = 20;
     float attackRange = 2;
     float lastAttack = 0;
+    float stunTimer = 0;
 
     void Awake()
     {
@@ -42,7 +41,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     void SwitchState(EnemyBacparState value)
     {
-        print("switch state "+value.ToString());
+        print("switch state " + value.ToString());
         state = value;
         switch (state)
         {
@@ -56,6 +55,11 @@ public class Enemy : MonoBehaviour, IDamageable
 
             case EnemyBacparState.ATTACKING:
                 animator.SetTrigger("isAttacking");
+                break;
+
+            case EnemyBacparState.STUN:
+                animator.SetTrigger("isStunned");
+                stunTimer = 5;
                 break;
 
             case EnemyBacparState.DEAD:
@@ -75,6 +79,15 @@ public class Enemy : MonoBehaviour, IDamageable
                 break;
 
             case EnemyBacparState.ATTACKING:
+                break;
+
+            case EnemyBacparState.STUN:
+                stunTimer -= Time.deltaTime;
+                if (stunTimer <= 0)
+                {
+                    SwitchState(EnemyBacparState.MOVING);
+                    weaponController.DamageEnd();
+                }
                 break;
 
             case EnemyBacparState.DEAD:
@@ -160,11 +173,21 @@ public class Enemy : MonoBehaviour, IDamageable
 
     internal void DamageStart()
     {
-        weaponController.DamageStart();
+        weaponController.DamageStart(); Stun();
     }
 
     internal void DamageEnd()
     {
         weaponController.DamageEnd();
+    }
+
+    public bool IsStunned()
+    {
+        return state == EnemyBacparState.STUN;
+    }
+
+    public void Stun()
+    {
+        SwitchState(EnemyBacparState.STUN);
     }
 }

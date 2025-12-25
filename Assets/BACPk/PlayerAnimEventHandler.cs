@@ -40,4 +40,19 @@ public class PlayerAnimEventHandler : MonoBehaviour
     {
         tppPlayerController.ActivateWeaponDamage(true);
     }
+
+    public void ParryStart()
+    {
+        tppPlayerController.ParryStart();
+    }
+
+    public void ParryStop()
+    {
+        tppPlayerController.ParryStop();
+    }
+
+    public void ParryEnd()
+    {
+        tppPlayerController.ParryEnd();
+    }
 }
