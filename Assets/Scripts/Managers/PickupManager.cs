@@ -62,6 +62,7 @@ public class PickupManager : MonoBehaviour
             PickupBaseController controller = pickup.GetComponent<PickupBaseController>();
             if (controller != null)
             {
+                effectInstance.SetActive(false);
                 controller.effectChild = effectInstance;
             }
 

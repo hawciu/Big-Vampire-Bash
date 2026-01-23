@@ -13,6 +13,7 @@ public class PickupMeteorBase : MonoBehaviour, IPickupEffect
     public void Activate()
     {
         GameObject player = PlayerManager.instance.GetPlayer();
+
         MeteorCollectableFX.SetActive(false);
         if (player != null)
         {
@@ -33,6 +34,10 @@ public class PickupMeteorBase : MonoBehaviour, IPickupEffect
             yield return new WaitForSeconds(interval);
         }
 
-        Destroy(gameObject);
+        PickupBaseController controller = GetComponentInParent<PickupBaseController>();
+        if (controller != null)
+        {
+            controller.KillPickup();
+        }
     }
 }
