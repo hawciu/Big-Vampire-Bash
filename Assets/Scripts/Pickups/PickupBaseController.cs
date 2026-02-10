@@ -3,6 +3,7 @@ using UnityEngine;
 public enum PickupState
 {
     INACTIVE,
+    SPAWNING,
     READY,
     ACTIVATED,
 }
@@ -10,10 +11,13 @@ public enum PickupState
 public class PickupBaseController : MonoBehaviour
 {
     GameObject effectChild;
+    ParticleSystem rippleEffect;
 
     private Collider pickupCollider;
 
     PickupState state = PickupState.INACTIVE;
+    float spawningStart;
+    float spawnTime = 2f;
 
     private void Update()
     {
@@ -27,7 +31,15 @@ public class PickupBaseController : MonoBehaviour
             case PickupState.INACTIVE:
                 break;
 
+            case PickupState.SPAWNING:
+                rippleEffect.Play();
+                spawningStart = Time.time;
+                break;
+
             case PickupState.READY:
+                rippleEffect.Stop();
+
+                //TERA TU SPAWN
                 break;
 
             case PickupState.ACTIVATED:
@@ -42,6 +54,14 @@ public class PickupBaseController : MonoBehaviour
             case PickupState.INACTIVE:
                 break;
 
+            case PickupState.SPAWNING:
+                spawningStart += Time.deltaTime;
+                if (spawningStart + spawnTime > Time.time)
+                {
+                    SwitchState(PickupState.READY);
+                }
+                break;
+
             case PickupState.READY:
                 break;
 
@@ -53,7 +73,7 @@ public class PickupBaseController : MonoBehaviour
     public void Setup(GameObject effectChild)
     {
         this.effectChild = effectChild;
-        SwitchState(PickupState.READY);
+        SwitchState(PickupState.SPAWNING);
     }
 
     private void OnTriggerEnter(Collider other)
