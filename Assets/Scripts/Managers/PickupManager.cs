@@ -47,10 +47,7 @@ public class PickupManager : MonoBehaviour
             effectInstance.transform.localPosition = Vector3.zero;
 
             PickupBaseController controller = pickup.GetComponent<PickupBaseController>();
-            if (controller != null)
-            {
-                controller.effectChild = effectInstance;
-            }
+            controller.Setup(effectInstance);
         }
 
         lastSpawnTime = Time.time;
@@ -65,10 +62,7 @@ public class PickupManager : MonoBehaviour
             effectInstance.transform.localPosition = Vector3.zero;
 
             PickupBaseController controller = pickup.GetComponent<PickupBaseController>();
-            if (controller != null)
-            {
-                controller.effectChild = effectInstance;
-            }
+            controller.Setup(effectInstance);
         }
     }
 }

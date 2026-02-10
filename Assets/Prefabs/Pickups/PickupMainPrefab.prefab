@@ -66,4 +66,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75dbbe7ea099724a998a5c848b98c5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupController
-  effectChild: {fileID: 0}
+  effectChild: {fileID: 1836746662495726778}
