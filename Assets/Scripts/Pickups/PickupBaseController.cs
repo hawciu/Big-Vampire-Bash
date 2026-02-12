@@ -26,6 +26,7 @@ public class PickupBaseController : MonoBehaviour
 
     void SwitchState(PickupState newState)
     {
+        this.state = newState;
         switch (state)
         {
             case PickupState.INACTIVE:
@@ -39,7 +40,7 @@ public class PickupBaseController : MonoBehaviour
             case PickupState.READY:
                 rippleEffect.Stop();
 
-                //TERA TU SPAWN
+                effectChild.GetComponent<IPickupEffect>().MakeReady();
                 break;
 
             case PickupState.ACTIVATED:
