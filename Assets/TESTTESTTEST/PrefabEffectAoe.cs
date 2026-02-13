@@ -14,9 +14,13 @@ public class PrefabEffectAoe : MonoBehaviour, IPickupEffect
     public GameObject visualEffect;
     public ParticleSystem pickupEffect;
     public GameObject rangeVisualIndicator;
+    public LayerMask enemyLayer;
 
     PrefabEffectState state = PrefabEffectState.INACTIVE;
 
+    float aoeRange = 5f;
+    float activationStart;
+    PickupBaseController parentPickupBaseController;
 
     private void Update()
     {
@@ -38,10 +42,22 @@ public class PrefabEffectAoe : MonoBehaviour, IPickupEffect
             case PrefabEffectState.ACTIVE:
                 visualEffect.SetActive(false);
                 rangeVisualIndicator.SetActive(true);
+                rangeVisualIndicator.transform.localScale = new Vector3(1, 0.1f, 1) * aoeRange * 2;
                 pickupEffect.Play();
+                Collider[] hits = Physics.OverlapSphere(transform.position, aoeRange, enemyLayer);
+                foreach (Collider hit in hits)
+                {
+                    if (hit.TryGetComponent<EnemySimple>(out EnemySimple enemy))
+                    {
+                        enemy.Damage();
+                    }
+                }
+                activationStart = Time.time;
+                print("activated: " + activationStart);
                 break;
 
             case PrefabEffectState.CLEANUP:
+                rangeVisualIndicator.SetActive(false);
                 break;
 
         }
@@ -58,25 +74,32 @@ public class PrefabEffectAoe : MonoBehaviour, IPickupEffect
                 break;
 
             case PrefabEffectState.ACTIVE:
-                //get enemies in range
-                //kill
-                //wait 1s then hide visual indicator
-                //go to cleanup
+                if (activationStart + 0.5f < Time.time)
+                {
+                    SwitchState(PrefabEffectState.CLEANUP);
+                }
                 break;
 
             case PrefabEffectState.CLEANUP:
+                OnPrefabEffectFinished();
                 break;
 
         }
     }
 
-    public void MakeReady()
+    public void MakeReady(PickupBaseController parent)
     {
+        parentPickupBaseController = parent;
         SwitchState(PrefabEffectState.READY);
     }
 
     public void Activate()
     {
         SwitchState(PrefabEffectState.ACTIVE);
+    }
+
+    public void OnPrefabEffectFinished()
+    {
+        parentPickupBaseController.OnPrefabEffectFinished();
     }
 }

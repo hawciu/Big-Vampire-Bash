@@ -27,28 +27,23 @@ public class PickupManager : MonoBehaviour
     {
         if (GameManager.instance.IsGamePaused()) lastSpawnTime += Time.deltaTime;
 
-        if (effectPrefabs.Count > 0)
-        {
-            if (Time.time < lastSpawnTime + spawnCooldown)
-            {
-                return;
-            }
+        if (Time.time < lastSpawnTime + spawnCooldown) return;
 
-            float bounds = LevelManager.instance.GetBounds() - 1f;
-            Vector3 spawnPos = new(
-                Random.Range(-bounds, bounds),
-                0f,
-                Random.Range(-bounds, bounds)
-            );
+        float bounds = LevelManager.instance.GetBounds() - 1f;
+        Vector3 spawnPos = new(
+            Random.Range(-bounds, bounds),
+            0f,
+            Random.Range(-bounds, bounds)
+        );
 
-            GameObject pickup = Instantiate(pickupPrefab, spawnPos, Quaternion.identity);
-            int index = Random.Range(0, effectPrefabs.Count);
-            GameObject effectInstance = Instantiate(effectPrefabs[index], pickup.transform);
-            effectInstance.transform.localPosition = Vector3.zero;
+        GameObject pickup = Instantiate(pickupPrefab, spawnPos, Quaternion.identity);
+        int index = Random.Range(0, effectPrefabs.Count);
+        GameObject effectInstance = Instantiate(effectPrefabs[index], pickup.transform);
+        effectInstance.transform.localPosition = Vector3.zero;
 
-            PickupBaseController controller = pickup.GetComponent<PickupBaseController>();
-            controller.Setup(effectInstance);
-        }
+        PickupBaseController controller = pickup.GetComponent<PickupBaseController>();
+        controller.Setup(effectInstance);
+
 
         lastSpawnTime = Time.time;
     }
